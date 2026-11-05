@@ -1,0 +1,1618 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#1d5d8f">
+<title>سوا يونيتد</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231d5d8f'/%3E%3Ctext x='32' y='45' font-family='Arial' font-weight='700' font-size='38' text-anchor='middle' fill='white'%3ES%3C/text%3E%3C/svg%3E">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<script>window.SAWA_API="api.php";</script>
+</head>
+<body>
+
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Readex+Pro:wght@500;600;700&display=swap">
+<style>
+/* Layout: a cashbook — sticky header with role tabs, summary tiles over ledger tables; RTL throughout */
+:root{
+  --bg:#f2f4f6; --surface:#ffffff; --sunken:#e9edf1; --fg:#16202b; --muted:#5b6876; --line:#d9e0e7;
+  --accent:#1f4f7a; --accent-ink:#ffffff; --accent-soft:#e3ecf5;
+  --in:#1b7650; --in-soft:#e2f2ea; --out:#b2412c; --out-soft:#f8e6e2; --cust:#86650c; --cust-soft:#f6efd9;
+  --display:"Readex Pro","IBM Plex Sans Arabic",Tahoma,sans-serif;
+  --body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;
+  --r:10px; --sky1:#d9ebfb; --sky2:#fff1dc; --sun:#f5a524; --moon:#e9e4c8; --hero-fg:#16202b;
+  --c-present:#1b7650; --c-late:#b7791f; --c-notyet:#2f6db3; --c-absent:#b2412c; --c-leave:#7b5bb5;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e141a; --surface:#161f28; --sunken:#111921; --fg:#e5ecf2; --muted:#93a2b0; --line:#26323e;
+  --accent:#86b6e2; --accent-ink:#0e141a; --accent-soft:#1c2c3c;
+  --in:#5fc898; --in-soft:#15302a; --out:#ee8c78; --out-soft:#3a2020; --cust:#e2bd5e; --cust-soft:#342b14; --sky1:#1a2747; --sky2:#0f1622; --sun:#f5a524; --moon:#efe8c6; --hero-fg:#eef3f8; --c-present:#5fc898; --c-late:#e8b04b; --c-notyet:#7fb0f0; --c-absent:#ee8c78; --c-leave:#b9a0ec; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e141a; --surface:#161f28; --sunken:#111921; --fg:#e5ecf2; --muted:#93a2b0; --line:#26323e;
+  --accent:#86b6e2; --accent-ink:#0e141a; --accent-soft:#1c2c3c;
+  --in:#5fc898; --in-soft:#15302a; --out:#ee8c78; --out-soft:#3a2020; --cust:#e2bd5e; --cust-soft:#342b14; --sky1:#1a2747; --sky2:#0f1622; --sun:#f5a524; --moon:#efe8c6; --hero-fg:#eef3f8; --c-present:#5fc898; --c-late:#e8b04b; --c-notyet:#7fb0f0; --c-absent:#ee8c78; --c-leave:#b9a0ec; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.6;direction:rtl}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:600;margin:0;text-wrap:balance}
+h2{font-size:1.15rem} h3{font-size:1rem}
+.num,td.n,.kpi b{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.topin{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
+.brand{display:flex;align-items:center;gap:10px}
+.mark{width:36px;height:36px;border-radius:8px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:1.1rem}
+.brand b{font-family:var(--display);font-size:1.05rem;display:block;line-height:1.2}
+.brand small{color:var(--muted);font-size:.78rem}
+.who{display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--muted);flex-wrap:wrap;justify-content:flex-end}
+.who strong{color:var(--fg)}
+.tabs{display:flex;gap:4px;overflow-x:auto;padding-block:0;scrollbar-width:none}
+.tabs button{border:0;background:none;padding:10px 12px;border-bottom:2px solid transparent;color:var(--muted);white-space:nowrap;font-weight:500}
+.tabs button[aria-current="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+
+main{padding-block:20px 60px;display:grid;gap:18px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;min-width:0}
+.panel-h{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.muted{color:var(--muted)} .small{font-size:.85rem}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:18px}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid;gap:2px}
+.kpi span{color:var(--muted);font-size:.85rem}
+.kpi b{font-family:var(--display);font-size:1.45rem;font-weight:600;text-align:right}
+.kpi small{color:var(--muted);font-size:.78rem}
+.kpi.main{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.kpi.main span,.kpi.main small{color:inherit;opacity:.85}
+.pos{color:var(--in)} .neg{color:var(--out)}
+
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 12px;font-size:.9rem}
+.btn:hover{background:var(--sunken)}
+.primary{background:var(--accent);color:var(--accent-ink);border:1px solid var(--accent);border-radius:8px;padding:9px 18px;font-weight:600}
+.primary:disabled{opacity:.6;cursor:wait}
+.link{border:0;background:none;color:var(--accent);padding:2px 4px;font-size:.85rem}
+.link.danger{color:var(--out)}
+.link.confirm{background:var(--out);color:#fff;border-radius:6px;padding:2px 8px}
+
+.seg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.seg button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-weight:500}
+.seg button[aria-pressed="true"][data-k="income"]{background:var(--in-soft);border-color:var(--in);color:var(--in)}
+.seg button[aria-pressed="true"][data-k="expense"]{background:var(--out-soft);border-color:var(--out);color:var(--out)}
+.seg button[aria-pressed="true"][data-k="custody"],.seg button[aria-pressed="true"][data-k="return"]{background:var(--cust-soft);border-color:var(--cust);color:var(--cust)}
+
+.form{display:grid;gap:12px;max-width:640px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px}
+label{display:grid;gap:4px;font-size:.88rem;color:var(--muted);font-weight:500}
+input,select{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 10px;color:var(--fg);font-size:.95rem;min-width:0}
+input:focus,select:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.hint{margin:0;font-size:.84rem;color:var(--muted);background:var(--sunken);border-radius:8px;padding:8px 10px}
+.hint:empty{display:none}
+.editing{background:var(--cust-soft);color:var(--cust);border-radius:8px;padding:8px 12px;font-size:.9rem}
+
+.tbl{overflow-x:auto;margin-inline:-4px}
+table{width:100%;border-collapse:collapse;font-size:.9rem;min-width:560px}
+th{font-weight:500;color:var(--muted);text-align:right;padding:8px 6px;border-bottom:1px solid var(--line);font-size:.8rem;white-space:nowrap}
+td{padding:9px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+td.n{text-align:left;white-space:nowrap}
+td .sub{display:block;color:var(--muted);font-size:.8rem}
+tfoot td{font-weight:600;border-bottom:0;border-top:2px solid var(--line)}
+.pill{display:inline-block;border-radius:999px;padding:1px 9px;font-size:.78rem;font-weight:500;white-space:nowrap}
+.k-income{background:var(--in-soft);color:var(--in)} .k-expense{background:var(--out-soft);color:var(--out)}
+.k-custody,.k-return{background:var(--cust-soft);color:var(--cust)}
+.empty{padding:22px 10px;text-align:center;color:var(--muted);font-size:.9rem}
+
+.bars{display:grid;gap:10px}
+.bar{display:grid;gap:4px}
+.bar-top{display:flex;justify-content:space-between;gap:8px;font-size:.88rem}
+.track{height:8px;background:var(--sunken);border-radius:99px;overflow:hidden}
+.track i{display:block;height:100%;background:var(--out);border-radius:99px}
+
+.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:12px}
+.pcard{text-align:right;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:grid;gap:8px}
+.pcard[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.pcard .nm{font-family:var(--display);font-weight:600}
+.pcard dl{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;margin:0;font-size:.85rem}
+.pcard dt{color:var(--muted)} .pcard dd{margin:0;text-align:left;font-variant-numeric:tabular-nums}
+.pcard .bal{border-top:1px dashed var(--line);padding-top:6px;font-weight:600}
+
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:10px;margin-bottom:12px}
+
+.login{max-width:440px;margin:40px auto;display:grid;gap:16px}
+.plist{display:grid;gap:8px}
+.plist button{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:11px 14px;text-align:right}
+.plist button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.plist small{color:var(--muted)}
+.err{color:var(--out);font-size:.88rem;margin:0}
+.err:empty{display:none}
+
+.settings-row{display:grid;grid-template-columns:1.6fr 1fr auto;gap:8px;align-items:end;padding-block:10px;border-bottom:1px solid var(--line)}
+@media (max-width:640px){.settings-row{grid-template-columns:1fr}}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);border-radius:999px;padding:3px 4px 3px 10px;font-size:.85rem;background:var(--bg)}
+.chip button{border:0;background:none;color:var(--muted);padding:0 6px;font-size:1rem;line-height:1}
+.inline{display:flex;gap:8px;margin-top:10px} .inline input{flex:1}
+
+tr.has-det td{border-bottom:0}
+tr.det td{padding-top:0;background:var(--bg)}
+.adjs{list-style:none;margin:6px 0;padding:0;display:grid;gap:4px;font-size:.86rem}
+.adjs li{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.score{display:inline-flex;align-items:center;gap:6px}
+.meter{width:56px;height:6px;border-radius:99px;background:var(--sunken);overflow:hidden;display:inline-block}
+.meter i{display:block;height:100%;background:var(--accent)}
+tr.sel td{background:var(--accent-soft)}
+input[type="time"]{direction:ltr}
+.perms{grid-column:1/-1;display:grid;gap:8px;background:var(--bg);border-radius:8px;padding:10px 12px}
+.perm{color:var(--fg);padding:4px 10px;gap:6px;cursor:pointer}
+.perm input{width:auto}
+.perm:has(input:disabled){opacity:.7;cursor:default}
+.alert{background:var(--out-soft);color:var(--out);border:1px solid var(--out);border-radius:var(--r);padding:12px 14px;font-size:.92rem}
+.sec-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px}
+@media (max-width:640px){.sec-grid{grid-template-columns:1fr}}
+
+/* tones: the signed-in person's palette */
+:root[data-tone="f"]{--accent:#a33a6f;--accent-soft:#f8e3ee;--accent-ink:#fff;--sky1:#fbe1ec;--sky2:#fff0e3}
+:root[data-theme="dark"][data-tone="f"]{--accent:#f29ac4;--accent-soft:#3b1e2e;--accent-ink:#1b0e15;--sky1:#2c1838;--sky2:#120f1d}
+:root[data-tone="m"]{--accent:#1d5d8f;--accent-soft:#e0edf7;--accent-ink:#fff;--sky1:#d6eaf8;--sky2:#e9f6ef}
+:root[data-theme="dark"][data-tone="m"]{--accent:#7fbbe9;--accent-soft:#17293a;--accent-ink:#0b1520;--sky1:#142a45;--sky2:#0d161f}
+body{transition:background-color .4s}
+.ic{width:1.15em;height:1.15em;flex:none;vertical-align:-.2em}
+.tabs button{display:inline-flex;align-items:center;gap:6px}
+.tabs button .ic{opacity:.75}
+.tabs button[aria-current="true"] .ic{opacity:1}
+.who{gap:8px}
+.who-name{display:grid;line-height:1.25;text-align:right}.who-name small{color:var(--muted);font-size:.75rem}
+.icon-btn{padding:7px 9px;display:inline-grid;place-items:center}
+.btn{display:inline-flex;align-items:center;gap:6px;transition:transform .12s,background .15s}
+.btn:active,.primary:active{transform:scale(.97)}
+.primary{display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:transform .12s,filter .15s,box-shadow .2s}
+.primary:hover{filter:brightness(1.06);box-shadow:0 6px 18px -8px var(--accent)}
+.h-ic{display:inline-flex;align-items:center;gap:8px}
+.h-ic .ic{color:var(--accent)}
+.kpi-l{display:flex;align-items:center;gap:8px}
+.kpi-ic{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:8px;background:var(--accent-soft);color:var(--accent);font-style:normal}
+.kpi.main .kpi-ic{background:rgba(255,255,255,.18);color:inherit}
+.kpi{transition:transform .2s,box-shadow .2s}
+.kpi:hover{transform:translateY(-2px);box-shadow:0 10px 24px -16px rgba(0,0,0,.35)}
+@media (max-width:640px){.hide-sm{display:none}}
+
+/* avatars */
+.av{--s:32px;width:var(--s);height:var(--s);border-radius:50%;display:inline-grid;place-items:center;flex:none;overflow:hidden;font-family:var(--display);font-weight:600;font-size:calc(var(--s)*.38);background:var(--accent-soft);color:var(--accent);box-shadow:0 0 0 2px var(--surface)}
+.av img{width:100%;height:100%;object-fit:cover}
+.av-f{background:#f9dcea;color:#a33a6f}.av-m{background:#d9e9f7;color:#1d5d8f}
+:root[data-theme="dark"] .av-f{background:#3b1e2e;color:#f29ac4}:root[data-theme="dark"] .av-m{background:#17293a;color:#7fbbe9}
+.who-cell{display:inline-flex;align-items:center;gap:10px;min-width:0}
+.who-cell b{font-weight:600}
+.pc-head{display:flex;align-items:center;gap:10px}
+.pcard{transition:transform .2s,box-shadow .2s,border-color .2s}
+.pcard:hover{transform:translateY(-2px);box-shadow:0 12px 26px -18px rgba(0,0,0,.4)}
+h2#fileTitle{gap:12px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:18px;padding:20px 22px;border-radius:18px;background:linear-gradient(120deg,var(--sky1),var(--sky2));color:var(--hero-fg)}
+.hero h1{font-size:clamp(1.35rem,3.6vw,1.9rem);font-weight:700;margin:2px 0 4px}
+.hero p{margin:0;opacity:.85}
+.hero-greet{font-size:.9rem;opacity:.8}
+.hero-side{display:flex;align-items:center;gap:14px}
+.hero-clock{display:grid;text-align:left;line-height:1.2}
+.hero-clock b{font-family:var(--display);font-size:1.6rem;font-weight:600}
+.hero-clock span{font-size:.8rem;opacity:.8}
+.hero-art{width:76px;height:76px}
+.art{width:100%;height:100%}
+.sun .rays{fill:var(--sun);opacity:.55;transform-origin:60px 60px;animation:spin 40s linear infinite}
+.sun circle{fill:var(--sun)}
+.moon .m{fill:var(--moon)}
+.moon .st{fill:var(--moon);animation:tw 3s ease-in-out infinite}
+.moon .s2{animation-delay:1s}.moon .s3{animation-delay:2s}
+.hero-art{animation:float 6s ease-in-out infinite}
+.bday{display:inline-flex;align-items:center;gap:6px;font-weight:600}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes tw{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@media (max-width:640px){.hero{grid-template-columns:minmax(0,1fr) auto;padding:16px}.hero-art{display:none}.hero-side .av{display:none}}
+
+/* today board */
+.st-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:10px;margin-bottom:14px}
+.st-tile{--c:var(--accent);position:relative;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:color-mix(in srgb,var(--c) 10%,var(--surface));border:1px solid color-mix(in srgb,var(--c) 28%,transparent);overflow:hidden}
+.st-tile b{display:block;font-family:var(--display);font-size:1.6rem;line-height:1;color:var(--c)}
+.st-tile span{font-size:.85rem;color:var(--muted)}
+.st-ic{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--c);color:var(--surface)}
+.st-ic .ic{width:20px;height:20px}
+.st-bar{position:absolute;inset:auto 0 0 0;height:3px;background:transparent}.st-bar i{display:block;height:100%;background:var(--c);transition:width .6s}
+.st-present{--c:var(--c-present)}.st-late{--c:var(--c-late)}.st-notyet{--c:var(--c-notyet)}.st-absent{--c:var(--c-absent)}.st-leave{--c:var(--c-leave)}
+.pgroups{display:grid;gap:12px}
+.pgroup h4{margin:0 0 6px;font-size:.85rem;color:var(--muted);font-weight:500;display:flex;gap:6px;align-items:center}
+.pgroup h4 span{background:var(--sunken);border-radius:99px;padding:0 8px}
+.pchips{display:flex;flex-wrap:wrap;gap:8px}
+.pchip{--c:var(--accent);display:inline-flex;align-items:center;gap:8px;padding:5px 12px 5px 6px;border-radius:999px;border:1px solid var(--line);background:var(--surface);text-align:right;transition:transform .15s,border-color .15s}
+button.pchip:hover{transform:translateY(-1px);border-color:var(--c)}
+.pchip b{display:block;font-size:.88rem;font-weight:600}.pchip small{display:block;font-size:.75rem;color:var(--muted)}
+.pchip .av{box-shadow:0 0 0 2px var(--c)}
+.pc-present{--c:var(--c-present)}.pc-late{--c:var(--c-late)}.pc-notyet{--c:var(--c-notyet)}.pc-absent{--c:var(--c-absent)}.pc-leave{--c:var(--c-leave)}
+.bday-card{display:flex;align-items:center;gap:10px;padding:10px 14px;margin-bottom:12px;border-radius:12px;background:var(--cust-soft);color:var(--cust)}
+
+/* profile */
+details.panel>summary{cursor:pointer;font-family:var(--display);font-weight:600;font-size:1.05rem;list-style:none}
+details.panel>summary::-webkit-details-marker{display:none}
+.prof-top{display:flex;align-items:center;gap:14px}
+.av-up{position:relative;cursor:pointer;display:inline-block;color:inherit}
+.av-up .av{box-shadow:0 0 0 3px var(--accent-soft)}
+.av-cam{position:absolute;bottom:0;left:0;width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;box-shadow:0 0 0 2px var(--surface)}
+.av-cam .ic{width:15px;height:15px}
+.nid-up{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.nid-up label.btn{cursor:pointer;color:var(--fg)}
+.lb{position:fixed;inset:0;z-index:30;background:rgba(8,12,18,.82);display:grid;place-items:center;padding:24px;cursor:zoom-out}
+.lb img{max-width:min(100%,900px);max-height:85vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.lb-x{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));left:14px;color:#fff;width:36px;height:36px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.15)}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:40}
+.confetti i{position:absolute;top:55%;width:9px;height:14px;border-radius:2px;background:var(--accent);animation:pop 1.3s cubic-bezier(.2,.7,.3,1) forwards}
+.confetti i:nth-child(3n){background:var(--c-present)}.confetti i:nth-child(3n+1){background:var(--sun)}
+@keyframes pop{0%{transform:translate(0,0) rotate(0);opacity:1}100%{transform:translate(var(--dx),calc(var(--dy) + 260px)) rotate(var(--r));opacity:0}}
+[data-act="checkIn"].primary{animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 45%,transparent)}50%{box-shadow:0 0 0 10px transparent}}
+@media (prefers-reduced-motion:reduce){.sun .rays,.moon .st,.hero-art,[data-act="checkIn"].primary{animation:none}.kpi:hover,.pcard:hover{transform:none}}
+.brand-en{font-family:var(--body);font-size:.68rem;letter-spacing:.14em;color:var(--muted);font-weight:600}
+.mark{font-family:var(--display);letter-spacing:-.02em}
+.login-card{max-width:420px}
+.login-brand{display:flex;align-items:center;gap:14px;justify-content:center;padding-block:10px}
+.login-brand h1{font-size:1.8rem;line-height:1.1}
+.mark-lg{width:58px;height:58px;font-size:1.8rem;border-radius:14px;box-shadow:0 12px 28px -14px var(--accent)}
+.pw-wrap{display:flex;gap:6px}.pw-wrap input{flex:1}
+@media (max-width:640px){.top .brand-en{display:none}.who-name{display:none}.top .brand small{display:none}}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:9px 18px;border-radius:999px;font-size:.9rem;z-index:20;transition:opacity .2s}
+.center{min-height:60vh;display:grid;place-items:center;text-align:center;padding:20px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div id="app"><div class="center"><p class="muted">جاري تحميل الحسابات…</p></div></div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function(){
+"use strict";
+const KIND={income:"وارد",custody:"تسليم عهدة",return:"رد عهدة",expense:"مصروف"};
+const DEF_IN=["بيع سيارة","بيع أصول / مقتنيات","تمويل من المالك","تحويل بنكي","عمولة بيع عقار","عمولات أخرى","إيرادات أخرى"];
+const DEF_OUT=["بوفيه (مية، شاي، قهوة)","مشتريات مكتب","أثاث وأجهزة","سلف موظفين","إيجار","مرتبات","كهرباء ومياه","إنترنت وتليفون","مواصلات وانتقالات","مصاريف قانونية وحكومية","صيانة","دعاية وتسويق","أخرى"];
+
+const SAL_ADV="سلف موظفين",SAL_PAY="مرتبات";
+const ADJ={incentive:{l:"حافز",sign:1},bonus:{l:"مكافأة",sign:1},overtime:{l:"إضافي",sign:1},deduction:{l:"خصم",sign:-1},penalty:{l:"جزاء",sign:-1}};
+const app=document.getElementById("app");
+const S={db:null,downloads:null,people:[],tx:[],adj:[],att:[],ev:[],profs:[],imgsArr:[],cfg:null,ld:{p:0,t:0,c:0,a:0,at:0,e:0},attDay:today(),empFile:null,me:null,screen:"",view:"summary",
+  month:curMonth(),payMonth:curMonth(),kind:"income",editing:null,stmt:null,pendingDel:null,loginPid:null,
+  lf:{kind:"",pid:"",cat:"",month:"",q:""}};
+
+/* ---------- helpers ---------- */
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function fmt(n){return (Math.round((+n||0)*100)/100).toLocaleString("en-US",{maximumFractionDigits:2})}
+function money(n,signed){const v=+n||0;const s=signed&&v>0?"+":"";return '<span class="num">'+s+fmt(v)+'</span>'}
+function today(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function curMonth(){return today().slice(0,7)}
+const MF=new Intl.DateTimeFormat("ar-EG-u-nu-latn",{month:"long",year:"numeric"});
+function monthLabel(m){if(!m)return "كل الفترات";const [y,mo]=m.split("-");return MF.format(new Date(+y,+mo-1,1))}
+function fdate(d){if(!d)return "";const [y,m,dd]=d.split("-");return '<span class="num">'+dd+"/"+m+"/"+y+"</span>"}
+function person(id){return S.people.find(p=>p.id===id)}
+function pname(id){const p=person(id);return p?p.name:(id?"(محذوف)":"")}
+function incCats(){return (S.cfg&&S.cfg.incomeCats)||DEF_IN}
+function expCats(){const l=((S.cfg&&S.cfg.expenseCats)||DEF_OUT).slice();[SAL_ADV,SAL_PAY].forEach(c=>{if(!l.includes(c))l.push(c)});return l}
+function isSal(c){return c===SAL_ADV||c===SAL_PAY}
+function staff(){return S.people.filter(p=>p.active!==false&&can("self_exp",p))}
+function salaried(){return S.people.filter(p=>p.active!==false&&(+p.salary>0||p.role==="payroll"))}
+function payroll(eid,m){const p=person(eid)||{};const r={salary:+p.salary||0,adv:0,paid:0,advList:[],bon:0,ded:0,adjList:[]};
+  S.tx.forEach(t=>{if(t.kind!=="expense"||t.empId!==eid||t.salMonth!==m)return;const a=+t.amount||0;if(t.category===SAL_ADV){r.adv+=a;r.advList.push(t)}else if(t.category===SAL_PAY)r.paid+=a});
+  S.adj.forEach(j=>{if(j.empId!==eid||j.month!==m)return;const a=+j.amount||0;if(ADJ[j.type]&&ADJ[j.type].sign>0)r.bon+=a;else r.ded+=a;r.adjList.push(j)});
+  r.net=r.salary+r.bon-r.ded;r.rem=r.net-r.adv-r.paid;return r}
+function adjList(list,canDel){
+  if(!list.length)return "";
+  return '<ul class="adjs">'+list.slice().sort((a,b)=>(a.date||"").localeCompare(b.date||"")).map(j=>{const d=ADJ[j.type]||{l:j.type,sign:-1};
+    return '<li><span class="pill '+(d.sign>0?"k-income":"k-expense")+'">'+esc(d.l)+'</span> <b class="num '+(d.sign>0?"pos":"neg")+'">'+(d.sign>0?"+":"−")+fmt(j.amount)+"</b> "+(j.date?fdate(j.date)+" · ":"")+'<span>'+esc(j.reason||"")+"</span>"+
+    (canDel?' <button class="link'+(S.pendingDel===j.id?" confirm":" danger")+'" data-act="del" data-coll="adj" data-id="'+esc(j.id)+'">'+(S.pendingDel===j.id?"تأكيد الحذف":"حذف")+"</button>":"")+"</li>"}).join("")+"</ul>";
+}
+const MGR=[["view_all","يشوف الملخص ودفتر الحركات والعهد"],["add_tx","يسجّل وارد ومصروفات ويسلّم عهد"],["edit_tx","يعدّل ويحذف أي حركة"],["payroll","المرتبات والسلف والحوافز والخصومات"],["attendance","يدير الحضور والانصراف"],["employees","ملفات الموظفين والتقييم"],["settings","الإعدادات والأشخاص والصلاحيات"]];
+const SELF=[["self_exp","ليه عهدة ويسجّل مصروفاته"],["self_att","يسجّل حضوره وانصرافه بنفسه"]];
+const TABPERM={summary:"view_all",add:"add_tx",ledger:"view_all",custody:"view_all",payroll:"payroll",attendance:"attendance",employees:"employees",settings:"settings"};
+function permsOf(p){if(!p||p.role==="payroll")return [];const all=MGR.map(x=>x[0]);
+  if(Array.isArray(p.perms))return p.role==="admin"?[...new Set(p.perms.concat(all))]:p.perms;
+  return p.role==="admin"?all:["self_exp","self_att"]}
+function can(k,p){return permsOf(p||person(S.me)).includes(k)}
+function isMgr(p){return MGR.some(x=>can(x[0],p))}
+function hasMine(p){return can("self_exp",p)||can("self_att",p)}
+function isAdmin(){return can("settings")}
+function fullForm(){return !!document.getElementById("f_person")}
+function inMonth(t,m){return !m||(t.date||"").slice(0,7)===m}
+function effect(t){const a=+t.amount||0;if(t.kind==="income"||t.kind==="return")return a;if(t.kind==="custody")return -a;if(t.kind==="expense")return t.personId?0:-a;return 0}
+function treasury(){return S.tx.reduce((s,t)=>s+effect(t),0)}
+function pstats(pid){const r={rec:0,spent:0,ret:0,bal:0};S.tx.forEach(t=>{if(t.personId!==pid)return;const a=+t.amount||0;if(t.kind==="custody")r.rec+=a;else if(t.kind==="expense")r.spent+=a;else if(t.kind==="return")r.ret+=a});r.bal=r.rec-r.spent-r.ret;return r}
+function sortTx(list,asc){return list.slice().sort((a,b)=>{const c=(a.date||"").localeCompare(b.date||"")||(a.createdAt||"").localeCompare(b.createdAt||"");return asc?c:-c})}
+function months(){const set=new Set([curMonth()]);S.tx.forEach(t=>t.date&&set.add(t.date.slice(0,7)));return [...set].sort().reverse()}
+function toast(msg){const el=document.getElementById("toast");el.textContent=msg;el.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(()=>el.hidden=true,2400)}
+function fillSelect(id,opts){const el=document.getElementById(id);if(!el)return;const v=el.value;const html=opts.map(o=>'<option value="'+esc(o[0])+'">'+esc(o[1])+"</option>").join("");if(el._h!==html){el.innerHTML=html;el._h=html}if(opts.some(o=>o[0]===v))el.value=v}
+function setHTML(id,html){const el=document.getElementById(id);if(el&&el._h!==html){el.innerHTML=html;el._h=html}}
+function dbErr(e){toast("حصلت مشكلة في الحفظ: "+(e&&e.message||"حاول تاني"))}
+
+/* ---------- look & feel: icons, theme, avatars, hero, today board, profiles ---------- */
+const IC={
+gauge:'<path d="M12 14l4-4"/><path d="M3.3 19a9 9 0 1 1 17.4 0"/>',
+plus:'<path d="M12 5v14M5 12h14"/>',
+book:'<path d="M4 19.5V5a2 2 0 0 1 2-2h14v16H6.5A2.5 2.5 0 0 0 4 19.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>',
+wallet:'<path d="M19 7V5a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v3"/><path d="M3 6v12a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-3"/><path d="M21 12h-4a2 2 0 0 0 0 4h4z"/>',
+cash:'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/>',
+clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/>',
+gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1"/>',
+user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+lock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+key:'<circle cx="7.5" cy="15.5" r="4.5"/><path d="M10.7 12.3 21 2M16 7l3 3M19 4l2 2"/>',
+sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',
+auto:'<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/>',
+check:'<path d="M20 6 9 17l-5-5"/>',
+x:'<path d="M18 6 6 18M6 6l12 12"/>',
+alert:'<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/>',
+camera:'<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3.5"/>',
+idcard:'<rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="11" r="2"/><path d="M5 16a3 3 0 0 1 6 0M14 10h5M14 14h4"/>',
+cake:'<path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1M2 21h20M7 8v3M12 8v3M17 8v3"/>',
+logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/>',
+hourglass:'<path d="M5 22h14M5 2h14M17 22v-4.2a2 2 0 0 0-.6-1.4L12 12l-4.4 4.4a2 2 0 0 0-.6 1.4V22M7 2v4.2a2 2 0 0 0 .6 1.4L12 12l4.4-4.4a2 2 0 0 0 .6-1.4V2"/>',
+plane:'<path d="M2 12h6l3-8h2l-1 8h5l2-3h2l-1 3 1 3h-2l-2-3h-5l1 8h-2l-3-8H2z"/>',
+download:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>',
+up:'<path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/>',
+down:'<path d="m22 17-8.5-8.5-5 5L2 7"/><path d="M16 17h6v-6"/>',
+scale:'<path d="M12 3v18M5 21h14M3 7h18M6 7l-3 7a3 3 0 0 0 6 0zM18 7l-3 7a3 3 0 0 0 6 0z"/>',
+phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/>',
+eye:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>'
+};
+function ic(n,cls){return '<svg class="ic'+(cls?" "+cls:"")+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(IC[n]||"")+"</svg>"}
+const TABIC={summary:"gauge",add:"plus",ledger:"book",custody:"wallet",payroll:"cash",attendance:"clock",employees:"users",settings:"gear",mine:"user"};
+
+/* theme: day/night by the clock, tone by the viewer */
+function themePref(){try{return localStorage.getItem("khz_theme")||"auto"}catch(e){return "auto"}}
+function isNight(){const h=new Date().getHours();return h<6||h>=18}
+function profOf(pid){return (S.profs||[]).find(x=>x.id===pid)||null}
+function myProf(){if(!S.me)return null;if(S.staffMode){const pend=[...S.items].reverse().find(i=>i.t==="profile");return Object.assign({},S.V&&S.V.prof||{},pend?pend.data:{})}return profOf(S.me)}
+function genderOf(pid){if(S.staffMode&&pid===S.me){const p=myProf();return p&&p.gender||""}const p=profOf(pid);return p&&p.gender||""}
+function applyTheme(){const p=themePref();const r=document.documentElement;r.setAttribute("data-theme",p==="auto"?(isNight()?"dark":"light"):p);const g=S.me?genderOf(S.me):"";r.setAttribute("data-tone",g||"n")}
+function themeBtn(){const p=themePref();const lbl={auto:"تلقائي حسب الوقت",light:"نهاري",dark:"ليلي"}[p];return '<button class="btn icon-btn" data-act="theme" title="المظهر: '+lbl+'" aria-label="المظهر: '+lbl+'">'+ic(p==="auto"?"auto":p==="dark"?"moon":"sun")+"</button>"}
+
+/* avatars */
+function initials(n){const w=String(n||"").replace(/^(أ\.|م\.|د\.)\s*/,"").trim().split(/\s+/)[0]||"";return (w.length>3&&w.startsWith("ال")?w.slice(2):w).charAt(0)}
+function avatarSrc(pid){
+  if(S.staffMode&&pid===S.me){const pend=[...S.items].reverse().find(i=>i.t==="img"&&i.kind==="avatar");return pend?pend.data:(S.V&&S.V.avatar)||""}
+  const im=(S.imgsArr||[]).find(x=>x.id===pid+"_avatar");return im&&im.data||"";
+}
+function avatar(pid,size,name){const src=avatarSrc(pid);const g=genderOf(pid);const nm=name||pname(pid)||(S.meInfo&&pid===S.me?S.meInfo.name:"");
+  return '<span class="av av-'+(g||"n")+'" style="--s:'+(size||32)+'px">'+(src?'<img src="'+src+'" alt="">':esc(initials(nm)))+"</span>"}
+function who(pid,sub,size){return '<span class="who-cell">'+avatar(pid,size||30)+'<span><b>'+esc(pname(pid))+"</b>"+(sub?'<span class="sub">'+sub+"</span>":"")+"</span></span>"}
+
+/* greeting hero */
+const SUN='<svg class="art sun" viewBox="0 0 120 120" aria-hidden="true"><g class="rays">'+Array.from({length:12},(_,i)=>'<rect x="57" y="4" width="6" height="18" rx="3" transform="rotate('+(i*30)+' 60 60)"/>').join("")+'</g><circle cx="60" cy="60" r="27"/></svg>';
+const MOON='<svg class="art moon" viewBox="0 0 120 120" aria-hidden="true"><path class="m" d="M78 22a40 40 0 1 0 22 58A34 34 0 1 1 78 22z"/><circle class="st s1" cx="22" cy="28" r="2.4"/><circle class="st s2" cx="98" cy="18" r="1.8"/><circle class="st s3" cx="104" cy="96" r="2.2"/><circle class="st s1" cx="30" cy="100" r="1.6"/></svg>';
+function firstName(n){return String(n||"").replace(/^(أ\.|م\.|د\.)\s*/,"").trim().split(/\s+/)[0]||""}
+function greeting(){const h=new Date().getHours();return h>=5&&h<12?"صباح الخير":h>=12&&h<18?"نهارك سعيد":"مساء الخير"}
+function heroHTML(pid,name,sub){
+  const g=genderOf(pid),night=document.documentElement.getAttribute("data-theme")==="dark";
+  const pr=pid===S.me?myProf():profOf(pid);const bday=pr&&pr.birth&&pr.birth.slice(5)===today().slice(5);
+  const nm=(pr&&pr.fullName)||name||"";const h1=g==="f"?"أهلاً يا أستاذة "+esc(firstName(nm)):g==="m"?"أهلاً يا أستاذ "+esc(firstName(nm)):"أهلاً، "+esc(name||"");
+  return '<section class="hero'+(night?" night":"")+'"><div class="hero-art">'+(night?MOON:SUN)+'</div><div class="hero-txt"><span class="hero-greet">'+greeting()+"</span><h1>"+h1+"</h1><p>"+(bday?'<span class="bday">'+ic("cake")+" كل سنة و"+(g==="f"?"انتي طيبة":"انت طيب")+"! عيد ميلاد سعيد</span> ":"")+sub+'</p></div><div class="hero-side">'+avatar(pid,64,name)+'<div class="hero-clock"><b id="clock" class="num">'+nowHM()+"</b><span>"+DAYN[dow(today())]+" "+fdate(today())+"</span></div></div></section>";
+}
+
+/* today's attendance board */
+function todayStatus(pid){
+  const w=work(),td=today(),r=attRec(pid,td),now=toMin(nowHM()),s=toMin(w.start),e=toMin(w.end);
+  if(r){const st=r.status||"present";if(st==="absent")return {k:"absent"};if(st!=="present")return {k:"leave",l:STAT[st]};const c=dayCalc(r,w);return {k:c.late?"late":"present",in:r.in,out:r.out,late:c.late}}
+  if(!isWorkday(td,w))return {k:"off"};
+  if(now<s+(+w.grace||0))return {k:"waiting"};
+  if(now<e)return {k:"notyet",late:now-s};
+  return {k:"absent"};
+}
+function todayBoard(){
+  const emps=salaried().filter(p=>p.active!==false);
+  if(!emps.length)return '<div class="empty">حط مرتب لكل موظف من الإعدادات عشان يظهر في الحضور.</div>';
+  const G={present:[],late:[],notyet:[],waiting:[],absent:[],leave:[],off:[]};emps.forEach(p=>{const st=todayStatus(p.id);G[st.k].push([p,st])});
+  if(G.off.length===emps.length)return '<div class="empty">'+ic("sun")+" النهارده إجازة للكل. يوم سعيد!</div>";
+  const tile=(k,label,n,icn,tot)=>'<div class="st-tile st-'+k+'"><span class="st-ic">'+ic(icn)+'</span><div><b class="num">'+n+'</b><span>'+label+"</span></div>"+(tot?'<i class="st-bar"><i style="width:'+Math.round(n/tot*100)+'%"></i></i>':"")+"</div>";
+  const tot=emps.length-G.off.length;const pres=G.present.length+G.late.length;
+  const clickable=can("employees");
+  const chip=(p,txt,k)=>'<'+(clickable?'button data-act="file" data-id="'+esc(p.id)+'"':"span")+' class="pchip pc-'+k+'">'+avatar(p.id,34)+'<span><b>'+esc(p.name)+"</b><small>"+txt+"</small></span></"+(clickable?"button":"span")+">";
+  const grp=(title,list,k,fn)=>list.length?'<div class="pgroup"><h4>'+title+' <span class="num">'+list.length+'</span></h4><div class="pchips">'+list.map(([p,st])=>chip(p,fn(st),k)).join("")+"</div></div>":"";
+  return '<div class="st-tiles">'+tile("present","حاضرين",pres,"check",tot)+tile("late","متأخرين",G.late.length,"hourglass",tot)+tile("notyet","لسه ماجوش",G.notyet.length+G.waiting.length,"clock",tot)+tile("absent","غياب",G.absent.length,"x",tot)+(G.leave.length?tile("leave","إجازة / مأمورية",G.leave.length,"plane",tot):"")+"</div>"+
+    '<div class="pgroups">'+grp("لسه ماجوش",G.notyet.concat(G.waiting),"notyet",st=>st.k==="waiting"?"لسه في وقت السماح":"متأخر "+durTxt(st.late)+" لحد دلوقتي")+
+    grp("غياب",G.absent,"absent",()=>"ما سجّلش حضور")+grp("متأخرين",G.late,"late",st=>"وصل "+esc(st.in)+" · تأخير "+durTxt(st.late))+
+    grp("حاضرين",G.present,"present",st=>"وصل "+esc(st.in||"")+(st.out?" · مشي "+esc(st.out):""))+grp("إجازة / مأمورية",G.leave,"leave",st=>st.l||"")+"</div>";
+}
+function birthdaysHTML(){
+  const md=today().slice(5);const list=S.people.filter(p=>p.active!==false&&(profOf(p.id)||{}).birth&&profOf(p.id).birth.slice(5)===md);
+  return list.length?'<div class="bday-card">'+ic("cake")+'<span>النهارده عيد ميلاد '+list.map(p=>"<b>"+esc(p.name)+"</b>").join(" و ")+". ما تنساش تقول كل سنة وانت طيب!</span></div>":"";
+}
+
+/* profile form */
+function nidInfo(n){if(!/^\d{14}$/.test(n))return null;const c=n[0]==="2"?"19":n[0]==="3"?"20":null;if(!c)return null;const y=c+n.slice(1,3),m=n.slice(3,5),d=n.slice(5,7);if(+m<1||+m>12||+d<1||+d>31)return null;return {birth:y+"-"+m+"-"+d,gender:(+n[12])%2?"m":"f"}}
+function profFormHTML(pid,pr,opts){
+  pr=pr||{};opts=opts||{};const nm=pname(pid)||(S.meInfo&&S.meInfo.name)||"";
+  const v=k=>esc(pr[k]||"");
+  return '<form id="profForm" class="form prof" data-pid="'+esc(pid)+'" style="max-width:none">'+
+  '<div class="prof-top"><label class="av-up" title="تغيير الصورة">'+avatar(pid,84,nm)+'<span class="av-cam">'+ic("camera")+'</span><input type="file" accept="image/*" id="pf_avatar" hidden></label><div><b style="font-family:var(--display);font-size:1.1rem">'+esc(pr.fullName||nm)+'</b><span class="muted small" style="display:block">اضغط على الصورة عشان '+(opts.self?"تغيّر صورتك":"تغيّر الصورة")+'</span>'+(opts.pending?'<span class="pill k-custody" style="margin-top:4px">مستني مراجعة الإدارة</span>':"")+"</div></div>"+
+  '<div class="row"><label>الاسم بالكامل<input id="pf_full" value="'+v("fullName")+'" placeholder="الاسم رباعي زي البطاقة"></label><label>النوع<select id="pf_gender"><option value="">—</option><option value="m"'+(pr.gender==="m"?" selected":"")+'>ذكر</option><option value="f"'+(pr.gender==="f"?" selected":"")+">أنثى</option></select></label></div>"+
+  '<div class="row"><label>الرقم القومي (14 رقم)<input id="pf_nid" inputmode="numeric" maxlength="14" dir="ltr" value="'+v("nid")+'"></label><label>الموبايل<input id="pf_phone" inputmode="tel" dir="ltr" value="'+v("phone")+'"></label></div>'+
+  '<div class="row"><label>تاريخ الميلاد<input type="date" id="pf_birth" value="'+v("birth")+'"></label><label>تاريخ استلام العمل<input type="date" id="pf_hire" value="'+v("hire")+'"></label></div>'+
+  '<div class="nid-up"><label class="btn">'+ic("idcard")+" "+(opts.hasNid?"تغيير صورة البطاقة":"رفع صورة البطاقة")+'<input type="file" accept="image/*" id="pf_nidimg" hidden></label>'+(opts.hasNid&&opts.canSeeNid?'<button type="button" class="btn" data-act="viewNid" data-id="'+esc(pid)+'">'+ic("eye")+" عرض البطاقة</button>":opts.hasNid?'<span class="pill k-income">صورة البطاقة مرفوعة</span>':"")+'<span class="small muted" id="pf_imgmsg"></span></div>'+
+  '<p class="hint">'+ic("lock")+" البيانات والصور دي متشفّرة، ومحدش يشوفها غير الإدارة"+(opts.self?" وانت":" وصاحبها")+'.</p><div class="actions"><button class="primary" type="submit">'+ic("check")+" حفظ البيانات</button></div></form>";
+}
+async function loadImg(file){const url=URL.createObjectURL(file);try{const img=new Image();img.src=url;await img.decode();return img}finally{setTimeout(()=>URL.revokeObjectURL(url),2000)}}
+async function shrink(file,kind){
+  const img=await loadImg(file);const sq=kind==="avatar",lim=sq?40000:140000;let max=sq?320:1400,q=0.85,out="";
+  for(let i=0;i<10;i++){
+    const c=document.createElement("canvas");let sw=img.naturalWidth,sh=img.naturalHeight,sx=0,sy=0;
+    if(sq){const m=Math.min(sw,sh);sx=(sw-m)/2;sy=(sh-m)/2;sw=sh=m;c.width=c.height=Math.min(max,m)}else{const r=Math.min(1,max/Math.max(sw,sh));c.width=Math.round(sw*r);c.height=Math.round(sh*r)}
+    const x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.drawImage(img,sx,sy,sw,sh,0,0,c.width,c.height);
+    out=c.toDataURL("image/jpeg",q);if(out.length<=lim)return out;q-=0.12;if(q<0.5){q=0.75;max=Math.round(max*0.8)}
+  }
+  return out.length<=lim?out:null;
+}
+async function uploadImg(file,kind,pid){
+  const msg=document.getElementById("pf_imgmsg");if(msg)msg.textContent="بيجهّز الصورة…";
+  try{const data=await shrink(file,kind);if(!data){toast("الصورة كبيرة قوي، جرّب صورة تانية");if(msg)msg.textContent="";return}
+    if(S.staffMode)await putItem({t:"img",kind,data});else await E.collection("img").doc(pid+"_"+kind).set({data,by:S.me,at:new Date().toISOString()});
+    if(msg)msg.textContent="";toast(kind==="avatar"?"الصورة اتحطت":"صورة البطاقة اترفعت");
+    const f=document.getElementById("profForm");if(f&&f.parentElement)f.parentElement._h=null;refresh();
+  }catch(e){if(msg)msg.textContent="";toast("ما قدرتش أقرا الصورة دي")}
+}
+async function saveProfile(f){
+  const pid=f.dataset.pid,g=x=>document.getElementById(x).value.trim();
+  const nid=g("pf_nid");if(nid&&!/^\d{14}$/.test(nid))return toast("الرقم القومي لازم يكون 14 رقم");
+  const d={fullName:g("pf_full").slice(0,120),gender:g("pf_gender"),nid,phone:g("pf_phone").slice(0,30),birth:g("pf_birth"),hire:g("pf_hire")};
+  try{
+    if(S.staffMode){await putItem({t:"profile",data:d});toast("اتحفظ، وهيتراجع من الإدارة")}
+    else{await E.collection("prof").doc(pid).set(Object.assign({},profOf(pid)||{},d,{by:S.me,at:new Date().toISOString()}));toast("البيانات اتحفظت")}
+    document.activeElement&&document.activeElement.blur();f.parentElement._h=null;applyTheme();refresh();
+  }catch(e){dbErr(e)}
+}
+function showNid(pid){const im=(S.imgsArr||[]).find(x=>x.id===pid+"_nid");if(!im)return;
+  const d=document.createElement("div");d.className="lb";d.setAttribute("data-act","lbClose");d.innerHTML='<img src="'+im.data+'" alt="صورة البطاقة"><span class="lb-x">'+ic("x")+"</span>";app.appendChild(d)}
+function confetti(){if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;const w=document.createElement("div");w.className="confetti";
+  for(let i=0;i<18;i++){const s=document.createElement("i");s.style.setProperty("--dx",(Math.random()*220-110)+"px");s.style.setProperty("--dy",(-60-Math.random()*140)+"px");s.style.setProperty("--r",(Math.random()*540)+"deg");s.style.left=(45+Math.random()*10)+"%";s.style.animationDelay=(Math.random()*.12)+"s";w.appendChild(s)}
+  document.body.appendChild(w);setTimeout(()=>w.remove(),1600)}
+setInterval(()=>{const c=document.getElementById("clock");if(c)c.textContent=nowHM();if(S.screen==="admin:summary")setHTML("todayBoard",todayBoard());if(themePref()==="auto")applyTheme()},20000);
+
+/* ---------- hosted mode: own server (api.php) instead of claude.ai storage ---------- */
+const HOSTED=!!window.SAWA_API;
+function RemoteDB(api){
+  const mirror=new Map(),subs=new Set();let rev=0,token=null,timer=null,busy=false,synced1=false,waiters=[];
+  async function call(body){
+    let r;try{r=await fetch(api,{method:"POST",headers:Object.assign({"Content-Type":"application/json"},token?{"X-Session":token}:{}),body:JSON.stringify(body),cache:"no-store",credentials:"same-origin"})}
+    catch(e){const er=new Error("مفيش اتصال بالسيرفر. اتأكد من النت وجرّب تاني.");er.code="network";throw er}
+    let j;try{j=await r.json()}catch(e){j={ok:false,error:"bad_response",msg:"السيرفر رجّع رد مش مفهوم (كود "+r.status+"). اتأكد إن api.php وconfig.php مرفوعين صح."}}
+    if(!j.ok){const er=new Error(j.msg||j.error||"خطأ");er.code=j.error;if(j.error==="auth"&&token){token=null;stop();setTimeout(()=>lock("الجلسة انتهت، ادخل تاني."))}throw er}
+    return j;
+  }
+  function notify(){subs.forEach(f=>{try{f()}catch(e){console.warn(e)}})}
+  async function poll(){
+    if(busy||!token)return;busy=true;let changed=false;
+    try{let more=true;while(more&&token){const j=await call({a:"changes",since:rev});j.docs.forEach(d=>{if(d.del)mirror.delete(d.path);else mirror.set(d.path,d.data)});if(j.docs.length)changed=true;rev=j.rev;more=j.more}
+      if(!synced1){synced1=true;changed=true;waiters.splice(0).forEach(f=>f())}}catch(e){}
+    busy=false;if(changed)notify();
+  }
+  function schedule(){clearTimeout(timer);if(!token)return;timer=setTimeout(async()=>{await poll();schedule()},document.hidden?15000:4000)}
+  function stop(){clearTimeout(timer);timer=null}
+  function synced(){return synced1?Promise.resolve():new Promise(r=>waiters.push(r))}
+  function snap(path,v){return {id:path.slice(path.lastIndexOf("/")+1),exists:v!==undefined,data:()=>v===undefined?undefined:JSON.parse(JSON.stringify(v))}}
+  function docsOf(c){const out=[],pre=c+"/";for(const [k,v] of mirror)if(k.startsWith(pre)&&k.indexOf("/",pre.length)<0)out.push(snap(k,v));return out.sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0)}
+  async function write(op,path,data){
+    await call({a:"write",op,path,data});
+    if(op==="delete")mirror.delete(path);else if(op==="update")mirror.set(path,Object.assign({},mirror.get(path)||{},data));else mirror.set(path,data);
+    notify();setTimeout(poll,60);
+  }
+  function docRef(path){return {id:path.slice(path.lastIndexOf("/")+1),path,
+    get:async()=>{await synced();return snap(path,mirror.get(path))},
+    set:d=>write("set",path,JSON.parse(JSON.stringify(d))),
+    update:d=>write("update",path,JSON.parse(JSON.stringify(d))),
+    delete:()=>write("delete",path),
+    onSnapshot(fn){let last="\u0000";const f=()=>{if(!synced1)return;const v=mirror.get(path);const j=v===undefined?"\u0001":JSON.stringify(v);if(j===last)return;last=j;fn(snap(path,v))};subs.add(f);setTimeout(f,0);return ()=>subs.delete(f)}}}
+  function coll(c){return {path:c,doc:id=>docRef(c+"/"+(id||rid("d_"))),
+    add:async d=>{const r=docRef(c+"/"+rid("d_"));await r.set(d);return r},
+    get:async()=>{await synced();const docs=docsOf(c);return {docs,size:docs.length,empty:!docs.length}},
+    onSnapshot(fn){let last=null;const f=()=>{if(!synced1)return;const docs=docsOf(c);const j=JSON.stringify(docs.map(d=>[d.id,mirror.get(c+"/"+d.id)]));if(j===last)return;last=j;fn({docs,size:docs.length,empty:!docs.length})};subs.add(f);setTimeout(f,0);return ()=>subs.delete(f)}}}
+  document.addEventListener("visibilitychange",()=>{if(!document.hidden&&token){poll();schedule()}});
+  return {collection:coll,doc:docRef,call,poll,
+    async start(tok){token=tok;rev=0;mirror.clear();synced1=false;await poll();schedule()},
+    async end(){const t=token;token=null;stop();mirror.clear();rev=0;synced1=false;
+      if(t){try{await fetch(api,{method:"POST",headers:{"Content-Type":"application/json","X-Session":t},body:'{"a":"logout"}'})}catch(e){}}},
+    peekColl:c=>docsOf(c).map(d=>Object.assign({id:d.id},d.data())),
+    bulk:docs=>call({a:"bulk",docs})};
+}
+async function authKey(u,pw){
+  const base=await crypto.subtle.importKey("raw",TE.encode(pw),"PBKDF2",false,["deriveBits"]);
+  const bits=await crypto.subtle.deriveBits({name:"PBKDF2",salt:TE.encode("sawa-auth:"+u),iterations:150000,hash:"SHA-256"},base,256);
+  return [...new Uint8Array(bits)].map(x=>x.toString(16).padStart(2,"0")).join("");
+}
+function localDownloads(){return {save:async({filename,data})=>{const a=document.createElement("a");a.href=URL.createObjectURL(data instanceof Blob?data:new Blob([data],{type:"application/octet-stream"}));a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);return {status:"saved"}}}}
+async function loadSrvUsers(){if(!HOSTED||!S.K)return;try{const j=await S.db.call({a:"users"});S.srvUsers=j.users||[];const el=document.getElementById("plistSet");if(el)el._h=null;refresh()}catch(e){}}
+function srvUser(pid){return (S.srvUsers||[]).find(u=>u.pid===pid)}
+async function userSet(pid,user,need,active,pin){
+  const body={a:"user_set",pid,user,level:need,active:!!active&&need!=="none"};
+  if(pin)body.auth=await authKey(user,pin);
+  await S.db.call(body);
+}
+async function hostedLogin(){
+  const err=document.getElementById("l_err"),btn=document.getElementById("l_btn");
+  const u=normUser(document.getElementById("l_user").value),pw=document.getElementById("l_pin").value;
+  if(!u||!pw)return;btn.disabled=true;err.textContent="";
+  try{
+    const j=await S.db.call({a:"login",user:u,auth:await authKey(u,pw)});
+    await S.db.start(j.token);
+    S.rawPeople=S.db.peekColl("people");S.rawIds.people=new Set(S.rawPeople.map(p=>p.id));
+    const r=S.rawPeople.find(p=>p.id===j.pid);if(!r)throw new Error("حسابك مالوش بيانات في الدفتر. كلّم المدير المالي.");
+    try{localStorage.setItem("khz_user",u)}catch(e){}
+    S.myUser=u;
+    if(j.level==="mgr"){
+      if(!r.wK)throw new Error("حسابك محتاج كلمة سر جديدة من المدير المالي.");
+      const kb=await unwrapKey(r.wK,pw).catch(()=>{throw new Error("كلمة السر مش متطابقة مع مفتاح التشفير. اطلب من المدير المالي يحطلك كلمة سر جديدة.")});
+      S.kB64=kb;S.K=await impKey(kb);S.me=j.pid;S.lockMsg="";S.sealExpected=true;await decPeople();S.peopleUnsub=subPeople();startManager();go();
+    }else{
+      if(!r.wS)throw new Error("حسابك محتاج كلمة سر جديدة من المدير المالي.");
+      const kb=await unwrapKey(r.wS,pw).catch(()=>{throw new Error("كلمة السر مش متطابقة مع مفتاح التشفير. اطلب من المدير المالي يحطلك كلمة سر جديدة.")});
+      S.myKsB64=kb;S.myKs=await impKey(kb);S.me=j.pid;S.meInfo={name:r.name,title:r.title};S.lockMsg="";S.peopleUnsub=subPeople();startStaff();go();
+    }
+  }catch(e){
+    await S.db.end();S.K=null;S.myKs=null;S.me=null;
+    err.textContent=e.message||"اسم المستخدم أو كلمة السر غلط.";const i=document.getElementById("l_pin");i&&i.select();
+  }finally{const b=document.getElementById("l_btn");if(b)b.disabled=false}
+}
+async function doImport(){
+  const err=document.getElementById("i_err"),prog=document.getElementById("i_prog"),btn=document.getElementById("i_btn");
+  const file=document.getElementById("i_file").files[0],u=normUser(document.getElementById("i_user").value),pw=document.getElementById("i_pin").value;
+  if(!file)return err.textContent="اختار ملف النسخة الاحتياطية.";
+  let j;try{j=JSON.parse(await file.text())}catch(e){return err.textContent="الملف ده مش نسخة احتياطية صحيحة."}
+  if(!j||j.app!=="khazna"||!j.docs||!j.docs.people)return err.textContent="الملف ده مش نسخة احتياطية من الدفتر.";
+  const ppl=Object.entries(j.docs.people);
+  const ent=ppl.find(([id,r])=>normUser(r.user)===u)||ppl.find(([id,r])=>!r.user&&normUser(r.name)===u);
+  if(!ent||!ent[1].wK)return err.textContent="اسم المستخدم ده مش موجود في النسخة، أو مالوش صلاحيات إدارة.";
+  const [pid,r]=ent;let kb;
+  try{kb=await unwrapKey(r.wK,pw)}catch(e){return err.textContent="كلمة السر غلط."}
+  err.textContent="";btn.disabled=true;prog.hidden=false;const say=t=>prog.textContent=t;
+  try{
+    S.kB64=kb;S.K=await impKey(kb);
+    say("بيجهّز حسابك على السيرفر…");
+    const sj=await S.db.call({a:"setup",pid,user:u,auth:await authKey(u,pw)});
+    await S.db.start(sj.token);
+    const docs=[];
+    for(const [c,map] of Object.entries(j.docs)){if(!["people","config","meta"].concat(COLLS).includes(c))continue;
+      for(const [id,raw] of Object.entries(map)){const d=Object.assign({},raw);if(c==="people"&&id===pid)d.user=u;docs.push({path:c+"/"+id,data:d})}}
+    for(let i=0;i<docs.length;i+=12){say("بينقل البيانات… "+Math.min(i+12,docs.length)+" من "+docs.length);await S.db.bulk(docs.slice(i,i+12))}
+    say("بيسجّل باقي الحسابات…");
+    for(const [id,raw] of ppl){if(id===pid||!raw.user||!(raw.wK||raw.wS))continue;
+      try{const sec=await decJ(S.K,raw.sec,"people/"+id);const need=loginNeed(Object.assign({},sec));if(need!=="none")await userSet(id,normUser(raw.user),need,sec.active!==false)}catch(e){}}
+    await S.db.poll();
+    S.rawPeople=S.db.peekColl("people");S.rawIds.people=new Set(S.rawPeople.map(p=>p.id));
+    S.me=pid;S.myUser=u;S.mode="secure";S.sealExpected=!!(j.docs.meta&&j.docs.meta.seal);
+    await decPeople();S.peopleUnsub=subPeople();startManager();S.view="settings";go();
+    toast("البيانات اتنقلت. حط كلمات سر جديدة لباقي الموظفين من الإعدادات");
+  }catch(e){btn.disabled=false;err.textContent="حصلت مشكلة: "+(e.message||e)}
+}
+
+/* ---------- security: encryption, keys, sessions ---------- */
+const TE=new TextEncoder(),TD=new TextDecoder();
+const COLLS=["tx","adj","att","eval","prof","img"],CST={tx:["tx","t"],adj:["adj","a"],att:["att","at"],eval:["ev","e"],prof:["profs","pr"],img:["imgsArr","im"]};
+const LOCK_MIN=20,PW_MGR=8,PW_STAFF=6;
+function b64(u){let s="";for(let i=0;i<u.length;i+=8192)s+=String.fromCharCode.apply(null,u.subarray(i,i+8192));return btoa(s)}
+function ub64(s){const b=atob(s);const u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}
+function rnd(n){return crypto.getRandomValues(new Uint8Array(n))}
+function rid(p){return (p||"d_")+Date.now().toString(36)+[...rnd(5)].map(x=>(x%36).toString(36)).join("")}
+async function pwKey(pw,salt,it){const base=await crypto.subtle.importKey("raw",TE.encode(pw),"PBKDF2",false,["deriveKey"]);return crypto.subtle.deriveKey({name:"PBKDF2",salt:ub64(salt),iterations:it||250000,hash:"SHA-256"},base,{name:"AES-GCM",length:256},false,["encrypt","decrypt"])}
+async function aesEnc(key,u8,aad){const iv=rnd(12);const p={name:"AES-GCM",iv};if(aad)p.additionalData=TE.encode(aad);const c=new Uint8Array(await crypto.subtle.encrypt(p,key,u8));const o=new Uint8Array(12+c.length);o.set(iv);o.set(c,12);return b64(o)}
+async function aesDec(key,s,aad){const u=ub64(s);const p={name:"AES-GCM",iv:u.subarray(0,12)};if(aad)p.additionalData=TE.encode(aad);return new Uint8Array(await crypto.subtle.decrypt(p,key,u.subarray(12)))}
+async function encJ(key,o,aad){return aesEnc(key,TE.encode(JSON.stringify(o)),aad)}
+async function decJ(key,s,aad){if(typeof s!=="string")throw new Error("plain");return JSON.parse(TD.decode(await aesDec(key,s,aad)))}
+function genKeyB64(){return b64(rnd(32))}
+function impKey(b){return crypto.subtle.importKey("raw",ub64(b),"AES-GCM",false,["encrypt","decrypt"])}
+async function wrapKey(kb64,pw){const s=b64(rnd(16));const k=await pwKey(pw,s);return {s,it:250000,d:await aesEnc(k,TE.encode(kb64),"wrap")}}
+async function unwrapKey(w,pw){const k=await pwKey(pw,w.s,w.it);return TD.decode(await aesDec(k,w.d,"wrap"))}
+function prevMonth(m){const p=m.split("-").map(Number);const d=new Date(p[0],p[1]-2,1);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")}
+
+Object.assign(S,{mode:"loading",rawPeople:[],rawDocs:{},rawIds:{},bad:{},cache:{},seq:{},K:null,kB64:null,ks:{},ksB64:{},subs:[],boxSubs:{},box:{},lastV:{},
+  seal:null,sealBad:false,sealGone:false,missing:{},staffMode:false,myKs:null,myKsB64:null,V:null,items:[],meInfo:null,lastAct:Date.now(),lockMsg:""});
+
+/* encrypted store used by the rest of the page */
+async function putEnc(c,id,o){if(!S.K)throw new Error("الدفتر مقفول، ادخل تاني");const e=await encJ(S.K,o,c+"/"+id);(S.cache[c]=S.cache[c]||{})[id]=o;await S.db.collection(c).doc(id).set({e})}
+const E={collection(c){return {doc(id){id=id||rid(c.slice(0,2)+"_");return {id,
+    set:o=>putEnc(c,id,o),
+    update:p=>putEnc(c,id,Object.assign({},(S.cache[c]||{})[id]||{},p)),
+    delete:()=>putEnc(c,id,{_del:true,at:new Date().toISOString(),by:S.me})}},
+  add(o){const r=this.doc();return r.set(o).then(()=>r)}}},
+  doc(path){const p=path.split("/");return E.collection(p[0]).doc(p[1])}};
+
+async function putPerson(id,pl,opt){
+  const raw=S.rawPeople.find(p=>p.id===id)||{};opt=opt||{};
+  const doc={name:pl.name||"",title:pl.title||"",order:pl.order??99};const un="user" in opt?opt.user:raw.user;if(un)doc.user=un;
+  const wK="wK" in opt?opt.wK:raw.wK,wS="wS" in opt?opt.wS:raw.wS;if(wK)doc.wK=wK;if(wS)doc.wS=wS;
+  doc.sec=await encJ(S.K,{role:pl.role||"staff",perms:pl.perms||[],salary:+pl.salary||0,active:pl.active!==false,ks:pl.ks},"people/"+id);
+  await S.db.collection("people").doc(id).set(doc);
+}
+
+/* ---------- boot & subscriptions ---------- */
+function peopleHandler(s){
+  const seq=S.seq.people=(S.seq.people||0)+1;
+  S.rawPeople=s.docs.map(d=>Object.assign({id:d.id},d.data()));S.rawIds.people=new Set(S.rawPeople.map(p=>p.id));
+  if(!HOSTED)S.mode=!S.rawPeople.length?"empty":S.rawPeople.some(p=>p.sec)?"secure":"legacy";
+  if(S.mode==="legacy"&&!S.me)S.people=S.rawPeople.slice();
+  (S.K?decPeople():Promise.resolve()).then(()=>{if(seq!==S.seq.people)return;S.ld.p=1;onData()});
+}
+function subPeople(){return S.db.collection("people").onSnapshot(peopleHandler,onErr)}
+async function boot(){
+  if(!(window.crypto&&crypto.subtle)){app.innerHTML='<div class="center"><h2>المتصفح ده ما بيدعمش التشفير. افتح الدفتر من متصفح حديث وبرابط https.</h2></div>';return}
+  ["click","keydown","touchstart"].forEach(ev=>document.addEventListener(ev,()=>{S.lastAct=Date.now()},{passive:true}));
+  setInterval(()=>{if(S.me&&Date.now()-S.lastAct>LOCK_MIN*60e3)lock("الدفتر اتقفل لوحده بعد "+LOCK_MIN+" دقيقة من غير استخدام.")},30e3);
+  if(HOSTED){
+    S.db=RemoteDB(window.SAWA_API);S.downloads=localDownloads();applyTheme();
+    try{const st=await S.db.call({a:"status"});S.mode=st.empty?"empty":"secure"}
+    catch(e){app.innerHTML='<div class="center"><div><h2>مش قادر أوصل للسيرفر</h2><p class="muted">'+esc(e.message||"")+'</p></div></div>';return}
+    S.ld.p=1;onData();return;
+  }
+  let tries=0;while(!window.claude&&tries++<30)await new Promise(r=>setTimeout(r,100));
+  const db=window.claude&&window.claude.use?await window.claude.use("db"):null;
+  if(!db){app.innerHTML='<div class="center"><div><h2>محتاج تسجّل دخول</h2><p class="muted">الدفتر بيحفظ البيانات على حسابك في claude.ai. افتح الرابط وانت مسجّل دخول.</p></div></div>';return}
+  S.db=db;applyTheme();
+  window.claude.use("downloads").then(d=>{S.downloads=d;refresh()}).catch(()=>{});
+  subPeople();
+}
+function onErr(e){app.innerHTML='<div class="center"><div><h2>مش قادر أوصل للبيانات</h2><p class="muted">'+esc(e&&e.message||"")+'</p><p class="muted">اقفل الصفحة وافتحها تاني.</p></div></div>'}
+async function decPeople(){
+  const out=[],bad=[];
+  for(const r of S.rawPeople){
+    if(!r.sec){bad.push(r.id);continue}
+    try{const sec=await decJ(S.K,r.sec,"people/"+r.id);
+      if(sec.ks&&S.ksB64[r.id]!==sec.ks){S.ksB64[r.id]=sec.ks;S.ks[r.id]=await impKey(sec.ks)}
+      out.push(Object.assign({id:r.id,name:r.name,title:r.title,order:r.order,user:r.user||"",hasK:!!r.wK,hasS:!!r.wS},sec));
+    }catch(e){bad.push(r.id)}
+  }
+  S.people=out.sort((a,b)=>(a.order??99)-(b.order??99));S.bad.people=bad;
+}
+async function decColl(c,docs){
+  const out=[],bad=[],ids=new Set(),cache={},raw={};
+  for(const d of docs){ids.add(d.id);const r=d.data();raw[d.id]=r;
+    try{const o=await decJ(S.K,r&&r.e,c+"/"+d.id);cache[d.id]=o;if(!o._del)out.push(Object.assign({},o,{id:d.id}))}catch(e){bad.push(d.id)}}
+  return {out,bad,ids,cache,raw};
+}
+function startManager(){
+  S.staffMode=false;Object.assign(S.ld,{t:0,c:0,a:0,at:0,e:0,s:0,pr:0,im:0});
+  COLLS.forEach(c=>{S.subs.push(S.db.collection(c).onSnapshot(async s=>{
+    const seq=S.seq[c]=(S.seq[c]||0)+1;const r=await decColl(c,s.docs);if(seq!==S.seq[c]||!S.K)return;
+    S[CST[c][0]]=r.out;S.bad[c]=r.bad;S.rawIds[c]=r.ids;S.cache[c]=r.cache;S.rawDocs[c]=r.raw;S.ld[CST[c][1]]=1;onData();
+  },onErr))});
+  S.subs.push(S.db.doc("config/main").onSnapshot(async d=>{
+    const seq=S.seq.cfg=(S.seq.cfg||0)+1;let cfg=null,bad=[];const r=d.exists?d.data():null;
+    if(r){try{cfg=await decJ(S.K,r.e,"config/main")}catch(e){bad=["main"]}}
+    if(seq!==S.seq.cfg||!S.K)return;S.cfg=cfg;S.bad.config=bad;S.rawDocs.config=r?{main:r}:{};S.ld.c=1;onData();
+  },onErr));
+  S.subs.push(S.db.doc("meta/seal").onSnapshot(async d=>{
+    const seq=S.seq.seal=(S.seq.seal||0)+1;const r=d.exists?d.data():null;let seal=null,bad=false;
+    if(r){try{seal=await decJ(S.K,r.e,"meta/seal")}catch(e){bad=true}}
+    if(seq!==S.seq.seal||!S.K)return;
+    if(!r&&S.sealExpected&&!S.sealWriting)S.sealGone=true;if(r)S.sealExpected=true;S.rawDocs.meta=r?{seal:r}:{};
+    S.seal=seal;S.sealBad=bad;S.ld.s=1;onData();
+  },onErr));
+}
+function lock(msg){
+  S.subs.forEach(u=>{try{u()}catch(e){}});S.subs=[];
+  Object.values(S.boxSubs).forEach(u=>{try{u()}catch(e){}});S.boxSubs={};
+  Object.assign(S,{K:null,kB64:null,ks:{},ksB64:{},cache:{},tx:[],adj:[],att:[],ev:[],profs:[],imgsArr:[],cfg:null,box:{},lastV:{},seal:null,sealBad:false,sealGone:false,missing:{},
+    me:null,staffMode:false,myKs:null,myKsB64:null,V:null,items:[],meInfo:null,loginPid:null,view:"summary",editing:null,empFile:null,stmt:null,lockMsg:msg||""});
+  S.people=S.mode==="legacy"?S.rawPeople.slice():[];
+  if(HOSTED){S.db.end();if(S.peopleUnsub){S.peopleUnsub();S.peopleUnsub=null}S.rawPeople=[];S.srvUsers=null;S.myUser=null}
+  S.screen="";onData();
+}
+function ready(){
+  if(!S.ld.p)return false;if(!S.me||S.mode!=="secure")return true;
+  if(S.staffMode)return !!S.ld.v;
+  return !!(S.ld.t&&S.ld.c&&S.ld.a&&S.ld.at&&S.ld.e&&S.ld.s&&S.ld.pr&&S.ld.im);
+}
+function onData(){
+  if(!ready())return;
+  if(S.me&&S.K&&!S.staffMode){sealCheck();scheduleSync()}
+  const k=screenKey();if(k!==S.screen){S.screen=k;renderScreen()}else refresh();
+}
+function go(){S.screen="";onData()}
+function screenKey(){
+  if(S.mode==="empty")return "setup";
+  if(!S.me)return "login";
+  if(S.mode==="legacy")return "migrate";
+  if(S.staffMode)return "staff";
+  const p=person(S.me);
+  if(!p||p.active===false||!isMgr(p)){setTimeout(()=>lock("حسابك اتقفل أو صلاحياته اتغيّرت. ادخل تاني."));return "login"}
+  const ok=allowedTabs().map(t=>t[0]);if(!ok.includes(S.view))S.view=ok[0];
+  return "admin:"+S.view;
+}
+
+/* ---------- tamper check (seal) ---------- */
+function sealCols(){return ["people"].concat(COLLS)}
+function validIds(c){return c==="people"?S.people.map(p=>p.id):Object.keys(S.cache[c]||{})}
+function sealCheck(){
+  if(!S.ld.s||S.sealGone||S.sealBad)return;
+  const seal=S.seal||{ids:{},missing:{}};const ids={},missing={};let changed=!S.seal;
+  sealCols().forEach(c=>{
+    const prev=(seal.ids||{})[c]||[],present=S.rawIds[c]||new Set();
+    const miss=new Set(((seal.missing||{})[c]||[]).filter(id=>!present.has(id)));
+    prev.forEach(id=>{if(!present.has(id))miss.add(id)});
+    ids[c]=[...new Set(prev.concat(validIds(c)))].sort();missing[c]=[...miss].sort();
+    if(ids[c].join()!==prev.slice().sort().join()||missing[c].join()!==(((seal.missing||{})[c])||[]).slice().sort().join())changed=true;
+  });
+  S.missing=missing;
+  if(changed&&!S.sealBad)writeSeal({ids,missing});
+}
+function writeSeal(obj){clearTimeout(S._sealT);S._sealT=setTimeout(async()=>{if(!S.K)return;S.sealWriting=true;
+  try{await S.db.doc("meta/seal").set({e:await encJ(S.K,Object.assign({at:new Date().toISOString()},obj),"meta/seal")})}catch(e){}S.sealWriting=false},1500)}
+function issues(){
+  const miss=Object.values(S.missing||{}).reduce((s,a)=>s+a.length,0);
+  const bad=Object.entries(S.bad||{}).reduce((s,[c,a])=>s+(c.startsWith("bx_")?0:a.length),0);
+  return {miss,bad,sealBad:S.sealBad,sealGone:S.sealGone,any:miss||bad||S.sealBad||S.sealGone};
+}
+async function ackIssues(){
+  try{
+    for(const [c,list] of Object.entries(S.bad||{})){if(c.startsWith("bx_"))continue;const coll=c==="config"?"config":c;for(const id of list)await S.db.collection(coll).doc(id).delete()}
+    const ids={};sealCols().forEach(c=>ids[c]=validIds(c).sort());
+    S.sealBad=false;S.sealGone=false;S.seal={ids,missing:{}};S.missing={};
+    await S.db.doc("meta/seal").set({e:await encJ(S.K,{ids,missing:{},at:new Date().toISOString()},"meta/seal")});
+    toast("اتشال التنبيه والبيانات الغريبة اتمسحت");refresh();
+  }catch(e){dbErr(e)}
+}
+
+/* ---------- staff boxes: import staff entries, publish their encrypted view ---------- */
+function staffBoxes(){return S.people.filter(p=>p.active!==false&&p.hasS&&S.ks[p.id]&&!p.hasK)}
+function syncBoxSubs(){
+  const want=new Set(staffBoxes().map(p=>p.id));
+  Object.keys(S.boxSubs).forEach(pid=>{if(!want.has(pid)){S.boxSubs[pid]();delete S.boxSubs[pid];delete S.box[pid]}});
+  want.forEach(pid=>{if(S.boxSubs[pid])return;const c="bx_"+pid;
+    S.boxSubs[pid]=S.db.collection(c).onSnapshot(async s=>{const key=S.ks[pid];if(!key)return;const seq=S.seq[c]=(S.seq[c]||0)+1;
+      const b={view:null,items:[],bad:[]};
+      for(const d of s.docs){const r=d.data();try{const o=await decJ(key,r&&r.e,c+"/"+d.id);if(d.id==="view")b.view=o;else b.items.push(Object.assign({},o,{id:d.id}))}catch(e){b.bad.push(d.id)}}
+      if(seq!==S.seq[c])return;S.box[pid]=b;scheduleSync();
+    },()=>{})});
+}
+function scheduleSync(){clearTimeout(S._syncT);S._syncT=setTimeout(runSync,1200)}
+async function runSync(){
+  if(!S.K||S.staffMode)return;if(S.syncing){S.syncAgain=true;return}S.syncing=true;
+  try{
+    syncBoxSubs();
+    for(const pid of Object.keys(S.box)){
+      const b=S.box[pid],c="bx_"+pid;
+      for(const id of b.bad)await S.db.collection(c).doc(id).delete();
+      b.bad=[];
+      for(const it of b.items.slice()){
+        const amt=Math.round((+it.amount||0)*100)/100;
+        if(it.t==="expense"&&amt>0&&/^\d{4}-\d\d-\d\d$/.test(it.date||"")){
+          if(!(S.cache.tx||{})["s_"+it.id])await E.collection("tx").doc("s_"+it.id).set({kind:"expense",date:it.date,amount:amt,category:String(it.category||"أخرى").slice(0,80),note:String(it.note||"").slice(0,300),source:"",personId:pid,empId:it.empId||"",salMonth:it.salMonth||"",createdBy:pid,createdAt:it.at||new Date().toISOString(),via:"staff"});
+        }else if((it.t==="in"||it.t==="out")&&/^\d{4}-\d\d-\d\d$/.test(it.date||"")&&/^\d\d:\d\d$/.test(it.time||"")){
+          const r=attRec(pid,it.date),aid=attId(pid,it.date);
+          if(it.t==="in"&&!r)await E.collection("att").doc(aid).set({empId:pid,date:it.date,status:"present",in:it.time,out:"",by:pid,inAt:it.at||""});
+          if(it.t==="out"&&r&&!r.out)await E.collection("att").doc(aid).update({out:it.time,outAt:it.at||""});
+          if(it.t==="out"&&!r)await E.collection("att").doc(aid).set({empId:pid,date:it.date,status:"present",in:"",out:it.time,by:pid,outAt:it.at||""});
+        }else if(it.t==="profile"&&it.data&&typeof it.data==="object"){
+          const d=it.data,cl=(x,n)=>String(x||"").slice(0,n||120),dt=x=>/^\d{4}-\d\d-\d\d$/.test(x||"")?x:"";
+          await E.collection("prof").doc(pid).set(Object.assign({},profOf(pid)||{},{fullName:cl(d.fullName),gender:d.gender==="f"?"f":d.gender==="m"?"m":"",nid:/^\d{14}$/.test(d.nid||"")?d.nid:"",phone:cl(d.phone,30),birth:dt(d.birth),hire:dt(d.hire),by:pid,at:it.at||""}));
+        }else if(it.t==="img"&&(it.kind==="avatar"||it.kind==="nid")&&typeof it.data==="string"&&it.data.startsWith("data:image/jpeg;base64,")&&it.data.length<=150000){
+          await E.collection("img").doc(pid+"_"+it.kind).set({data:it.data,by:pid,at:it.at||""});
+        }
+        await S.db.collection(c).doc(it.id).delete();
+      }
+      const V=buildV(pid),str=JSON.stringify(V);
+      const cur=b.view?JSON.stringify(Object.assign({},b.view,{at:undefined})):null;
+      if(str!==S.lastV[pid]&&str!==cur){S.lastV[pid]=str;await S.db.collection(c).doc("view").set({e:await encJ(S.ks[pid],Object.assign({},V,{at:new Date().toISOString()}),c+"/view")})}
+      else S.lastV[pid]=str;
+    }
+  }catch(e){console.warn("sync",e)}
+  S.syncing=false;if(S.syncAgain){S.syncAgain=false;scheduleSync()}
+}
+function buildV(pid){
+  const p=person(pid)||{};const m=curMonth();
+  const rows=sortTx(S.tx.filter(t=>t.personId===pid&&["custody","expense","return"].includes(t.kind)),true);let bal=0;
+  const R=rows.map(t=>{const a=+t.amount||0;const i=t.kind==="custody"?a:0,o=i?0:a;bal+=i-o;return {d:t.date,k:t.kind,c:t.category||"",n:t.note||"",e:t.empId?pname(t.empId):"",sm:t.salMonth||"",i,o,b:r2(bal)}}).slice(-300);
+  const pay=mm=>{const r=payroll(pid,mm);return {m:mm,s:r.salary,bon:r.bon,ded:r.ded,net:r.net,adv:r.adv,paid:r.paid,rem:r.rem,adj:r.adjList.map(j=>({t:j.type,a:j.amount,r:j.reason||"",d:j.date||""}))}};
+  const a=attSum(pid,m),tr=attRec(pid,today()),w=work();
+  return {name:p.name||"",title:p.title||"",perms:permsOf(p).filter(k=>k.startsWith("self_")),st:pstats(pid),rows:R,pay:[pay(m),pay(prevMonth(m))],
+    att:{today:tr?{d:tr.date,in:tr.in||"",out:tr.out||"",st:tr.status||"present"}:null,m,present:a.present,absent:a.absent,late:a.late+a.early,ot:a.ot},
+    work:{start:w.start,end:w.end},cats:expCats(),emps:salaried().map(x=>({id:x.id,name:x.name})),
+    prof:(()=>{const q=profOf(pid);return q?{fullName:q.fullName||"",gender:q.gender||"",nid:q.nid||"",phone:q.phone||"",birth:q.birth||"",hire:q.hire||""}:null})(),avatar:avatarSrc(pid),hasNid:!!(S.imgsArr||[]).find(x=>x.id===pid+"_nid")};
+}
+
+/* ---------- staff (encrypted personal box) ---------- */
+function startStaff(){
+  S.staffMode=true;S.ld.v=0;const c="bx_"+S.me;
+  S.subs.push(S.db.collection(c).onSnapshot(async s=>{
+    const seq=S.seq[c]=(S.seq[c]||0)+1;let V=null;const items=[];
+    for(const d of s.docs){const r=d.data();try{const o=await decJ(S.myKs,r&&r.e,c+"/"+d.id);if(d.id==="view")V=o;else items.push(Object.assign({},o,{id:d.id}))}catch(e){}}
+    if(seq!==S.seq[c]||!S.myKs)return;
+    S.V=V;S.items=items.sort((a,b)=>(a.at||"").localeCompare(b.at||""));
+    S.cfg={expenseCats:(V&&V.cats)||DEF_OUT};S.people=((V&&V.emps)||[]).map(e=>({id:e.id,name:e.name,salary:1,active:true,role:"payroll"}));
+    S.ld.v=1;onData();
+  },onErr));
+}
+async function putItem(o){const c="bx_"+S.me,id=rid("i_");await S.db.collection(c).doc(id).set({e:await encJ(S.myKs,Object.assign({at:new Date().toISOString()},o),c+"/"+id)})}
+function vPerm(k){return !S.V||(S.V.perms||[]).includes(k)}
+function renderStaffV(){
+  app.innerHTML=header()+'<main class="wrap"><div id="heroBox"></div><div id="vNote"></div>'+profPanel()+(vPerm("self_att")?'<section class="panel" id="myAtt"></section>':"")+'<div class="kpis" id="skpis"></div><div id="myAdj"></div>'+
+  (vPerm("self_exp")?'<div class="grid2" style="align-items:start"><div style="display:grid;gap:18px">'+txFormHTML(false)+'<section class="panel" id="pendPanel" hidden><h3>مستني مراجعة الإدارة</h3><div class="tbl" id="pending"></div></section></div><section class="panel"><div class="panel-h"><h2>كشف حسابي</h2></div><div class="tbl" id="stmt"></div></section></div>':"")+"</main>";
+  initTxForm();refreshStaffV();
+}
+function profHintSet(pr){const miss=!pr||!pr.fullName||!pr.birth||!pr.nid;setHTML("profHint",miss?" · كمّل بياناتك":"");const d=document.getElementById("profPanel");if(d&&miss&&!d._opened){d.open=true;d._opened=1}}
+function refreshStaffV(){
+  const V=S.V,td=today();
+  {const pr=myProf();setHTML("heroBox",heroHTML(S.me,S.meInfo&&S.meInfo.name,"يومك سعيد! سجّل حضورك ومصروفاتك من هنا."));
+   const pend=S.items.some(i=>i.t==="profile"||i.t==="img");
+   setKeep("profBox",profFormHTML(S.me,pr,{self:true,pending:pend,hasNid:!!(V&&V.hasNid)||S.items.some(i=>i.t==="img"&&i.kind==="nid"),canSeeNid:false}));profHintSet(pr)}
+  setHTML("vNote",!V?'<div class="hint">حسابك لسه بيتجهز. أول ما المدير المالي يفتح الدفتر هتظهر عهدتك ومرتبك هنا. تقدر تسجّل مصروفاتك وحضورك عادي.</div>':'<p class="muted small" style="margin:0">آخر تحديث من الإدارة: '+esc(new Date(V.at).toLocaleString("ar-EG-u-nu-latn",{dateStyle:"medium",timeStyle:"short"}))+(S.items.length?" · "+S.items.length+" تسجيل مستني المراجعة":"")+"</p>");
+  const pend=S.items.filter(i=>i.t==="expense");const pendSum=pend.reduce((s,i)=>s+(+i.amount||0),0);
+  if(vPerm("self_exp")){
+    const st=V?V.st:{rec:0,spent:0,ret:0,bal:0};const bal=st.bal-pendSum;
+    let k=kpi("المتبقي معايا",bal,(pendSum?"بعد خصم "+fmt(pendSum)+" لسه بيتراجعوا · ":"")+(bal<0?"صرفت أكتر من العهدة":"العهدة اللي لسه ما اتصرفتش"),"main","wallet")+kpi("استلمت",st.rec,"إجمالي العهد","","download")+kpi("صرفت",st.spent+pendSum,"إجمالي المصروفات","","down");
+    if(V&&V.pay[0].s)k+=payKpi(V.pay[0]);setHTML("skpis",k);
+  }else setHTML("skpis",V&&V.pay[0].s?payKpi(V.pay[0]):"");
+  const pa=V&&V.pay[0];
+  setHTML("myAdj",pa&&pa.adj.length?'<section class="panel"><h3>حوافز وخصومات '+esc(monthLabel(pa.m))+"</h3>"+adjList(pa.adj.map((j,i)=>({id:"v"+i,type:j.t,amount:j.a,reason:j.r,date:j.d})),false)+"</section>":"");
+  const pp=document.getElementById("pendPanel");
+  if(pp){pp.hidden=!pend.length;setHTML("pending",'<table style="min-width:0"><tbody>'+pend.map(i=>"<tr><td>"+fdate(i.date)+"</td><td>"+esc(i.category||"")+(i.note?'<span class="sub">'+esc(i.note)+"</span>":"")+'</td><td class="n">'+money(i.amount)+'</td><td><button class="link danger" data-act="delItem" data-id="'+esc(i.id)+'">إلغاء</button></td></tr>').join("")+"</tbody></table>")}
+  if(document.getElementById("stmt")){
+    const rows=V?V.rows.slice().reverse():[];
+    setHTML("stmt",rows.length?'<table><thead><tr><th>التاريخ</th><th>البيان</th><th>استلم</th><th>صرف / رد</th><th>الرصيد</th></tr></thead><tbody>'+rows.map(r=>"<tr><td>"+fdate(r.d)+"</td><td>"+(r.k==="expense"?esc(r.c||"مصروف")+(r.e?'<span class="sub">لـ '+esc(r.e)+" · مرتب "+esc(monthLabel(r.sm))+"</span>":""):'<span class="pill k-'+r.k+'">'+KIND[r.k]+"</span>")+(r.n?'<span class="sub">'+esc(r.n)+"</span>":"")+'</td><td class="n pos">'+(r.i?money(r.i):"")+'</td><td class="n neg">'+(r.o?money(r.o):"")+'</td><td class="n"><b class="'+(r.b<0?"neg":"")+'">'+money(r.b)+"</b></td></tr>").join("")+"</tbody></table>":'<div class="empty">مفيش حركات متراجعة لسه.</div>');
+  }
+  if(document.getElementById("myAtt")){
+    const w=V?V.work:work();let tr=V&&V.att.today&&V.att.today.d===td?Object.assign({},V.att.today):null;
+    S.items.filter(i=>i.date===td).forEach(i=>{if(i.t==="in"){tr=tr||{in:i.time,out:"",st:"present"}}if(i.t==="out"){tr=tr||{in:"",st:"present"};tr.out=tr.out||i.time}});
+    let btn;if(!tr)btn='<button class="primary" data-act="checkIn">تسجيل حضور الآن</button>';else if(tr.st!=="present")btn='<span class="pill k-custody">'+(STAT[tr.st]||"")+"</span>";else if(!tr.out)btn='<button class="primary" data-act="checkOut">تسجيل انصراف الآن</button>';else btn='<span class="pill k-income">اليوم خلص</span>';
+    setHTML("myAtt",'<div class="panel-h"><h2>الحضور</h2><span class="muted small">'+DAYN[dow(td)]+" "+fdate(td)+" · المواعيد "+esc(w.start)+" – "+esc(w.end)+'</span></div><div class="actions">'+btn+(tr&&tr.in?'<span>حضور <b class="num">'+esc(tr.in)+"</b></span>":"")+(tr&&tr.out?'<span>انصراف <b class="num">'+esc(tr.out)+"</b></span>":"")+"</div>"+
+      (V?'<p class="muted small" style="margin-bottom:0">'+esc(monthLabel(V.att.m))+": حضور "+V.att.present+" يوم · غياب "+V.att.absent+" · تأخير "+durTxt(V.att.late)+" · إضافي "+durTxt(V.att.ot)+"</p>":""));
+  }
+  applyKind();
+}
+function payKpi(p){return kpi("الباقي من مرتبي",p.rem,"مرتب "+monthLabel(p.m)+" "+fmt(p.s)+(p.bon?" + "+fmt(p.bon):"")+(p.ded?" − "+fmt(p.ded):"")+" − سلف "+fmt(p.adv)+(p.paid?" − اتصرف "+fmt(p.paid):""),"","cash")}
+
+/* ---------- screens: header, setup, login, migrate ---------- */
+function header(tabs){
+  const p=S.staffMode?S.meInfo:person(S.me);
+  let h='<header class="top"><div class="wrap topin"><div class="brand"><span class="mark">S</span><div><b>سوا يونيتد <span class="brand-en">SAWA UNITED</span></b><small>'+(S.mode==="secure"?ic("lock")+" دفتر الحسابات · مشفّر":"دفتر الحسابات")+'</small></div></div>';
+  if(p&&S.me)h+='<div class="who">'+avatar(S.me,36,p.name)+'<span class="who-name"><strong>'+esc(p.name)+'</strong><small>'+esc(p.title||"")+'</small></span>'+themeBtn()+(S.mode==="secure"?'<button class="btn icon-btn" data-act="pwOpen" title="تغيير كلمة السر" aria-label="تغيير كلمة السر">'+ic("key")+"</button>":"")+'<button class="btn" data-act="logout">'+ic("logout")+'<span class="hide-sm">قفل وخروج</span></button></div>';
+  else h+='<div class="who">'+themeBtn()+"</div>";
+  h+="</div>";
+  if(tabs){h+='<nav class="tabs wrap" aria-label="الأقسام">'+tabs.map(t=>'<button data-act="view" data-v="'+t[0]+'" aria-current="'+(S.view===t[0])+'">'+ic(TABIC[t[0]])+"<span>"+t[1]+"</span></button>").join("")+"</nav>"}
+  h+='<div class="wrap" id="pwBox" hidden><form id="pwForm" class="panel form" style="margin-top:14px;max-width:460px"><h3>تغيير كلمة السر</h3><label>كلمة السر الحالية<input type="password" id="pw_cur" autocomplete="current-password" required></label><label>كلمة السر الجديدة<input type="password" id="pw_new" autocomplete="new-password" required></label><label>تأكيدها<input type="password" id="pw_new2" autocomplete="new-password" required></label><p class="err" id="pw_err"></p><div class="actions"><button class="primary" type="submit">تغيير</button><button class="btn" type="button" data-act="pwClose">إلغاء</button></div></form></div>';
+  return h+"</header>";
+}
+function renderScreen(){
+  const k=S.screen;applyTheme();
+  if(k==="setup")return renderSetup();
+  if(k==="login")return renderLogin();
+  if(k==="migrate")return renderMigrate();
+  if(k==="staff")return renderStaffV();
+  renderAdmin();
+}
+function renderSetup(){
+  app.innerHTML=header()+'<main class="wrap"><div class="login panel"><h2>جهّز حساب المدير المالي</h2><p class="muted small">كل بيانات الدفتر هتتشفّر بكلمة السر دي. لو اتنست ومحدش تاني عنده صلاحية كاملة، البيانات مش هتترجع.</p><form id="setupForm" class="form"><label>الاسم<input id="s_name" value="المدير المالي" required></label><label>اسم المستخدم (إنجليزي)<input id="s_user" dir="ltr" value="admin" autocapitalize="none" required></label><label>كلمة سر قوية ('+PW_MGR+' حروف أو أرقام على الأقل)<input id="s_pin" type="password" autocomplete="new-password" required></label><label>تأكيدها<input id="s_pin2" type="password" autocomplete="new-password" required></label><p class="err" id="s_err"></p><button class="primary" type="submit">إنشاء الحساب</button></form></div>'+(HOSTED?'<div class="login panel"><h2 class="h-ic">'+ic("download")+' عندك نسخة احتياطية؟ انقل بياناتك</h2><p class="muted small">لو كنت شغّال على الدفتر قبل كده، نزّل نسخة احتياطية من الإعدادات هناك وارفعها هنا. ادخل باسم المستخدم وكلمة السر بتوعك القديمة.</p><form id="importForm" class="form"><label>ملف النسخة الاحتياطية<input type="file" id="i_file" accept=".json,application/json"></label><label>اسم المستخدم<input id="i_user" dir="ltr" autocapitalize="none" required></label><label>كلمة السر<input id="i_pin" type="password" autocomplete="current-password" required></label><p class="err" id="i_err"></p><p class="hint" id="i_prog" hidden></p><button class="primary" type="submit" id="i_btn">انقل البيانات</button></form></div>':"")+'</main>';
+}
+function loginList(){return S.mode==="legacy"?S.rawPeople.filter(p=>p.pinHash&&p.active!==false&&p.role==="admin"):S.rawPeople.filter(p=>p.wK||p.wS)}
+function normUser(u){return String(u||"").trim().toLowerCase()}
+function validUser(u){return /^[a-z0-9._-]{3,30}$/.test(u)}
+function userTaken(u,except){return S.rawPeople.some(p=>p.id!==except&&normUser(p.user)===u)}
+function lastUser(){try{return localStorage.getItem("khz_user")||""}catch(e){return ""}}
+function renderLogin(){
+  if(S.mode==="legacy"){
+    const list=loginList().sort((a,b)=>(a.order??99)-(b.order??99));
+    app.innerHTML=header()+'<main class="wrap"><div class="login"><div><h2>تفعيل الحماية</h2><p class="muted small">ادخل بحساب المدير المالي عشان تفعّل الحماية.</p></div><div class="plist">'+
+    list.map(p=>'<button data-act="pick" data-id="'+esc(p.id)+'" aria-pressed="'+(S.loginPid===p.id)+'"><span class="who-cell">'+avatar(p.id,38,p.name)+'<b>'+esc(p.name)+'</b></span></button>').join("")+
+    '</div><form id="loginForm" class="panel form" '+(S.loginPid?"":"hidden")+'><label>الرقم السري<input id="l_pin" type="password" required></label><p class="err" id="l_err"></p><button class="primary" type="submit" id="l_btn">دخول</button></form></div></main>';return;
+  }
+  const lu=lastUser();
+  app.innerHTML=header()+'<main class="wrap"><div class="login login-card">'+(S.lockMsg?'<p class="hint">'+esc(S.lockMsg)+"</p>":"")+
+  '<div class="login-brand"><span class="mark mark-lg">S</span><div><h1>سوا يونيتد</h1><span class="brand-en">SAWA UNITED</span></div></div>'+
+  '<form id="loginForm" class="panel form"><h2 class="h-ic">'+ic("lock")+' تسجيل الدخول</h2>'+
+  '<label>اسم المستخدم<input id="l_user" dir="ltr" autocomplete="username" autocapitalize="none" spellcheck="false" value="'+esc(lu)+'" required></label>'+
+  '<label>كلمة السر<span class="pw-wrap"><input id="l_pin" type="password" autocomplete="current-password" required><button type="button" class="icon-btn btn" data-act="pwShow" aria-label="إظهار كلمة السر">'+ic("eye")+'</button></span></label>'+
+  '<p class="err" id="l_err"></p><button class="primary" type="submit" id="l_btn">'+ic("key")+' دخول</button>'+
+  '<p class="muted small" style="margin:0">'+ic("lock")+' البيانات متشفّرة، ومحدش يقدر يقراها من غير كلمة السر. لو نسيت اسم المستخدم أو كلمة السر كلّم المدير المالي.</p></form></div></main>';
+  const f=document.getElementById(lu?"l_pin":"l_user");f&&f.focus();
+}
+function renderMigrate(){
+  const others=S.rawPeople.filter(p=>p.id!==S.me&&p.role!=="payroll");
+  app.innerHTML=header()+'<main class="wrap"><div class="login panel" style="max-width:620px"><h2>تفعيل الحماية والتشفير</h2>'+
+  '<p class="muted small">كل البيانات (الحركات، المرتبات، الحضور، التقييم، الأشخاص) هتتشفّر على جهازك قبل ما تتحفظ. اللي معاه كلمة سر بس هو اللي يقدر يقراها. الأرقام السرية القديمة هتتلغي، وكل واحد هياخد كلمة سر جديدة منك.</p>'+
+  '<form id="migrateForm" class="form"><label>كلمة السر الجديدة بتاعتك ('+PW_MGR+' على الأقل)<input type="password" id="m_pw" autocomplete="new-password" required></label><label>تأكيدها<input type="password" id="m_pw2" autocomplete="new-password" required></label>'+
+  (others.length?'<h3>كلمات سر الباقيين</h3><p class="muted small">المدير اللي ليه صلاحيات إدارة: '+PW_MGR+' على الأقل. الموظف: '+PW_STAFF+' على الأقل. اللي تسيبه فاضي مش هيقدر يدخل لحد ما تحطله كلمة سر من الإعدادات.</p>'+
+    others.map(p=>'<label>'+esc(p.name)+' <span class="small">('+(isMgr(p)?"صلاحيات إدارة":"موظف")+')</span><input type="text" id="m_pw_'+esc(p.id)+'" autocomplete="off" placeholder="اكتب كلمة سر يبلّغها لها"></label>').join(""):"")+
+  '<p class="err" id="m_err"></p><p class="hint" id="m_prog" hidden></p><button class="primary" type="submit" id="m_btn">فعّل الحماية</button></form></div></main>';
+}
+
+/* ---------- security settings ---------- */
+function refreshSec(){
+  const is=issues();const n=sealCols().reduce((s,c)=>s+validIds(c).length,0)+(S.cfg?1:0);
+  setKeep("secSet",'<div class="sec-grid"><div><p style="margin:0">'+(is.any?'<span class="pill k-expense">فيه تنبيه</span>':'<span class="pill k-income">سليم</span>')+' التشفير شغال (AES-256). '+n+' سجل متشفّر ومتأمّن ضد التعديل.</p>'+
+    '<ul class="small muted" style="margin:8px 0 0;padding-inline-start:18px"><li>البيانات بتتشفّر على الجهاز قبل ما تتحفظ، فاللي يوصل للسيرفر أو الرابط من غير كلمة سر مش هيشوف غير كلام متلخبط.</li><li>أي تعديل على سجل من بره السيستم بيتكشف، وأي سجل يتمسح بيظهر تنبيه هنا.</li><li>الدفتر بيتقفل لوحده بعد '+LOCK_MIN+' دقيقة من غير استخدام.</li><li>الموظف بيشوف عهدته ومرتبه وحضوره بس، لأن مفتاحه ما بيفتحش غير الصندوق بتاعه.</li></ul></div>'+
+    '<div class="actions" style="align-items:flex-start;flex-direction:column"><button class="primary" data-act="backup"'+(S.downloads?"":" disabled")+'>تنزيل نسخة احتياطية</button><label class="btn" style="display:inline-block;cursor:pointer">استرجاع من نسخة<input type="file" id="restoreFile" accept=".json,application/json" hidden></label><span class="small muted">النسخة متشفّرة هي كمان. خزّنها على جهازك أو فلاشة مرة في الأسبوع.</span></div></div>');
+}
+function refreshBanner(){
+  const is=issues();let h="";
+  if(is.any){const parts=[];if(is.miss)parts.push(is.miss+" سجل اتمسح من بره السيستم");if(is.bad)parts.push(is.bad+" سجل اتعدّل أو اتضاف من بره السيستم وتم تجاهله");if(is.sealBad)parts.push("ملف التحقق اتلاعب فيه");if(is.sealGone)parts.push("ملف التحقق اتمسح");
+    h='<div class="alert"><b>تنبيه أمان:</b> '+parts.join(" · ")+'. '+(can("settings")?'استرجع من آخر نسخة احتياطية من الإعدادات، وبعدها دوس "شيل التنبيه". <span class="actions" style="margin-top:6px"><button class="btn" data-act="view" data-v="settings">الإعدادات</button><button class="btn" data-act="ackIssues">شيل التنبيه</button></span>':"بلّغ المدير المالي.")+"</div>"}
+  setHTML("secBanner",h);
+}
+async function doBackup(){
+  if(!S.downloads)return;
+  const docs={people:{},config:{},meta:{}};S.rawPeople.forEach(p=>{const o=Object.assign({},p);delete o.id;docs.people[p.id]=o});
+  COLLS.forEach(c=>docs[c]=Object.assign({},S.rawDocs[c]||{}));docs.config=Object.assign({},S.rawDocs.config||{});docs.meta=Object.assign({},S.rawDocs.meta||{});
+  const data=JSON.stringify({app:"khazna",v:2,at:new Date().toISOString(),docs});
+  try{await S.downloads.save({filename:"sawa-backup-"+today()+".json",data});toast("النسخة اتنزلت")}catch(e){if(!e||e.code!=="declined")toast("التنزيل ما تمّش")}
+}
+async function doRestore(file){
+  let j;try{j=JSON.parse(await file.text())}catch(e){return toast("الملف ده مش نسخة احتياطية صحيحة")}
+  if(!j||j.app!=="khazna"||!j.docs)return toast("الملف ده مش نسخة احتياطية من الدفتر");
+  let n=0;
+  try{
+    for(const [c,map] of Object.entries(j.docs)){if(!["people","config"].concat(COLLS).includes(c))continue;
+      const present=c==="config"?new Set(Object.keys(S.rawDocs.config||{})):S.rawIds[c]||new Set();const bad=new Set(S.bad[c]||[]);
+      for(const [id,raw] of Object.entries(map)){if(present.has(id)&&!bad.has(id))continue;
+        if(c==="people"){if(!raw.sec)continue;try{await decJ(S.K,raw.sec,"people/"+id)}catch(e){continue}}
+        else{try{await decJ(S.K,raw.e,c+"/"+id)}catch(e){continue}}
+        await S.db.collection(c).doc(id).set(raw);n++}}
+    toast(n?"اترجع "+n+" سجل":"مفيش حاجة ناقصة تترجع من النسخة دي");
+  }catch(e){dbErr(e)}
+}
+
+/* ---------- people management ---------- */
+function loginNeed(np){if(np.role==="payroll")return "none";return isMgr(np)?"mgr":hasMine(np)?"staff":"none"}
+async function savePersonSec(id){
+  const p=person(id);if(!p)return;const q=s=>app.querySelector(s);const raw=S.rawPeople.find(r=>r.id===id)||{};
+  const name=q('[data-pf="name"][data-id="'+id+'"]').value.trim(),title=q('[data-pf="title"][data-id="'+id+'"]').value.trim(),pin=q('[data-pin="'+id+'"]').value;
+  const salary=parseFloat(q('[data-pf="salary"][data-id="'+id+'"]').value)||0;
+  const roleSel=q('[data-pf="role"][data-id="'+id+'"]');const role=roleSel&&!roleSel.disabled?roleSel.value:(p.role||"staff");
+  const perms=[...app.querySelectorAll('[data-perm][data-id="'+id+'"]')].filter(x=>x.checked).map(x=>x.dataset.perm);
+  if(!name)return toast("الاسم مطلوب");
+  const np=Object.assign({},p,{name,title,salary,role,perms:role==="payroll"?[]:[...new Set(perms)]});
+  const need=loginNeed(np);const ue=q('[data-pf="user"][data-id="'+id+'"]');const un=normUser(ue?ue.value:raw.user);
+  if(id===S.me&&(need!=="mgr"||!can("settings",np)))return toast("مينفعش تشيل صلاحية الإعدادات من حسابك");
+  const opt={};
+  if(need!=="none"){if(!validUser(un))return toast("اسم المستخدم من 3 لـ 30 حرف إنجليزي أو رقم (مسموح . _ -)");if(userTaken(un,id))return toast("اسم المستخدم ده مستخدم لحد تاني");}
+  opt.user=un||"";
+  if(pin){const min=need==="mgr"?PW_MGR:PW_STAFF;if(need==="none")return toast("الحساب ده ملوش دخول، مش محتاج كلمة سر");if(pin.length<min)return toast("كلمة السر "+min+" حروف أو أرقام على الأقل");
+    if(need==="mgr"){opt.wK=await wrapKey(S.kB64,pin);opt.wS=null}else{opt.wS=await wrapKey(np.ks,pin);opt.wK=null}}
+  else{
+    if(need==="mgr"&&!raw.wK)return toast("عشان يبقى ليه صلاحيات إدارة اكتبله كلمة سر جديدة ("+PW_MGR+" على الأقل)");
+    if(need==="staff"&&raw.wK){opt.wK=null;if(!raw.wS)return toast("اكتبله كلمة سر جديدة كموظف ("+PW_STAFF+" على الأقل)")}
+    if(need==="none"){opt.wK=null;opt.wS=null}
+  }
+  if(!np.ks)np.ks=genKeyB64();
+  if(HOSTED){
+    if(pin&&id===S.me)return toast("غيّر كلمة السر بتاعتك من زرار المفتاح اللي فوق");
+    const su=srvUser(id);if(su&&su.has_auth&&need!=="none"&&un!==su.username&&!pin)return toast("لما تغيّر اسم المستخدم لازم تكتب كلمة سر جديدة معاه");
+    if(need!=="none"&&!pin&&(!su||!su.has_auth)&&!raw.wK&&!raw.wS)return toast("اكتبله كلمة سر عشان يقدر يدخل");
+    try{await userSet(id,un||(su&&su.username)||"",need,np.active!==false,pin)}catch(e){return toast(e.message)}
+  }
+  try{await putPerson(id,np,opt);toast(pin?"اتحفظ وكلمة السر اتغيّرت":"اتحفظ");if(HOSTED)loadSrvUsers()}catch(e){dbErr(e)}
+}
+async function toggleActiveSec(id){
+  const p=person(id);if(!p)return;const np=Object.assign({},p,{active:p.active===false});
+  if(HOSTED){const su=srvUser(id);if(su){try{await userSet(id,su.username,loginNeed(np),np.active!==false)}catch(e){return toast(e.message)}}}
+  try{if(np.active===false)await putPerson(id,np,{wK:null,wS:null});else{await putPerson(id,np);toast("اتفعّل. اكتبله كلمة سر جديدة واحفظ عشان يقدر يدخل")}}catch(e){dbErr(e)}
+}
+async function addPersonSec(f){
+  const g=x=>document.getElementById(x).value.trim();const pin=document.getElementById("ap_pin").value;const role=document.getElementById("ap_role").value;
+  const np={name:g("ap_name"),title:g("ap_title"),role,active:true,order:S.people.length+1,salary:parseFloat(g("ap_salary"))||0,perms:role==="staff"?["self_exp","self_att"]:[],ks:genKeyB64()};
+  const need=loginNeed(np),opt={};const un=normUser(document.getElementById("ap_user").value);
+  if(need!=="none"){if(!validUser(un))return toast("اسم المستخدم من 3 لـ 30 حرف إنجليزي أو رقم (مسموح . _ -)");if(userTaken(un))return toast("اسم المستخدم ده مستخدم لحد تاني");opt.user=un;const min=need==="mgr"?PW_MGR:PW_STAFF;if(pin.length<min)return toast("كلمة السر "+min+" حروف أو أرقام على الأقل");if(need==="mgr")opt.wK=await wrapKey(S.kB64,pin);else opt.wS=await wrapKey(np.ks,pin)}
+  const nid=rid("p_");
+  if(HOSTED&&need!=="none"){try{await userSet(nid,un,need,true,pin)}catch(e){return toast(e.message)}}
+  try{await putPerson(nid,np,opt);f.reset();toast("اتضاف");if(HOSTED)loadSrvUsers()}catch(e){dbErr(e)}
+}
+
+/* ---------- auth actions ---------- */
+async function doLogin(){
+  if(HOSTED)return hostedLogin();
+  const pw=document.getElementById("l_pin").value,err=document.getElementById("l_err"),btn=document.getElementById("l_btn");
+  if(S.blockUntil&&Date.now()<S.blockUntil){err.textContent="محاولات كتير غلط. استنى "+Math.ceil((S.blockUntil-Date.now())/1000)+" ثانية وجرّب تاني.";return}
+  let r,pid;
+  if(S.mode==="legacy"){pid=S.loginPid;r=S.rawPeople.find(p=>p.id===pid)}
+  else{const u=normUser(document.getElementById("l_user").value);r=S.rawPeople.find(p=>normUser(p.user)===u&&(p.wK||p.wS))||S.rawPeople.find(p=>!p.user&&normUser(p.name)===u&&(p.wK||p.wS));pid=r&&r.id;
+    if(!r){S.fails=(S.fails||0)+1;if(S.fails>=5){S.blockUntil=Date.now()+30000;S.fails=0}err.textContent="اسم المستخدم أو كلمة السر غلط.";return}}
+  if(!r)return;btn.disabled=true;err.textContent="";
+  try{
+    if(S.mode==="legacy"){if(await hashPin(pid,pw)===r.pinHash){S.me=pid;S.lockMsg="";go();return}throw 0}
+    try{if(S.mode!=="legacy")localStorage.setItem("khz_user",normUser(document.getElementById("l_user").value))}catch(e){}
+    if(r.wK){const kb=await unwrapKey(r.wK,pw);S.kB64=kb;S.K=await impKey(kb);S.me=pid;S.lockMsg="";S.loginPid=null;S.sealExpected=true;await decPeople();startManager();go();return}
+    if(r.wS){const kb=await unwrapKey(r.wS,pw);S.myKsB64=kb;S.myKs=await impKey(kb);S.me=pid;S.meInfo={name:r.name,title:r.title};S.lockMsg="";S.loginPid=null;startStaff();go();return}
+    throw 0;
+  }catch(e){S.fails=(S.fails||0)+1;if(S.fails>=5){S.blockUntil=Date.now()+30000;S.fails=0}err.textContent="اسم المستخدم أو كلمة السر غلط.";const i=document.getElementById("l_pin");i&&i.select()}
+  finally{const b=document.getElementById("l_btn");if(b)b.disabled=false}
+}
+async function hashPin(pid,pin){const b=TE.encode("khazna:"+pid+":"+pin);const h=await crypto.subtle.digest("SHA-256",b);return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,"0")).join("")}
+async function doSetup(){
+  const name=document.getElementById("s_name").value.trim(),pw=document.getElementById("s_pin").value,pw2=document.getElementById("s_pin2").value,err=document.getElementById("s_err");
+  if(pw.length<PW_MGR)return err.textContent="كلمة السر "+PW_MGR+" حروف أو أرقام على الأقل.";if(pw!==pw2)return err.textContent="التأكيد مش زي كلمة السر.";
+  const un=normUser(document.getElementById("s_user").value);if(!validUser(un))return err.textContent="اسم المستخدم من 3 لـ 30 حرف إنجليزي أو رقم (مسموح . _ -).";
+  const kb=genKeyB64();S.kB64=kb;S.K=await impKey(kb);const id="p_admin";
+  if(HOSTED){try{const j=await S.db.call({a:"setup",pid:id,user:un,auth:await authKey(un,pw)});await S.db.start(j.token);S.myUser=un;S.mode="secure";S.peopleUnsub=subPeople()}catch(e){return err.textContent=e.message}}
+  try{await putPerson(id,{name,title:"المدير المالي",order:0,role:"admin",perms:[],salary:0,active:true,ks:genKeyB64()},{wK:await wrapKey(kb,pw),user:un});
+    S.me=id;S.sealExpected=false;startManager();S.view="settings";go()}catch(e){dbErr(e)}
+}
+async function doMigrate(){
+  const pw=document.getElementById("m_pw").value,pw2=document.getElementById("m_pw2").value,err=document.getElementById("m_err"),prog=document.getElementById("m_prog"),btn=document.getElementById("m_btn");
+  if(pw.length<PW_MGR)return err.textContent="كلمة السر بتاعتك "+PW_MGR+" حروف أو أرقام على الأقل.";if(pw!==pw2)return err.textContent="التأكيد مش زي كلمة السر.";
+  const others=S.rawPeople.filter(p=>p.id!==S.me&&p.role!=="payroll");const pws={};
+  for(const p of others){const v=document.getElementById("m_pw_"+p.id).value;if(!v)continue;const min=isMgr(p)?PW_MGR:PW_STAFF;if(v.length<min)return err.textContent="كلمة سر "+p.name+" لازم "+min+" على الأقل.";pws[p.id]=v}
+  err.textContent="";btn.disabled=true;prog.hidden=false;const say=t=>prog.textContent=t;
+  try{
+    const kb=genKeyB64();S.kB64=kb;S.K=await impKey(kb);const ids={people:[]};
+    for(const c of COLLS){say("بيشفّر "+c+"…");const snap=await S.db.collection(c).get();ids[c]=[];
+      for(const d of snap.docs){const r=d.data();if(r&&typeof r.e==="string")continue;await putEnc(c,d.id,r);ids[c].push(d.id)}}
+    say("بيشفّر الإعدادات…");const cd=await S.db.doc("config/main").get();if(cd.exists&&typeof cd.data().e!=="string")await putEnc("config","main",cd.data());
+    say("بيجهّز الحسابات وكلمات السر…");
+    for(const r of S.rawPeople){
+      const pl={name:r.name,title:r.title,order:r.order,role:r.role||"staff",perms:r.perms,salary:r.salary,active:r.active!==false,ks:genKeyB64()};
+      if(!Array.isArray(pl.perms))pl.perms=pl.role==="admin"||pl.role==="payroll"?[]:["self_exp","self_att"];
+      const opt={};const v=r.id===S.me?pw:pws[r.id];
+      if(v&&pl.active){if(r.id===S.me||isMgr(pl))opt.wK=await wrapKey(kb,v);else opt.wS=await wrapKey(pl.ks,v)}
+      await putPerson(r.id,pl,opt);ids.people.push(r.id);
+    }
+    await S.db.doc("meta/seal").set({e:await encJ(S.K,{ids,missing:{},at:new Date().toISOString()},"meta/seal")});
+    S.sealExpected=true;say("خلصت ✓");startManager();S.view="settings";go();toast("الحماية اتفعّلت");
+  }catch(e){btn.disabled=false;err.textContent="حصلت مشكلة: "+(e&&e.message||e)+". جرّب تاني، البيانات القديمة لسه موجودة."}
+}
+async function doPwChange(){
+  const cur=document.getElementById("pw_cur").value,nw=document.getElementById("pw_new").value,nw2=document.getElementById("pw_new2").value,err=document.getElementById("pw_err");
+  const r=S.rawPeople.find(p=>p.id===S.me);if(!r)return;const mgr=!S.staffMode,w=mgr?r.wK:r.wS,min=mgr?PW_MGR:PW_STAFF;
+  if(nw.length<min)return err.textContent="كلمة السر الجديدة "+min+" حروف أو أرقام على الأقل.";if(nw!==nw2)return err.textContent="التأكيد مش زي كلمة السر الجديدة.";
+  try{await unwrapKey(w,cur)}catch(e){return err.textContent="كلمة السر الحالية غلط."}
+  try{const nwrap=await wrapKey(mgr?S.kB64:S.myKsB64,nw);
+    if(HOSTED){const un=S.myUser||normUser(r.user);await S.db.call({a:"passwd",old:await authKey(un,cur),new:await authKey(un,nw),wrap:nwrap})}
+    else await S.db.collection("people").doc(S.me).update(mgr?{wK:nwrap}:{wS:nwrap});
+    document.getElementById("pwForm").reset();document.getElementById("pwBox").hidden=true;toast("كلمة السر اتغيّرت")}catch(e){dbErr(e)}
+}
+function secClick(a,id,b){
+  if(a==="theme"){const n={auto:"light",light:"dark",dark:"auto"}[themePref()];try{localStorage.setItem("khz_theme",n)}catch(e){}applyTheme();S.screen="";onData();toast({auto:"المظهر تلقائي: نهاري الصبح وليلي بالليل",light:"المظهر النهاري",dark:"المظهر الليلي"}[n]);return true}
+  if(a==="viewNid"){showNid(id);return true}
+  if(a==="lbClose"){b.remove();return true}
+  if(a==="checkIn")setTimeout(confetti,250);
+  if(a==="logout"){lock("");return true}
+  if(a==="pick"){S.loginPid=id;renderLogin();return true}
+  if(a==="pwShow"){const i=document.getElementById("l_pin");if(i)i.type=i.type==="password"?"text":"password";return true}
+  if(a==="pwOpen"){const x=document.getElementById("pwBox");x.hidden=!x.hidden;if(!x.hidden)document.getElementById("pw_cur").focus();return true}
+  if(a==="pwClose"){document.getElementById("pwBox").hidden=true;return true}
+  if(a==="backup"){doBackup();return true}
+  if(a==="ackIssues"){ackIssues();return true}
+  if(a==="savePerson"){savePersonSec(id);return true}
+  if(a==="toggleActive"){toggleActiveSec(id);return true}
+  if(a==="delItem"){S.db.collection("bx_"+S.me).doc(id).delete().then(()=>toast("اتلغى")).catch(dbErr);return true}
+  return false;
+}
+function secSubmit(f){
+  if(f.id==="loginForm"){doLogin();return true}
+  if(f.id==="setupForm"){doSetup();return true}
+  if(f.id==="importForm"){doImport();return true}
+  if(f.id==="migrateForm"){doMigrate();return true}
+  if(f.id==="pwForm"){doPwChange();return true}
+  if(f.id==="profForm"){saveProfile(f);return true}
+  if(f.id==="addPerson"){addPersonSec(f);return true}
+  return false;
+}
+
+function allowedTabs(){
+  const all=[["summary","الملخص"],["add","تسجيل حركة"],["ledger","دفتر الحركات"],["custody","العهد والموظفين"],["payroll","المرتبات والسلف"],["attendance","الحضور والانصراف"],["employees","ملفات الموظفين والتقييم"],["settings","الإعدادات"]];
+  const t=all.filter(x=>can(TABPERM[x[0]]));if(hasMine())t.push(["mine","حسابي"]);return t;
+}
+function renderAdmin(){
+  const tabs=allowedTabs();
+  let body="";
+  if(S.view==="mine")body=staffBody();
+  if(S.view==="summary")body=
+    '<div id="heroBox"></div><section class="panel"><div class="panel-h"><h2 class="h-ic">'+ic("clock")+' حضور النهارده</h2>'+(can("attendance")?'<button class="link" data-act="view" data-v="attendance">التفاصيل</button>':"")+'</div><div id="bdays"></div><div id="todayBoard"></div></section>'+
+    '<div class="panel-h"><h2>الملخص</h2><label style="min-width:180px">الفترة<select id="period"></select></label></div>'+
+    '<div class="kpis" id="kpis"></div>'+
+    '<div class="grid2"><section class="panel"><div class="panel-h"><h3>المصروفات حسب البند</h3><span class="muted small" id="bycatLbl"></span></div><div id="bycat"></div></section>'+
+    '<section class="panel"><div class="panel-h"><h3>العهد مع الموظفين</h3><button class="link" data-act="view" data-v="custody">التفاصيل</button></div><div id="custMini"></div></section></div>'+
+    '<section class="panel"><div class="panel-h"><h3>آخر الحركات</h3><button class="link" data-act="view" data-v="ledger">الدفتر كامل</button></div><div class="tbl" id="recent"></div></section>';
+  if(S.view==="add")body=txFormHTML(true);
+  if(S.view==="ledger")body=
+    '<section class="panel"><div class="panel-h"><h2>دفتر الحركات</h2><button class="btn" data-act="csv" id="csvBtn" hidden>تنزيل Excel (CSV)</button></div>'+
+    '<div class="filters"><label>الشهر<select id="lf_month"></select></label><label>النوع<select id="lf_kind"></select></label><label>الشخص<select id="lf_pid"></select></label><label>البند<select id="lf_cat"></select></label><label>بحث<input id="lf_q" placeholder="ملاحظة، مصدر…"></label></div>'+
+    '<div id="lfTotals" class="kpis" style="margin-bottom:12px"></div><div class="tbl" id="ledger"></div></section>';
+  if(S.view==="custody")body=
+    '<div class="panel-h"><h2>العهد والموظفين</h2><button class="btn" data-act="quick" data-k="custody">+ تسليم عهدة</button></div>'+
+    '<p class="muted small" style="margin:0">اضغط على أي موظف تشوف كشف حسابه: استلم كام، صرف في إيه، ومعاه كام دلوقتي.</p>'+
+    '<div class="people" id="pcards"></div><section class="panel" id="stmtPanel" hidden><div class="panel-h"><h3 id="stmtTitle"></h3><button class="btn" data-act="quick" data-k="return">+ رد عهدة</button></div><div class="tbl" id="stmt"></div></section>';
+  if(S.view==="payroll")body=
+    '<div class="panel-h"><h2>المرتبات والسلف</h2><label style="min-width:180px">الشهر<input type="month" id="payMonth"></label></div>'+
+    '<p class="muted small" style="margin:0">المرتب + الحوافز والمكافآت − الخصومات والجزاءات = صافي المرتب. وبعدين صافي المرتب − السلف − اللي اتصرف = الباقي للموظف. المرتب الأساسي بيتحدد من الإعدادات.</p>'+
+    '<div class="kpis" id="payKpis"></div><section class="panel"><div class="tbl" id="payTable"></div></section>'+
+    '<section class="panel" id="adjPanel"><div class="panel-h"><h3>حافز / مكافأة / خصم / جزاء</h3></div>'+
+    '<form id="adjForm" class="form"><div class="row"><label>الموظف<select id="j_emp"></select></label><label>النوع<select id="j_type">'+Object.entries(ADJ).map(e=>'<option value="'+e[0]+'">'+e[1].l+(e[1].sign>0?" (بيزوّد المرتب)":" (بيقلّل المرتب)")+"</option>").join("")+'</select></label></div>'+
+    '<div class="row"><label>المبلغ (ج.م)<input id="j_amount" type="number" min="0.01" step="0.01" inputmode="decimal" required></label><label>التاريخ<input id="j_date" type="date" required></label></div>'+
+    '<label>السبب / التفاصيل<input id="j_reason" required placeholder="مثال: تأخير 3 أيام / تارجت مبيعات الشهر / غياب بدون إذن"></label>'+
+    '<p class="hint">بيتحسب على مرتب الشهر اللي فوق (<span id="j_monthLbl"></span>). مش بيطلّع ولا بيدخّل فلوس من الخزنة، بيغيّر مستحق الموظف بس.</p>'+
+    '<div class="actions"><button class="primary" type="submit">إضافة</button></div></form></section>';
+  if(S.view==="attendance"||S.view==="employees")body=hrBody(S.view);
+  if(S.view==="settings")body=
+    '<section class="panel"><h2>الحماية والنسخ الاحتياطي</h2><div id="secSet" style="margin-top:10px"></div></section>'+
+    '<section class="panel"><h2>مواعيد العمل وحسبة الحضور</h2><p class="muted small">بتتحسب على أساسها التأخير والانصراف المبكر والإضافي والغياب.</p><div id="workSet"></div></section>'+
+    '<section class="panel"><h2>الأشخاص والأرقام السرية</h2><p class="muted small">كل شخص بيدخل باسمه وكلمة السر بتاعته. صلاحيات الإدارة محتاجة كلمة سر 8 حروف على الأقل، والموظف 6.</p><div id="plistSet"></div>'+
+    '<form id="addPerson" class="row" style="margin-top:14px;align-items:end"><label>الاسم<input id="ap_name" required></label><label>اسم المستخدم<input id="ap_user" dir="ltr" autocapitalize="none" placeholder="مثال: ahmed.ali"></label><label>الوظيفة<input id="ap_title" placeholder="مثال: محاسب"></label><label>الدور<select id="ap_role"><option value="staff">موظف (عهدة)</option><option value="payroll">موظف مرتب فقط (بدون دخول)</option><option value="admin">مدير مالي</option></select></label><label>المرتب الشهري<input id="ap_salary" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0"></label><label>كلمة السر<input id="ap_pin" type="password" autocomplete="new-password" placeholder="مش مطلوبة لموظف المرتب فقط"></label><button class="primary" type="submit">إضافة</button></form></section>'+
+    '<div class="grid2"><section class="panel"><h3>بنود الوارد</h3><div id="catIn" class="chips" style="margin-top:10px"></div><form class="inline" data-catform="incomeCats"><input placeholder="بند جديد" required><button class="btn" type="submit">إضافة</button></form></section>'+
+    '<section class="panel"><h3>بنود المصروفات</h3><div id="catOut" class="chips" style="margin-top:10px"></div><form class="inline" data-catform="expenseCats"><input placeholder="بند جديد" required><button class="btn" type="submit">إضافة</button></form></section></div>';
+  app.innerHTML=header(tabs)+'<main class="wrap"><div id="secBanner"></div>'+body+"</main>";
+  if(S.view==="add"||S.view==="mine")initTxForm();
+  refresh();
+}
+
+function txFormHTML(admin){
+  const seg=admin?'<div class="seg" role="group" aria-label="نوع الحركة">'+["income","custody","expense","return"].map(k=>'<button type="button" data-act="kind" data-k="'+k+'" aria-pressed="'+(S.kind===k)+'">'+KIND[k]+"</button>").join("")+"</div>":"";
+  return '<section class="panel"><div class="panel-h"><h2>'+(admin?"تسجيل حركة":"سجّل مصروف")+'</h2></div>'+seg+
+  '<form id="txForm" class="form"><div class="editing" id="editBanner" hidden></div>'+
+  '<div class="row"><label>التاريخ<input type="date" id="f_date" required></label><label>المبلغ (ج.م)<input id="f_amount" type="number" min="0.01" step="0.01" inputmode="decimal" required></label></div>'+
+  '<label data-for="income expense">البند<select id="f_cat"></select></label>'+
+  '<div class="row" id="salFields" hidden><label>الموظف صاحب المرتب<select id="f_emp"></select></label><label>تتخصم من مرتب شهر<input type="month" id="f_month"></label></div>'+
+  '<p class="hint" id="salHint" hidden></p>'+
+  (admin?'<label data-for="income">جاية منين / من مين<input id="f_source" placeholder="مثال: الأستاذ … (المالك) / عميل شقة …"></label>':"")+
+  (admin?'<label data-for="custody return expense"><span id="f_personLbl">الموظف</span><select id="f_person"></select></label>':"")+
+  '<label>البيان / ملاحظات<input id="f_note" placeholder="'+(admin?"تفاصيل الحركة":"مثال: كرتونة مية + شاي وسكر")+'"></label>'+
+  '<p class="hint" id="f_hint"></p><div class="actions"><button class="primary" type="submit" id="f_submit">حفظ</button><button class="btn" type="button" data-act="cancelEdit" id="f_cancel" hidden>إلغاء التعديل</button></div></form></section>';
+}
+function initTxForm(){
+  const f=id=>document.getElementById(id);
+  if(!f("f_date"))return;
+  f("f_date").value=today();
+  applyKind();
+  if(S.editing){const t=S.tx.find(x=>x.id===S.editing);if(t){
+    f("f_date").value=t.date||today();f("f_amount").value=t.amount;f("f_note").value=t.note||"";
+    if(f("f_source"))f("f_source").value=t.source||"";
+    applyKind();if(f("f_cat"))f("f_cat").value=t.category||"";if(f("f_person"))f("f_person").value=t.personId||"";
+    if(t.salMonth)f("f_month").value=t.salMonth;salUpdate();if(t.empId)f("f_emp").value=t.empId;salUpdate();
+    f("editBanner").hidden=false;f("editBanner").textContent="بتعدّل حركة "+KIND[t.kind]+" بتاريخ "+t.date;f("f_submit").textContent="حفظ التعديل";f("f_cancel").hidden=false;
+  }else S.editing=null}
+}
+function applyKind(){
+  const admin=fullForm();const k=admin?S.kind:"expense";
+  document.querySelectorAll("#txForm [data-for]").forEach(el=>el.hidden=!el.dataset.for.split(" ").includes(k));
+  const cats=k==="income"?incCats():expCats();
+  const t=S.editing&&S.tx.find(x=>x.id===S.editing);
+  const list=cats.slice();if(t&&t.category&&!list.includes(t.category))list.push(t.category);
+  fillSelect("f_cat",list.map(c=>[c,c]));
+  if(admin){
+    const ppl=staff().map(p=>[p.id,p.name+(p.title?" — "+p.title:"")]);
+    if(t&&t.personId&&!ppl.some(o=>o[0]===t.personId))ppl.push([t.personId,pname(t.personId)]);
+    fillSelect("f_person",k==="expense"?[["","من الخزنة مباشرة"]].concat(ppl.map(o=>[o[0],"من عهدة "+o[1]])):ppl);
+    const lbl=document.getElementById("f_personLbl");if(lbl)lbl.textContent=k==="expense"?"اتدفع منين":k==="custody"?"تسليم لمين":"مين اللي رجّع";
+  }
+  const hints={income:"فلوس داخلة الخزنة: بيع سيارة، تمويل من المالك، تحويل، عمولة… بتزوّد رصيد الخزنة.",
+    custody:"فلوس طالعة من الخزنة لموظف عشان يصرف منها. بتقل من الخزنة وتتسجل على الموظف كعهدة لحد ما يسجّل مصروفاته.",
+    expense:admin?"مصروف دفعته من الخزنة مباشرة (زي تلاجة للمكتب أو إيجار)، أو مصروف على عهدة موظف.":"المصروف هيتخصم من العهدة اللي معاك.",
+    return:"الموظف رجّع جزء من العهدة اللي ما اتصرفش. بيرجع للخزنة."};
+  const h=document.getElementById("f_hint");if(h)h.textContent=hints[k];
+  document.querySelectorAll('[data-act="kind"]').forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.k===S.kind)));
+  salUpdate();
+}
+function salUpdate(){
+  const box=document.getElementById("salFields");if(!box)return;
+  const admin=fullForm();const k=admin?S.kind:"expense";const cat=(document.getElementById("f_cat")||{}).value;
+  const on=k==="expense"&&isSal(cat);box.hidden=!on;
+  const h=document.getElementById("salHint");
+  const t=S.editing&&S.tx.find(x=>x.id===S.editing);
+  const emps=salaried().map(p=>[p.id,p.name+(p.salary?" — مرتب "+fmt(p.salary):"")]);
+  if(t&&t.empId&&!emps.some(o=>o[0]===t.empId))emps.push([t.empId,pname(t.empId)]);
+  fillSelect("f_emp",emps.length?emps:[["","حدد المرتبات من الإعدادات الأول"]]);
+  const fm=document.getElementById("f_month");if(fm&&!fm.value)fm.value=S.payMonth||curMonth();
+  if(!on||S.staffMode){h.hidden=true;return}
+  const eid=document.getElementById("f_emp").value;if(!eid||!fm.value){h.hidden=true;return}
+  const r=payroll(eid,fm.value);
+  if(t&&t.empId===eid&&t.salMonth===fm.value){if(t.category===SAL_ADV)r.adv-=+t.amount||0;else r.paid-=+t.amount||0;r.rem=r.net-r.adv-r.paid}
+  h.hidden=false;
+  h.innerHTML="صافي مرتب "+esc(pname(eid))+" عن "+esc(monthLabel(fm.value))+": "+money(r.net)+(r.bon||r.ded?' <span class="muted">(أساسي '+fmt(r.salary)+(r.bon?" + "+fmt(r.bon):"")+(r.ded?" − "+fmt(r.ded):"")+")</span>":"")+" · سلف اتاخدت: "+money(r.adv)+" · اتصرف من المرتب: "+money(r.paid)+" · <b>الباقي له: "+money(r.rem)+"</b>"+(r.rem<0?" (واخد أكتر من مرتبه)":"");
+}
+
+function profPanel(){return '<details class="panel" id="profPanel"><summary class="h-ic">'+ic("idcard")+' بياناتي الشخصية<span class="muted small" id="profHint"></span></summary><div id="profBox" style="margin-top:12px"></div></details>'}
+function staffBody(){
+  return '<div id="heroBox"></div>'+profPanel()+(can("self_att")?'<section class="panel" id="myAtt"></section>':"")+'<div class="kpis" id="skpis"></div><div id="myAdj"></div>'+
+  (can("self_exp")?'<div class="grid2" style="align-items:start">'+txFormHTML(false)+'<section class="panel"><div class="panel-h"><h2>كشف حسابي</h2></div><div class="tbl" id="stmt"></div></section></div>':"");
+}
+function renderStaff(){
+  app.innerHTML=header()+'<main class="wrap">'+staffBody()+(hasMine()?"":'<div class="empty panel">مفيش صلاحيات متاحة لحسابك. كلّم المدير المالي.</div>')+"</main>";
+  initTxForm();refresh();
+}
+
+/* ---------- data regions ---------- */
+function kpi(label,val,note,cls,icn){return '<div class="kpi '+(cls||"")+'"><span class="kpi-l">'+(icn?'<i class="kpi-ic">'+ic(icn)+"</i>":"")+label+"</span><b>"+fmt(val)+' <small>ج.م</small></b>'+(note?"<small>"+note+"</small>":"")+"</div>"}
+function txRow(t,opts){
+  const eff=effect(t);const who=t.personId?pname(t.personId):(t.kind==="expense"?"الخزنة":"");
+  const desc=esc(t.category||KIND[t.kind])+salSub(t)+(t.source?'<span class="sub">من: '+esc(t.source)+"</span>":"")+(t.note?'<span class="sub">'+esc(t.note)+"</span>":"");
+  return "<tr><td>"+fdate(t.date)+'</td><td><span class="pill k-'+t.kind+'">'+KIND[t.kind]+"</span></td><td>"+desc+"</td><td>"+esc(who)+'</td><td class="n">'+money(t.amount)+'</td><td class="n '+(eff>0?"pos":eff<0?"neg":"muted")+'">'+(eff?money(eff,true):"—")+"</td>"+(opts&&opts.actions?"<td>"+actions(t)+"</td>":"")+"</tr>";
+}
+function salSub(t){return t.empId?'<span class="sub">لـ '+esc(pname(t.empId))+" · مرتب "+esc(monthLabel(t.salMonth))+"</span>":""}
+function actions(t){
+  const admin=can("edit_tx");const own=t.createdBy===S.me&&t.kind==="expense";
+  let h="";if(admin)h+='<button class="link" data-act="edit" data-id="'+esc(t.id)+'">تعديل</button>';
+  if(admin||own)h+=S.pendingDel===t.id?'<button class="link confirm" data-act="del" data-id="'+esc(t.id)+'">تأكيد الحذف</button>':'<button class="link danger" data-act="del" data-id="'+esc(t.id)+'">حذف</button>';
+  return '<span style="white-space:nowrap">'+h+"</span>";
+}
+function ledgerTable(list,actionsCol){
+  if(!list.length)return '<div class="empty">لسه مفيش حركات هنا. ابدأ من "تسجيل حركة".</div>';
+  return '<table><thead><tr><th>التاريخ</th><th>النوع</th><th>البند / البيان</th><th>الشخص</th><th>المبلغ</th><th>أثر على الخزنة</th>'+(actionsCol?"<th></th>":"")+"</tr></thead><tbody>"+list.map(t=>txRow(t,{actions:actionsCol})).join("")+"</tbody></table>";
+}
+function statementHTML(pid,withActions){
+  const rows=sortTx(S.tx.filter(t=>t.personId===pid&&["custody","expense","return"].includes(t.kind)),true);
+  if(!rows.length)return '<div class="empty">مفيش حركات على الحساب ده لسه.</div>';
+  let bal=0;const out=rows.map(t=>{const a=+t.amount||0;const inn=t.kind==="custody"?a:0;const o=inn?0:a;bal+=inn-o;
+    const desc=(t.kind==="expense"?esc(t.category||"مصروف")+salSub(t):'<span class="pill k-'+t.kind+'">'+KIND[t.kind]+"</span>")+(t.note?'<span class="sub">'+esc(t.note)+"</span>":"")+(t.createdBy&&t.createdBy!==pid&&t.kind==="expense"?'<span class="sub">سجّلها: '+esc(pname(t.createdBy))+"</span>":"");
+    return "<tr><td>"+fdate(t.date)+"</td><td>"+desc+'</td><td class="n pos">'+(inn?money(inn):"")+'</td><td class="n neg">'+(o?money(o):"")+'</td><td class="n"><b class="'+(bal<0?"neg":"")+'">'+money(bal)+"</b></td>"+(withActions?"<td>"+actions(t)+"</td>":"")+"</tr>"}).reverse();
+  const s=pstats(pid);
+  return '<table><thead><tr><th>التاريخ</th><th>البيان</th><th>استلم</th><th>صرف / رد</th><th>الرصيد</th>'+(withActions?"<th></th>":"")+"</tr></thead><tbody>"+out.join("")+
+    '</tbody><tfoot><tr><td></td><td>الإجمالي</td><td class="n pos">'+money(s.rec)+'</td><td class="n neg">'+money(s.spent+s.ret)+'</td><td class="n">'+money(s.bal)+"</td>"+(withActions?"<td></td>":"")+"</tr></tfoot></table>";
+}
+function balNote(b){return b>0?"معاه ولسه ما اتصرفش":b<0?"صرف من جيبه — الشركة عليها له":"متسوّية"}
+
+function refresh(){
+  applyTheme();
+  if(S.screen==="staff")return refreshStaffV();
+  if(S.screen.startsWith("admin"))refreshBanner();
+  if(S.screen==="admin:mine"){
+    const me=person(S.me)||{};const pr=profOf(S.me);setHTML("heroBox",heroHTML(S.me,me.name,"ده حسابك الشخصي: عهدتك وحضورك."));
+    setKeep("profBox",profFormHTML(S.me,pr,{self:true,hasNid:!!(S.imgsArr||[]).find(x=>x.id===S.me+"_nid"),canSeeNid:true}));profHintSet(pr);
+    const s=pstats(S.me);
+    setHTML("skpis",(can("self_exp")?kpi("المتبقي معايا",s.bal,s.bal<0?"صرفت أكتر من العهدة بالمبلغ ده":"العهدة اللي لسه ما اتصرفتش","main")+kpi("استلمت",s.rec,"إجمالي العهد")+kpi("صرفت",s.spent,"إجمالي المصروفات")+(s.ret?kpi("رجّعت",s.ret,"للخزنة"):""):"")+(function(){const r=payroll(S.me,curMonth());return r.salary?kpi("الباقي من مرتبي",r.rem,"مرتب "+monthLabel(curMonth())+" "+fmt(r.salary)+(r.bon?" + حوافز "+fmt(r.bon):"")+(r.ded?" − خصومات "+fmt(r.ded):"")+" − سلف "+fmt(r.adv)+(r.paid?" − اتصرف "+fmt(r.paid):"")):""})());
+    {const r=payroll(S.me,curMonth());setHTML("myAdj",r.adjList.length?'<section class="panel"><h3>حوافز وخصومات '+esc(monthLabel(curMonth()))+"</h3>"+adjList(r.adjList,false)+"</section>":"")}
+    setHTML("stmt",statementHTML(S.me,true));applyKind();staffHR();return;
+  }
+  if(!S.screen.startsWith("admin"))return;
+  const v=S.view;
+  if(v==="summary"){
+    fillSelect("period",[["","كل الفترات"]].concat(months().map(m=>[m,monthLabel(m)])));
+    const pe=document.getElementById("period");if(pe&&pe.value!==S.month)pe.value=S.month;
+    const tx=S.tx.filter(t=>inMonth(t,S.month));
+    const inc=tx.filter(t=>t.kind==="income").reduce((s,t)=>s+(+t.amount||0),0);
+    const exp=tx.filter(t=>t.kind==="expense").reduce((s,t)=>s+(+t.amount||0),0);
+    const cust=staff().reduce((s,p)=>s+Math.max(0,pstats(p.id).bal),0);
+    const tb=treasury();
+    setHTML("kpis",kpi("رصيد الخزنة دلوقتي",tb,"الكاش الموجود مع المدير المالي","main","wallet")+kpi("الوارد",inc,monthLabel(S.month),"","up")+kpi("المصروفات",exp,"مباشر + من العهد","","down")+kpi("صافي الفترة",inc-exp,"الوارد ناقص المصروفات","","scale")+kpi("عهد لسه مع الموظفين",cust,"اتسلمت وما اتسجلش مصروفها","","users"));
+    setHTML("heroBox",heroHTML(S.me,(person(S.me)||{}).name,"ده ملخص الشغل والحضور النهارده."));setHTML("bdays",birthdaysHTML());setHTML("todayBoard",todayBoard());
+    const by={};tx.filter(t=>t.kind==="expense").forEach(t=>{by[t.category||"أخرى"]=(by[t.category||"أخرى"]||0)+(+t.amount||0)});
+    const ent=Object.entries(by).sort((a,b)=>b[1]-a[1]);const max=ent.length?ent[0][1]:1;
+    setHTML("bycatLbl",esc(monthLabel(S.month)));
+    setHTML("bycat",ent.length?'<div class="bars">'+ent.map(e=>'<div class="bar"><div class="bar-top"><span>'+esc(e[0])+"</span>"+money(e[1])+'</div><div class="track"><i style="width:'+Math.max(2,e[1]/max*100)+'%"></i></div></div>').join("")+"</div>":'<div class="empty">مفيش مصروفات في الفترة دي.</div>');
+    const st=staff();
+    setHTML("custMini",st.length?'<div class="tbl"><table style="min-width:0"><thead><tr><th>الموظف</th><th>استلم</th><th>صرف</th><th>معاه</th></tr></thead><tbody>'+st.map(p=>{const s=pstats(p.id);return '<tr><td><button class="link" data-act="stmt" data-id="'+esc(p.id)+'">'+esc(p.name)+'</button></td><td class="n">'+money(s.rec)+'</td><td class="n">'+money(s.spent)+'</td><td class="n"><b class="'+(s.bal<0?"neg":"")+'">'+money(s.bal)+"</b></td></tr>"}).join("")+"</tbody></table></div>":'<div class="empty">ضيف الموظفين من الإعدادات.</div>');
+    setHTML("recent",ledgerTable(sortTx(S.tx).slice(0,8),false));
+  }
+  if(v==="add")applyKind();
+  if(v==="ledger"){
+    fillSelect("lf_month",[["","كل الشهور"]].concat(months().map(m=>[m,monthLabel(m)])));
+    fillSelect("lf_kind",[["","الكل"]].concat(Object.entries(KIND)));
+    fillSelect("lf_pid",[["","الكل"],["_t","الخزنة مباشرة"]].concat(S.people.map(p=>[p.id,p.name])));
+    const cats=[...new Set(incCats().concat(expCats(),S.tx.map(t=>t.category).filter(Boolean)))];
+    fillSelect("lf_cat",[["","الكل"]].concat(cats.map(c=>[c,c])));
+    const list=filtered();
+    const sum=k=>list.filter(t=>t.kind===k).reduce((s,t)=>s+(+t.amount||0),0);
+    setHTML("lfTotals",kpi("وارد",sum("income"))+kpi("مصروفات",sum("expense"))+kpi("عهد اتسلمت",sum("custody"))+kpi("أثر على الخزنة",list.reduce((s,t)=>s+effect(t),0)));
+    setHTML("ledger",ledgerTable(list,true));
+    const cb=document.getElementById("csvBtn");if(cb)cb.hidden=!S.downloads;
+  }
+  if(v==="custody"){
+    const ppl=S.people.filter(p=>can("self_exp",p)||S.tx.some(t=>t.personId===p.id));
+    if(!S.stmt&&ppl.length)S.stmt=ppl[0].id;
+    setHTML("pcards",ppl.length?ppl.map(p=>{const s=pstats(p.id);return '<button class="pcard" data-act="stmt" data-id="'+esc(p.id)+'" aria-pressed="'+(S.stmt===p.id)+'"><span class="pc-head">'+avatar(p.id,42)+'<span><span class="nm">'+esc(p.name)+'</span> <span class="muted small" style="display:block">'+esc(p.title||"")+(p.active===false?" · موقوف":"")+'</span></span></span><dl><dt>استلم</dt><dd>'+fmt(s.rec)+"</dd><dt>صرف</dt><dd>"+fmt(s.spent)+"</dd>"+(s.ret?"<dt>رجّع</dt><dd>"+fmt(s.ret)+"</dd>":"")+'<dt class="bal">معاه</dt><dd class="bal '+(s.bal<0?"neg":"")+'">'+fmt(s.bal)+'</dd></dl><span class="muted small">'+balNote(s.bal)+"</span></button>"}).join(""):'<div class="empty">مفيش موظفين. ضيفهم من الإعدادات.</div>');
+    const sp=document.getElementById("stmtPanel");
+    if(sp){sp.hidden=!S.stmt||!person(S.stmt);if(!sp.hidden){setHTML("stmtTitle","كشف حساب "+esc(pname(S.stmt)));setHTML("stmt",statementHTML(S.stmt,true))}}
+  }
+  if(v==="payroll"){
+    const pm=document.getElementById("payMonth");if(pm&&pm.value!==S.payMonth)pm.value=S.payMonth;
+    const emps=salaried();const T={salary:0,bon:0,ded:0,net:0,adv:0,paid:0,rem:0};
+    fillSelect("j_emp",emps.map(p=>[p.id,p.name]));
+    const jd=document.getElementById("j_date");if(jd&&!jd.value)jd.value=today();
+    setHTML("j_monthLbl",esc(monthLabel(S.payMonth)));
+    const ap=document.getElementById("adjPanel");if(ap)ap.hidden=!emps.length;
+    const rows=emps.map(p=>{const r=payroll(p.id,S.payMonth);Object.keys(T).forEach(k=>T[k]+=r[k]);
+      const st=r.rem<0?'<span class="pill k-expense">واخد زيادة</span>':r.rem===0&&r.net>0?'<span class="pill k-income">اتصرف بالكامل</span>':r.adv||r.paid?'<span class="pill k-custody">باقي له</span>':'<span class="pill" style="background:var(--sunken)">لسه ما اتصرفش</span>';
+      const advs=r.advList.length?'<div class="small"><span class="muted">السلف: </span>'+sortTx(r.advList,true).map(t=>'<span class="num">'+fmt(t.amount)+"</span> يوم "+fdate(t.date)+(t.note?" ("+esc(t.note)+")":"")).join(" · ")+"</div>":"";
+      const det=(r.adjList.length||advs)?'<tr class="det"><td colspan="10">'+adjList(r.adjList,true)+advs+"</td></tr>":"";
+      return '<tr class="'+(det?"has-det":"")+'"><td>'+who(p.id,esc(p.title||""))+'</td><td class="n">'+money(r.salary)+'</td><td class="n pos">'+(r.bon?money(r.bon,true):"—")+'</td><td class="n neg">'+(r.ded?"−"+money(r.ded):"—")+'</td><td class="n"><b>'+money(r.net)+'</b></td><td class="n">'+money(r.adv)+'</td><td class="n">'+money(r.paid)+'</td><td class="n"><b class="'+(r.rem<0?"neg":"")+'">'+money(r.rem)+"</b></td><td>"+st+'</td><td><span style="white-space:nowrap"><button class="link" data-act="adjFor" data-id="'+esc(p.id)+'">+ حافز/خصم</button><button class="link" data-act="salAdv" data-id="'+esc(p.id)+'">+ سلفة</button>'+(r.rem>0?'<button class="link" data-act="salPay" data-id="'+esc(p.id)+'" data-amt="'+r.rem+'">صرف الباقي</button>':"")+"</span></td></tr>"+det});
+    setHTML("payKpis",kpi("صافي المرتبات",T.net,"أساسي "+fmt(T.salary)+(T.bon?" + "+fmt(T.bon):"")+(T.ded?" − "+fmt(T.ded):""))+kpi("سلف اتاخدت",T.adv,monthLabel(S.payMonth))+kpi("اتصرف من المرتبات",T.paid,"")+kpi("الباقي للموظفين",T.rem,"لسه ما اتصرفش","main"));
+    setHTML("payTable",emps.length?'<table><thead><tr><th>الموظف</th><th>الأساسي</th><th>حوافز ومكافآت</th><th>خصومات وجزاءات</th><th>الصافي</th><th>السلف</th><th>اتصرف</th><th>الباقي له</th><th>الحالة</th><th></th></tr></thead><tbody>'+rows.join("")+'</tbody><tfoot><tr><td>الإجمالي</td><td class="n">'+money(T.salary)+'</td><td class="n">'+money(T.bon)+'</td><td class="n">'+money(T.ded)+'</td><td class="n">'+money(T.net)+'</td><td class="n">'+money(T.adv)+'</td><td class="n">'+money(T.paid)+'</td><td class="n">'+money(T.rem)+"</td><td></td><td></td></tr></tfoot></table>":'<div class="empty">مفيش مرتبات متسجلة. اكتب مرتب كل موظف من <button class="link" data-act="view" data-v="settings">الإعدادات</button>.</div>');
+  }
+  if(v==="settings"){
+    setKeep("plistSet",S.people.map(p=>'<div class="settings-row"><label>الاسم والوظيفة واسم المستخدم<span style="display:flex;gap:6px;flex-wrap:wrap"><input data-pf="name" data-id="'+esc(p.id)+'" value="'+esc(p.name)+'"><input data-pf="title" data-id="'+esc(p.id)+'" value="'+esc(p.title||"")+'" placeholder="الوظيفة"><input data-pf="user" data-id="'+esc(p.id)+'" dir="ltr" autocapitalize="none" value="'+esc(p.user||"")+'" placeholder="اسم المستخدم" aria-label="اسم المستخدم" style="max-width:150px"><input type="number" min="0" step="0.01" inputmode="decimal" style="max-width:130px" data-pf="salary" data-id="'+esc(p.id)+'" value="'+esc(p.salary||"")+'" placeholder="المرتب" aria-label="المرتب الشهري"></span></label><label>كلمة سر جديدة<span style="display:flex;gap:6px"><input type="password" autocomplete="new-password" data-pin="'+esc(p.id)+'" placeholder="اتركه فاضي لو مش هتغيّره"><button class="btn" type="button" data-act="savePerson" data-id="'+esc(p.id)+'">حفظ</button></span></label><span class="small" style="padding-bottom:8px">'+(p.role==="admin"?'<span class="pill k-income">مدير مالي</span>':p.role==="payroll"?'<span class="pill k-expense">مرتب فقط</span>':'<span class="pill k-custody">موظف</span>')+" "+(p.id===S.me?'<span class="muted">(انت)</span>':'<button class="link '+(p.active===false?"":"danger")+'" data-act="toggleActive" data-id="'+esc(p.id)+'">'+(p.active===false?"تفعيل":"إيقاف")+"</button>")+"</span>"+permBlock(p)+"</div>").join(""));
+    const chips=(key,list)=>list.map((c,i)=>'<span class="chip">'+esc(c)+'<button type="button" aria-label="حذف '+esc(c)+'" data-act="rmCat" data-key="'+key+'" data-i="'+i+'">×</button></span>').join("");
+    setHTML("catIn",chips("incomeCats",incCats()));setHTML("catOut",chips("expenseCats",expCats()));refreshSec();
+  }
+  refreshHR(v);
+}
+function loginState(p){if(HOSTED){const u=srvUser(p.id);if(!S.srvUsers)return "";return !u?"مالوش دخول":!u.active?"دخوله موقوف":!u.has_auth?"محتاج كلمة سر جديدة عشان يدخل":(u.level==="mgr"?"بيدخل بصلاحيات إدارة":"بيدخل كموظف")+" باسم "+u.username}
+  const r=S.rawPeople.find(x=>x.id===p.id)||{};return r.wK?"بيدخل بصلاحيات إدارة":r.wS?"بيدخل كموظف":"مالوش دخول دلوقتي"}
+function permBlock(p){
+  const id=esc(p.id);const ps=permsOf(p);const full=p.role==="admin",pay=p.role==="payroll";
+  const box=(k,l,dis)=>'<label class="chip perm"><input type="checkbox" data-perm="'+k+'" data-id="'+id+'"'+(ps.includes(k)?" checked":"")+(dis?" disabled":"")+">"+l+"</label>";
+  const opt=(v,l)=>'<option value="'+v+'"'+((p.role||"staff")===v?" selected":"")+">"+l+"</option>";
+  return '<div class="perms"><label style="max-width:340px">نوع الحساب<select data-pf="role" data-id="'+id+'"'+(p.id===S.me?" disabled":"")+">"+opt("admin","صلاحيات كاملة (زي المدير المالي / الأونر)")+opt("staff","صلاحيات مخصصة")+opt("payroll","مرتب فقط (بدون دخول)")+"</select></label>"+
+    '<div><span class="muted small">صلاحيات الإدارة</span><div class="chips">'+MGR.map(x=>box(x[0],x[1],full||pay)).join("")+"</div></div>"+
+    '<div><span class="muted small">حسابه الشخصي</span><div class="chips">'+SELF.map(x=>box(x[0],x[1],pay)).join("")+'</div></div><span class="muted small">'+loginState(p)+' · التغييرات بتتطبق لما تدوس "حفظ" اللي فوق.</span></div>';
+}
+function filtered(){
+  const f=S.lf;const q=f.q.trim().toLowerCase();
+  return sortTx(S.tx.filter(t=>inMonth(t,f.month)&&(!f.kind||t.kind===f.kind)&&(!f.cat||t.category===f.cat)&&
+    (!f.pid||(f.pid==="_t"?!t.personId:t.personId===f.pid||t.empId===f.pid))&&(!q||[t.note,t.source,t.category,pname(t.personId)].join(" ").toLowerCase().includes(q))));
+}
+
+/* ---------- HR: attendance, evaluation, employee file ---------- */
+const DAYN=["الأحد","الاتنين","التلات","الأربع","الخميس","الجمعة","السبت"];
+const DEF_WORK={start:"09:00",end:"17:00",grace:15,otMin:30,divisor:30,otRate:1.5,absMult:1,offDays:[5],holidays:[]};
+const CRIT=[["punctual","الالتزام بالمواعيد"],["quality","جودة الشغل"],["output","الإنجاز والإنتاجية"],["team","التعاون مع الفريق"],["conduct","السلوك والانضباط"]];
+const STAT={present:"حضور",absent:"غياب",leave:"إجازة",mission:"مأمورية"};
+const SCORE=["","ضعيف","مقبول","جيد","جيد جدًا","ممتاز"];
+function work(){const w=Object.assign({},DEF_WORK,(S.cfg&&S.cfg.work)||{});w.offDays=(w.offDays||[]).map(Number);w.holidays=w.holidays||[];return w}
+function r2(n){return Math.round((+n||0)*100)/100}
+function toMin(t){if(!t)return null;const p=String(t).split(":").map(Number);return p[0]*60+(p[1]||0)}
+function nowHM(){const d=new Date();return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0")}
+function dow(iso){const p=iso.split("-").map(Number);return new Date(p[0],p[1]-1,p[2]).getDay()}
+function attId(eid,date){return eid+"_"+date}
+function attRec(eid,date){return S.att.find(a=>a.empId===eid&&a.date===date)}
+function isWorkday(iso,w){return !w.offDays.includes(dow(iso))&&!w.holidays.includes(iso)}
+function dur(m){m=Math.round(m||0);if(!m)return "—";const h=Math.floor(m/60),mm=m%60;return '<span class="num">'+(h?h+"س":"")+(h&&mm?" ":"")+(mm?mm+"د":"")+"</span>"}
+function durTxt(m){m=Math.round(m||0);const h=Math.floor(m/60),mm=m%60;return (h?h+" ساعة":"")+(h&&mm?" و":"")+(mm?mm+" دقيقة":"")||"0"}
+function dayCalc(r,w){
+  const o={late:0,early:0,ot:0};if(!r||(r.status||"present")!=="present")return o;
+  const s=toMin(w.start),e=toMin(w.end),i=toMin(r.in),u=toMin(r.out);
+  if(!isWorkday(r.date,w)){if(i!=null&&u!=null&&u>i)o.ot=u-i;return o}
+  if(i!=null&&i-s>(+w.grace||0))o.late=i-s;
+  if(u!=null&&e-u>0)o.early=e-u;
+  if(u!=null&&u-e>=(+w.otMin||0))o.ot=u-e;
+  return o;
+}
+function attSum(eid,m){
+  const w=work();const r={work:0,present:0,absent:0,leave:0,late:0,early:0,ot:0,lateDays:0,days:[]};
+  const first=S.att.filter(a=>a.empId===eid).map(a=>a.date).sort()[0];
+  const p=m.split("-").map(Number);const n=new Date(p[0],p[1],0).getDate();const td=today();
+  for(let d=1;d<=n;d++){
+    const iso=m+"-"+String(d).padStart(2,"0");if(iso>td)break;
+    const rec=attRec(eid,iso);const wd=isWorkday(iso,w);let kind;
+    if(rec)kind=rec.status||"present";else if(wd&&first&&iso>=first&&iso<td)kind="absent";else kind=wd?"none":"off";
+    const c=dayCalc(rec,w);
+    if(wd&&kind!=="none")r.work++;
+    if(kind==="present"){r.present++;r.late+=c.late;r.early+=c.early;r.ot+=c.ot;if(c.late)r.lateDays++}
+    else if(kind==="absent")r.absent++;else if(kind==="leave"||kind==="mission")r.leave++;
+    r.days.push({iso,rec,kind,wd,c});
+  }
+  const sal=+((person(eid)||{}).salary)||0;const wm=Math.max(1,toMin(w.end)-toMin(w.start));
+  const dayRate=sal/(+w.divisor||30),minRate=dayRate/wm;
+  r.dayRate=r2(dayRate);r.absAmt=r2(r.absent*dayRate*(+w.absMult||1));r.lateAmt=r2((r.late+r.early)*minRate);r.otAmt=r2(r.ot*minRate*(+w.otRate||1));
+  r.approved=S.adj.filter(j=>j.empId===eid&&j.month===m&&j.src==="att");
+  const sugg=r.otAmt-r.absAmt-r.lateAmt;const appr=r.approved.reduce((s,j)=>s+((ADJ[j.type]||{}).sign>0?1:-1)*(+j.amount||0),0);
+  r.state=!r.approved.length?(r.absAmt||r.lateAmt||r.otAmt?"pending":"none"):Math.abs(sugg-appr)<0.01?"ok":"changed";
+  return r;
+}
+function evalOf(eid,m){return S.ev.find(x=>x.id===attId(eid,m))}
+function evalAvg(ev){if(!ev||!ev.scores)return null;const v=CRIT.map(c=>+ev.scores[c[0]]||0).filter(Boolean);return v.length?v.reduce((a,b)=>a+b,0)/v.length:null}
+function suggestPunct(a){return Math.max(1,Math.min(5,5-a.absent-Math.floor((a.late+a.early)/60)))}
+function stars(avg){if(avg==null)return '<span class="muted">لسه</span>';const pct=avg/5*100;const cls=avg>=4?"pos":avg>=3?"":"neg";
+  return '<span class="score"><span class="meter"><i style="width:'+pct+'%"></i></span><b class="num '+cls+'">'+avg.toFixed(1)+'</b><span class="muted small">/5</span></span>'}
+function setKeep(id,html){const el=document.getElementById(id);if(!el)return;if(el.contains(document.activeElement)&&el._h!=null)return;if(el._h!==html){el.innerHTML=html;el._h=html}}
+function monthsFor(eid){const s=new Set([curMonth(),S.payMonth]);S.adj.forEach(j=>j.empId===eid&&j.month&&s.add(j.month));S.tx.forEach(t=>t.empId===eid&&t.salMonth&&s.add(t.salMonth));S.att.forEach(a=>a.empId===eid&&s.add(a.date.slice(0,7)));S.ev.forEach(e=>e.empId===eid&&s.add(e.month));return [...s].sort().reverse()}
+
+function hrBody(v){
+  if(v==="attendance")return '<div class="panel-h"><h2>الحضور والانصراف</h2><span class="muted small" id="workLine"></span></div>'+
+    '<section class="panel"><div class="panel-h"><h3>سجل اليوم</h3><label style="min-width:170px">التاريخ<input type="date" id="attDay"></label></div><p class="hint" id="attDayInfo"></p><div class="tbl" id="attDayTbl"></div></section>'+
+    '<section class="panel"><div class="panel-h"><h3>ملخص الشهر والحسبة المقترحة</h3><label style="min-width:170px">الشهر<input type="month" id="attMonth"></label></div>'+
+    '<p class="muted small" style="margin-top:0">السيستم بيحسب الخصم والإضافي ويقترحه. لما تدوس "اعتماد" بيتسجل على مرتب الموظف كخصم أو جزاء أو إضافي بالسبب. لو الحضور اتعدّل بعد الاعتماد هيظهر "اتغيّر" وتقدر تعتمد تاني.</p><div class="tbl" id="attSumTbl"></div></section>';
+  return '<div class="panel-h"><h2>ملفات الموظفين والتقييم</h2><label style="min-width:170px">الشهر<input type="month" id="empMonth"></label></div>'+
+    '<section class="panel"><div class="tbl" id="empTbl"></div></section>'+
+    '<div id="filePanel" hidden style="display:grid;gap:18px"><div class="panel-h"><h2 id="fileTitle" class="h-ic"></h2><span class="muted small" id="fileSub"></span></div><div class="kpis" id="fileKpis"></div><section class="panel"><h3 class="h-ic">'+ic("idcard")+' البيانات الشخصية</h3><div id="fileProf" style="margin-top:10px"></div></section>'+
+    '<div class="grid2" style="align-items:start"><section class="panel"><h3>تقييم الشهر</h3><div id="fileEval"></div></section>'+
+    '<section class="panel"><div class="panel-h"><h3>الحوافز والخصومات</h3><button class="link" data-act="adjGo">+ إضافة</button></div><div id="fileAdj"></div><h3 style="margin-top:14px">السلف واللي اتصرف</h3><div class="tbl" id="fileMoney"></div></section></div>'+
+    '<section class="panel"><h3>الحضور في الشهر</h3><div id="fileAttSum" class="small muted" style="margin:6px 0 10px"></div><div class="tbl" id="fileAtt"></div></section>'+
+    '<section class="panel"><h3>سجل المرتبات شهر بشهر</h3><div class="tbl" id="fileHist"></div></section></div>';
+}
+
+function refreshHR(v){
+  const w=work();
+  if(v==="attendance"){
+    setHTML("workLine","المواعيد: "+esc(w.start)+" – "+esc(w.end)+" · سماح "+w.grace+" دقيقة · الإجازة: "+w.offDays.map(d=>DAYN[d]).join("، "));
+    const ad=document.getElementById("attDay");if(ad&&ad.value!==S.attDay)ad.value=S.attDay;
+    const am=document.getElementById("attMonth");if(am&&am.value!==S.payMonth)am.value=S.payMonth;
+    const emps=salaried();const wd=isWorkday(S.attDay,w);
+    setHTML("attDayInfo",DAYN[dow(S.attDay)]+" "+fdate(S.attDay)+(wd?" · يوم عمل":" · <b>يوم إجازة</b> — أي شغل فيه بيتحسب إضافي كله")+". اكتب الوقت ودوس حفظ. اللي ليه دخول بيقدر يسجّل حضوره بنفسه من صفحته.");
+    setKeep("attDayTbl",emps.length?'<table><thead><tr><th>الموظف</th><th>الحالة</th><th>حضور</th><th>انصراف</th><th>تأخير</th><th>انصراف مبكر</th><th>إضافي</th><th></th></tr></thead><tbody>'+emps.map(p=>{
+      const r=attRec(p.id,S.attDay);const c=dayCalc(r,w);const st=r?(r.status||"present"):"";const id=esc(p.id);
+      return "<tr><td>"+who(p.id,r&&r.by===p.id?"سجّل بنفسه":"")+'</td><td><select id="ad_st_'+id+'" style="min-width:100px"><option value="">— مش متسجل</option>'+Object.entries(STAT).map(s=>'<option value="'+s[0]+'"'+(st===s[0]?" selected":"")+">"+s[1]+"</option>").join("")+'</select></td><td><input type="time" id="ad_in_'+id+'" value="'+esc(r&&r.in||"")+'" style="min-width:105px"></td><td><input type="time" id="ad_out_'+id+'" value="'+esc(r&&r.out||"")+'" style="min-width:105px"></td><td class="n neg">'+dur(c.late)+'</td><td class="n neg">'+dur(c.early)+'</td><td class="n pos">'+dur(c.ot)+'</td><td><span style="white-space:nowrap"><button class="btn" data-act="attSave" data-id="'+id+'">حفظ</button>'+(r?' <button class="link danger" data-act="attClear" data-id="'+id+'">مسح</button>':"")+"</span></td></tr>"}).join("")+"</tbody></table>":'<div class="empty">حط مرتب لكل موظف من الإعدادات عشان يظهر هنا.</div>');
+    setHTML("attSumTbl",emps.length?'<table><thead><tr><th>الموظف</th><th>أيام عمل</th><th>حضور</th><th>غياب</th><th>إجازة/مأمورية</th><th>تأخير + مبكر</th><th>إضافي</th><th>خصم غياب</th><th>خصم تأخير</th><th>إضافي (فلوس)</th><th></th></tr></thead><tbody>'+emps.map(p=>{
+      const a=attSum(p.id,S.payMonth);
+      const btn=a.state==="none"?'<span class="muted small">مفيش</span>':a.state==="ok"?'<span class="pill k-income">اتعتمد</span>':'<button class="'+(a.state==="changed"?"btn":"primary")+'" style="padding:5px 12px" data-act="attApprove" data-id="'+esc(p.id)+'">'+(a.state==="changed"?"اتغيّر — اعتمد تاني":"اعتماد")+"</button>";
+      return "<tr><td>"+who(p.id,"",28)+'</td><td class="n">'+a.work+'</td><td class="n">'+a.present+'</td><td class="n '+(a.absent?"neg":"")+'">'+a.absent+'</td><td class="n">'+a.leave+'</td><td class="n">'+dur(a.late+a.early)+(a.lateDays?'<span class="sub">'+a.lateDays+" يوم تأخير</span>":"")+'</td><td class="n">'+dur(a.ot)+'</td><td class="n neg">'+(a.absAmt?"−"+money(a.absAmt):"—")+'</td><td class="n neg">'+(a.lateAmt?"−"+money(a.lateAmt):"—")+'</td><td class="n pos">'+(a.otAmt?money(a.otAmt,true):"—")+"</td><td>"+btn+"</td></tr>"}).join("")+"</tbody></table>":"");
+  }
+  if(v==="employees"){
+    const em=document.getElementById("empMonth");if(em&&em.value!==S.payMonth)em.value=S.payMonth;
+    const emps=S.people.filter(p=>p.active!==false&&(+p.salary>0||p.role!=="admin"));
+    if(!S.empFile&&emps.length)S.empFile=emps[0].id;
+    setHTML("empTbl",emps.length?'<table><thead><tr><th>الموظف</th><th>صافي المرتب</th><th>الباقي له</th><th>حضور</th><th>غياب</th><th>تأخير</th><th>إضافي</th><th>حوافز</th><th>خصومات</th><th>التقييم</th><th></th></tr></thead><tbody>'+emps.map(p=>{
+      const r=payroll(p.id,S.payMonth),a=attSum(p.id,S.payMonth),ev=evalOf(p.id,S.payMonth);
+      return '<tr'+(S.empFile===p.id?' class="sel"':"")+"><td>"+who(p.id,esc(p.title||""))+'</td><td class="n">'+money(r.net)+'</td><td class="n"><b class="'+(r.rem<0?"neg":"")+'">'+money(r.rem)+'</b></td><td class="n">'+a.present+'</td><td class="n '+(a.absent?"neg":"")+'">'+a.absent+'</td><td class="n">'+dur(a.late+a.early)+'</td><td class="n">'+dur(a.ot)+'</td><td class="n pos">'+(r.bon?money(r.bon):"—")+'</td><td class="n neg">'+(r.ded?money(r.ded):"—")+"</td><td>"+stars(evalAvg(ev))+'</td><td><button class="link" data-act="file" data-id="'+esc(p.id)+'">فتح الملف</button></td></tr>'}).join("")+"</tbody></table>":'<div class="empty">مفيش موظفين.</div>');
+    const fp=document.getElementById("filePanel");const p=person(S.empFile);if(!fp)return;fp.hidden=!p;if(!p)return;
+    const m=S.payMonth,r=payroll(p.id,m),a=attSum(p.id,m),ev=evalOf(p.id,m);
+    setHTML("fileTitle",avatar(p.id,52)+"<span>ملف "+esc(p.name)+"</span>");
+    {const pr=profOf(p.id)||{};const yrs=d=>{if(!d)return null;const a=new Date(d),n=new Date();let y=n.getFullYear()-a.getFullYear();if(n.getMonth()<a.getMonth()||n.getMonth()===a.getMonth()&&n.getDate()<a.getDate())y--;return y};
+     const age=yrs(pr.birth),ten=yrs(pr.hire);
+     setKeep("fileProf",'<p class="muted small" style="margin-top:0">'+[age!=null?ic("cake")+" السن "+age+" سنة":"",ten!=null?ic("briefcase")+" في الشركة من "+(ten<1?"أقل من سنة":ten+" سنة"):"",pr.phone?ic("phone")+' <span dir="ltr">'+esc(pr.phone)+"</span>":""].filter(Boolean).join(" · ")+"</p>"+profFormHTML(p.id,pr,{hasNid:!!(S.imgsArr||[]).find(x=>x.id===p.id+"_nid"),canSeeNid:true}))}
+    setHTML("fileSub",esc(p.title||"")+" · المرتب الأساسي "+money(p.salary||0)+" ج.م · "+esc(monthLabel(m)));
+    setHTML("fileKpis",kpi("صافي المرتب",r.net,"أساسي "+fmt(r.salary)+(r.bon?" + "+fmt(r.bon):"")+(r.ded?" − "+fmt(r.ded):""))+kpi("سلف",r.adv,r.advList.length+" سلفة")+kpi("اتصرف له",r.paid,"")+kpi("الباقي له",r.rem,r.rem<0?"واخد أكتر من مستحقه":"","main"));
+    const sp=suggestPunct(a);
+    setKeep("fileEval",'<form id="evalForm" class="form" data-emp="'+esc(p.id)+'" data-month="'+esc(m)+'">'+CRIT.map(c=>{const val=ev&&ev.scores?ev.scores[c[0]]:"";
+      return '<label>'+c[1]+(c[0]==="punctual"?' <span class="small">(مقترح من الحضور: '+sp+" — "+SCORE[sp]+")</span>":"")+'<select id="ev_'+c[0]+'"><option value="">—</option>'+[5,4,3,2,1].map(n=>'<option value="'+n+'"'+(+val===n?" selected":"")+">"+n+" — "+SCORE[n]+"</option>").join("")+"</select></label>"}).join("")+
+      '<label>ملاحظات التقييم<input id="ev_notes" value="'+esc(ev&&ev.notes||"")+'" placeholder="نقاط القوة، اللي محتاج يتحسّن…"></label><div class="actions"><button class="primary" type="submit">حفظ التقييم</button>'+(ev?'<span class="muted small">المتوسط: </span>'+stars(evalAvg(ev)):"")+"</div></form>");
+    setHTML("fileAdj",adjList(r.adjList,true)||'<div class="empty">مفيش حوافز أو خصومات الشهر ده.</div>');
+    const mt=sortTx(S.tx.filter(t=>t.empId===p.id&&t.salMonth===m),true);
+    setHTML("fileMoney",mt.length?'<table style="min-width:0"><tbody>'+mt.map(t=>"<tr><td>"+fdate(t.date)+'</td><td><span class="pill '+(t.category===SAL_ADV?"k-custody":"k-expense")+'">'+(t.category===SAL_ADV?"سلفة":"صرف مرتب")+"</span>"+(t.note?'<span class="sub">'+esc(t.note)+"</span>":"")+'</td><td class="n">'+money(t.amount)+"</td></tr>").join("")+"</tbody></table>":'<div class="empty">مفيش سلف أو صرف الشهر ده.</div>');
+    setHTML("fileAttSum","أيام عمل "+a.work+" · حضور "+a.present+" · غياب "+a.absent+" · إجازة/مأمورية "+a.leave+" · تأخير ومبكر "+durTxt(a.late+a.early)+" · إضافي "+durTxt(a.ot)+(a.absAmt||a.lateAmt||a.otAmt?" · الحسبة المقترحة: "+(a.otAmt?"+"+fmt(a.otAmt):"")+(a.absAmt||a.lateAmt?" −"+fmt(a.absAmt+a.lateAmt):"")+(a.state==="ok"?" (اتعتمدت)":" (لسه ما اتعتمدتش من صفحة الحضور)"):""));
+    const days=a.days.filter(d=>d.kind!=="none"&&!(d.kind==="off"&&!d.rec)).reverse();
+    setHTML("fileAtt",days.length?'<table><thead><tr><th>اليوم</th><th>الحالة</th><th>حضور</th><th>انصراف</th><th>تأخير</th><th>مبكر</th><th>إضافي</th></tr></thead><tbody>'+days.map(d=>{const k=d.kind;const lbl=k==="off"?"إجازة أسبوعية":STAT[k]||k;const cls=k==="absent"?"k-expense":k==="present"?"k-income":"k-custody";
+      return "<tr><td>"+DAYN[dow(d.iso)]+" "+fdate(d.iso)+'</td><td><span class="pill '+cls+'">'+lbl+"</span>"+(d.rec&&d.rec.note?'<span class="sub">'+esc(d.rec.note)+"</span>":"")+'</td><td class="n">'+esc(d.rec&&d.rec.in||"—")+'</td><td class="n">'+esc(d.rec&&d.rec.out||"—")+'</td><td class="n neg">'+dur(d.c.late)+'</td><td class="n neg">'+dur(d.c.early)+'</td><td class="n pos">'+dur(d.c.ot)+"</td></tr>"}).join("")+"</tbody></table>":'<div class="empty">مفيش حضور متسجل الشهر ده.</div>');
+    setHTML("fileHist",'<table><thead><tr><th>الشهر</th><th>الأساسي</th><th>حوافز وإضافي</th><th>خصومات</th><th>الصافي</th><th>سلف</th><th>اتصرف</th><th>الباقي</th><th>غياب</th><th>التقييم</th></tr></thead><tbody>'+monthsFor(p.id).map(mm=>{const x=payroll(p.id,mm),y=attSum(p.id,mm);
+      return '<tr'+(mm===m?' class="sel"':"")+'><td><button class="link" data-act="fileMonth" data-m="'+mm+'">'+esc(monthLabel(mm))+'</button></td><td class="n">'+money(x.salary)+'</td><td class="n pos">'+(x.bon?money(x.bon):"—")+'</td><td class="n neg">'+(x.ded?money(x.ded):"—")+'</td><td class="n"><b>'+money(x.net)+'</b></td><td class="n">'+money(x.adv)+'</td><td class="n">'+money(x.paid)+'</td><td class="n"><b class="'+(x.rem<0?"neg":"")+'">'+money(x.rem)+'</b></td><td class="n">'+y.absent+"</td><td>"+stars(evalAvg(evalOf(p.id,mm)))+"</td></tr>"}).join("")+'</tbody></table><p class="muted small">الأساسي بيتحسب بالمرتب الحالي المتسجل في الإعدادات.</p>');
+  }
+  if(v==="settings"){
+    setKeep("workSet",'<div class="form" style="max-width:none"><div class="row"><label>بداية الشغل<input type="time" id="w_start" value="'+esc(w.start)+'"></label><label>نهاية الشغل<input type="time" id="w_end" value="'+esc(w.end)+'"></label><label>سماح التأخير (دقيقة)<input type="number" min="0" id="w_grace" value="'+w.grace+'"></label><label>أقل إضافي يتحسب (دقيقة)<input type="number" min="0" id="w_otMin" value="'+w.otMin+'"></label></div>'+
+      '<div class="row"><label>أيام الشهر في الحسبة<input type="number" min="1" id="w_divisor" value="'+w.divisor+'"></label><label>ساعة الإضافي = ساعة عادية ×<input type="number" min="0" step="0.25" id="w_otRate" value="'+w.otRate+'"></label><label>يوم الغياب = يوم مرتب ×<input type="number" min="0" step="0.25" id="w_absMult" value="'+w.absMult+'"></label></div>'+
+      '<div><span class="muted small" style="font-weight:500">الإجازة الأسبوعية</span><div class="chips" style="margin-top:6px">'+DAYN.map((d,i)=>'<label class="chip" style="padding:4px 10px;display:inline-flex;gap:6px;color:var(--fg)"><input type="checkbox" id="w_off_'+i+'" style="width:auto"'+(w.offDays.includes(i)?" checked":"")+">"+d+"</label>").join("")+"</div></div>"+
+      '<div><span class="muted small" style="font-weight:500">إجازات رسمية</span><div class="chips" style="margin-top:6px">'+(w.holidays.length?w.holidays.slice().sort().map(h=>'<span class="chip">'+fdate(h)+'<button type="button" data-act="holRm" data-d="'+esc(h)+'" aria-label="حذف">×</button></span>').join(""):'<span class="muted small">مفيش</span>')+'</div><div class="inline" style="max-width:360px"><input type="date" id="w_hol"><button class="btn" type="button" data-act="holAdd">إضافة إجازة</button></div></div>'+
+      '<p class="hint">مثال: مرتب 6000 ÷ 30 يوم = 200 ج.م لليوم. الشغل 8 ساعات يعني الدقيقة بـ 0.42 ج.م تقريبًا. التأخير بيتحسب من أول دقيقة لو عدّى وقت السماح.</p><div class="actions"><button class="primary" type="button" data-act="workSave">حفظ المواعيد</button></div></div>');
+  }
+}
+
+function staffHR(){
+  const me=S.me,td=today(),r=attRec(me,td),w=work();const a=attSum(me,curMonth());const c=dayCalc(r,w);
+  let btn;
+  if(!r)btn='<button class="primary" data-act="checkIn">تسجيل حضور الآن</button>';
+  else if((r.status||"present")!=="present")btn='<span class="pill k-custody">'+(STAT[r.status]||"")+"</span>";
+  else if(!r.out)btn='<button class="primary" data-act="checkOut">تسجيل انصراف الآن</button>';
+  else btn='<span class="pill k-income">اليوم خلص</span>';
+  setHTML("myAtt",'<div class="panel-h"><h2>الحضور</h2><span class="muted small">'+DAYN[dow(td)]+" "+fdate(td)+" · المواعيد "+esc(w.start)+" – "+esc(w.end)+'</span></div><div class="actions">'+btn+
+    (r&&r.in?'<span>حضور <b class="num">'+esc(r.in)+"</b></span>":"")+(r&&r.out?'<span>انصراف <b class="num">'+esc(r.out)+"</b></span>":"")+(c.late?'<span class="neg">تأخير '+dur(c.late)+"</span>":"")+(c.ot?'<span class="pos">إضافي '+dur(c.ot)+"</span>":"")+
+    '</div><p class="muted small" style="margin-bottom:0">'+esc(monthLabel(curMonth()))+": حضور "+a.present+" يوم · غياب "+a.absent+" · تأخير "+durTxt(a.late+a.early)+" · إضافي "+durTxt(a.ot)+"</p>");
+}
+
+function hrClick(a,id,b){
+  const el=x=>document.getElementById(x);
+  if(a==="attSave"){
+    const st=el("ad_st_"+id).value,tin=el("ad_in_"+id).value,tout=el("ad_out_"+id).value;
+    if(!st&&!tin)return toast("اختار الحالة أو اكتب وقت الحضور"),true;
+    const status=st||"present";if(status==="present"&&!tin){toast("اكتب وقت الحضور");return true}
+    const prev=attRec(id,S.attDay)||{};
+    E.collection("att").doc(attId(id,S.attDay)).set({empId:id,date:S.attDay,status,in:status==="present"?tin:"",out:status==="present"?tout:"",note:prev.note||"",by:prev.by||S.me,editedBy:S.me,editedAt:new Date().toISOString()}).then(()=>{el("ad_st_"+id)&&el("ad_st_"+id).blur();toast("اتحفظ حضور "+pname(id));refresh()}).catch(dbErr);
+    return true;
+  }
+  if(a==="attClear"){E.collection("att").doc(attId(id,S.attDay)).delete().then(()=>toast("اتمسح")).catch(dbErr);return true}
+  if(a==="attApprove"){attApprove(id,S.payMonth);return true}
+  if(a==="file"){S.empFile=id;if(S.view!=="employees"){S.view="employees";go()}else refresh();const fp=el("filePanel");fp&&fp.scrollIntoView({behavior:"smooth",block:"start"});return true}
+  if(a==="fileMonth"){S.payMonth=b.dataset.m;refresh();return true}
+  if(a==="adjGo"){S.view="payroll";go();setTimeout(()=>{const s=el("j_emp");if(s)s.value=S.empFile;const p=el("adjPanel");p&&p.scrollIntoView({block:"start"})},0);return true}
+  if((a==="checkIn"||a==="checkOut")&&S.staffMode){const t=nowHM();putItem({t:a==="checkIn"?"in":"out",date:today(),time:t}).then(()=>toast((a==="checkIn"?"اتسجل حضورك ":"اتسجل انصرافك ")+t)).catch(dbErr);return true}
+  if(a==="checkIn"){const t=nowHM(),d=today();E.collection("att").doc(attId(S.me,d)).set({empId:S.me,date:d,status:"present",in:t,out:"",by:S.me,inAt:new Date().toISOString()}).then(()=>toast("اتسجل حضورك "+t)).catch(dbErr);return true}
+  if(a==="checkOut"){const t=nowHM(),d=today();E.collection("att").doc(attId(S.me,d)).update({out:t,outAt:new Date().toISOString()}).then(()=>toast("اتسجل انصرافك "+t)).catch(dbErr);return true}
+  if(a==="workSave"){
+    const n=(x,d)=>{const v=parseFloat(el(x).value);return isNaN(v)?d:v};
+    const off=DAYN.map((_,i)=>el("w_off_"+i).checked?i:-1).filter(i=>i>=0);
+    const nw=Object.assign(work(),{start:el("w_start").value||"09:00",end:el("w_end").value||"17:00",grace:n("w_grace",15),otMin:n("w_otMin",30),divisor:n("w_divisor",30)||30,otRate:n("w_otRate",1.5),absMult:n("w_absMult",1),offDays:off});
+    if(toMin(nw.end)<=toMin(nw.start)){toast("نهاية الشغل لازم تكون بعد البداية");return true}
+    document.activeElement&&document.activeElement.blur();saveCfg({work:nw}).then(ok=>ok&&toast("المواعيد اتحفظت"));return true;
+  }
+  if(a==="holAdd"){const d=el("w_hol").value;if(!d){toast("اختار التاريخ");return true}const w=work();if(!w.holidays.includes(d))w.holidays.push(d);document.activeElement&&document.activeElement.blur();saveCfg({work:w});return true}
+  if(a==="holRm"){const w=work();w.holidays=w.holidays.filter(h=>h!==b.dataset.d);saveCfg({work:w});return true}
+  return false;
+}
+async function attApprove(eid,m){
+  const r=attSum(eid,m);
+  try{
+    for(const j of r.approved)await E.collection("adj").doc(j.id).delete();
+    const base={empId:eid,month:m,date:today(),src:"att",createdBy:S.me,createdAt:new Date().toISOString()};const items=[];
+    if(r.absAmt>0)items.push({type:"penalty",amount:r.absAmt,reason:"غياب "+r.absent+" يوم — "+monthLabel(m)});
+    if(r.lateAmt>0)items.push({type:"deduction",amount:r.lateAmt,reason:"تأخير وانصراف مبكر "+durTxt(r.late+r.early)+" — "+monthLabel(m)});
+    if(r.otAmt>0)items.push({type:"overtime",amount:r.otAmt,reason:"ساعات إضافي "+durTxt(r.ot)+" — "+monthLabel(m)});
+    for(const it of items)await E.collection("adj").add(Object.assign({},base,it));
+    toast(items.length?"اتعتمد على مرتب "+pname(eid):"مفيش خصم أو إضافي");
+  }catch(err){dbErr(err)}
+}
+async function saveEval(f){
+  const eid=f.dataset.emp,m=f.dataset.month;const scores={};CRIT.forEach(c=>{const v=document.getElementById("ev_"+c[0]).value;if(v)scores[c[0]]=+v});
+  if(!Object.keys(scores).length)return toast("اختار درجة واحدة على الأقل");
+  try{await E.collection("eval").doc(attId(eid,m)).set({empId:eid,month:m,scores,notes:document.getElementById("ev_notes").value.trim(),by:S.me,at:new Date().toISOString()});document.activeElement&&document.activeElement.blur();toast("التقييم اتحفظ");refresh()}catch(err){dbErr(err)}
+}
+
+/* ---------- events ---------- */
+app.addEventListener("click",async e=>{
+  const b=e.target.closest("[data-act]");if(!b)return;
+  const a=b.dataset.act,id=b.dataset.id;
+  if(a!=="del"&&S.pendingDel){S.pendingDel=null;setTimeout(refresh)}
+  if(secClick(a,id,b)){}
+  else if(a==="view"){S.view=b.dataset.v;S.editing=null;go();window.scrollTo(0,0);if(S.view==="settings")loadSrvUsers()}
+  else if(a==="kind"){S.kind=b.dataset.k;applyKind()}
+  else if(a==="quick"){S.kind=b.dataset.k;S.view="add";S.editing=null;go();if(b.dataset.k!=="income"&&S.stmt){const p=document.getElementById("f_person");if(p)p.value=S.stmt}}
+  else if(hrClick(a,id,b)){}
+  else if(a==="adjFor"){const s=document.getElementById("j_emp");if(s)s.value=id;const p=document.getElementById("adjPanel");if(p)p.scrollIntoView({behavior:"smooth",block:"start"});setTimeout(()=>{const x=document.getElementById("j_amount");x&&x.focus({preventScroll:true})},300)}
+  else if(a==="salAdv"||a==="salPay"){
+    if(!can("add_tx"))return toast("محتاج صلاحية تسجيل الحركات");
+    S.kind="expense";S.view="add";S.editing=null;go();window.scrollTo(0,0);
+    const el=x=>document.getElementById(x);
+    el("f_cat").value=a==="salAdv"?SAL_ADV:SAL_PAY;el("f_month").value=S.payMonth;salUpdate();el("f_emp").value=id;
+    if(a==="salPay"){el("f_amount").value=b.dataset.amt;el("f_note").value="باقي مرتب "+monthLabel(S.payMonth)}
+    salUpdate();el("f_amount").focus();
+  }
+  else if(a==="stmt"){S.stmt=id;if(S.view!=="custody"){S.view="custody";go()}else refresh()}
+  else if(a==="edit"){const t=S.tx.find(x=>x.id===id);if(!t)return;S.editing=id;S.kind=t.kind;S.view="add";go();window.scrollTo(0,0)}
+  else if(a==="cancelEdit"){S.editing=null;S.screen="";onData()}
+  else if(a==="del"){
+    if(S.pendingDel!==id){S.pendingDel=id;refresh();clearTimeout(S._dt);S._dt=setTimeout(()=>{S.pendingDel=null;refresh()},4000);return}
+    S.pendingDel=null;const coll=b.dataset.coll||"tx";try{await E.collection(coll).doc(id).delete();toast(coll==="adj"?"اتحذف":"اتحذفت الحركة")}catch(err){dbErr(err)}
+  }
+  else if(a==="csv")exportCSV();
+  else if(a==="rmCat"){const key=b.dataset.key;const list=(key==="incomeCats"?incCats():expCats()).slice();list.splice(+b.dataset.i,1);await saveCats(key,list)}
+});
+app.addEventListener("change",e=>{
+  const t=e.target;
+  if(t.id==="period"){S.month=t.value;refresh()}
+  if(t.id&&t.id.startsWith("lf_")&&t.id!=="lf_q"){S.lf[t.id.slice(3)]=t.value;refresh()}
+  if(t.id==="f_cat"||t.id==="f_emp"||t.id==="f_month")salUpdate();
+  if((t.id==="payMonth"||t.id==="attMonth"||t.id==="empMonth")&&t.value){S.payMonth=t.value;refresh()}
+  if(t.dataset&&t.dataset.pf==="role"){const id=t.dataset.id;app.querySelectorAll('[data-perm][data-id="'+id+'"]').forEach(x=>{const mg=MGR.some(m=>m[0]===x.dataset.perm);
+    if(t.value==="payroll"){x.disabled=true;x.checked=false}else if(t.value==="admin"&&mg){x.disabled=true;x.checked=true}else x.disabled=false})}
+  if((t.id==="pf_avatar"||t.id==="pf_nidimg")&&t.files&&t.files[0]){const pf=t.closest("form");uploadImg(t.files[0],t.id==="pf_avatar"?"avatar":"nid",pf?pf.dataset.pid:S.me);t.value=""}
+  if(t.id==="restoreFile"&&t.files&&t.files[0]){doRestore(t.files[0]);t.value=""}
+  if(t.id==="attDay"&&t.value){S.attDay=t.value;refresh()}
+  if(t.id&&t.id.startsWith("ad_st_")){const eid=t.id.slice(6);const i=document.getElementById("ad_in_"+eid);if(t.value==="present"&&i&&!i.value)i.value=work().start}
+});
+app.addEventListener("input",e=>{if(e.target.id==="lf_q"){S.lf.q=e.target.value;refresh()}
+  if(e.target.id==="pf_nid"){const n=nidInfo(e.target.value.trim());if(n){const b=document.getElementById("pf_birth"),g=document.getElementById("pf_gender");if(b&&!b.value)b.value=n.birth;if(g&&!g.value)g.value=n.gender}}});
+app.addEventListener("submit",async e=>{
+  e.preventDefault();const f=e.target;
+  if(secSubmit(f))return;
+  if(f.id==="txForm")saveTx(f);
+  else if(f.id==="evalForm")saveEval(f);
+  else if(f.id==="adjForm"){
+    const g=x=>document.getElementById(x).value.trim();const amount=parseFloat(g("j_amount"));
+    if(!g("j_emp"))return toast("اختار الموظف");if(!(amount>0))return toast("اكتب مبلغ صحيح");if(!g("j_reason"))return toast("اكتب السبب");
+    const type=g("j_type");
+    try{await E.collection("adj").add({empId:g("j_emp"),type,amount:Math.round(amount*100)/100,reason:g("j_reason"),date:g("j_date")||today(),month:S.payMonth,createdBy:S.me,createdAt:new Date().toISOString()});
+      document.getElementById("j_amount").value="";document.getElementById("j_reason").value="";toast(ADJ[type].l+" اتسجل على "+pname(g("j_emp")))}catch(err){dbErr(err)}
+  }
+  else if(f.dataset.catform){const key=f.dataset.catform;const inp=f.querySelector("input");const v=inp.value.trim();if(!v)return;const list=(key==="incomeCats"?incCats():expCats()).slice();if(!list.includes(v))list.push(v);inp.value="";await saveCats(key,list)}
+});
+async function saveCats(key,list){const p={};p[key]=list;await saveCfg(p)}
+async function saveCfg(patch){const data={incomeCats:incCats(),expenseCats:expCats(),work:work()};Object.assign(data,patch);try{await E.doc("config/main").set(data);return true}catch(err){dbErr(err);return false}}
+async function saveTx(form){
+  const g=id=>{const el=document.getElementById(id);return el?el.value.trim():""};
+  const admin=fullForm();const kind=admin?S.kind:"expense";
+  const amount=parseFloat(g("f_amount"));
+  if(!(amount>0))return toast("اكتب مبلغ صحيح");
+  const data={kind,date:g("f_date")||today(),amount:Math.round(amount*100)/100,note:g("f_note"),
+    category:(kind==="income"||kind==="expense")?g("f_cat"):"",source:kind==="income"?g("f_source"):"",
+    personId:admin?(kind==="income"?"":g("f_person")):S.me};
+  if((kind==="custody"||kind==="return")&&!data.personId)return toast("اختار الموظف");
+  if(kind==="expense"&&isSal(data.category)){data.empId=g("f_emp");data.salMonth=g("f_month");if(!data.empId||!data.salMonth)return toast("اختار الموظف والشهر")}
+  else{data.empId="";data.salMonth=""}
+  const btn=document.getElementById("f_submit");btn.disabled=true;
+  if(S.staffMode){try{await putItem({t:"expense",date:data.date,amount:data.amount,category:data.category,note:data.note,empId:data.empId,salMonth:data.salMonth});
+    document.getElementById("f_amount").value="";document.getElementById("f_note").value="";toast("اتسجّل، وهيتراجع من الإدارة")}catch(err){dbErr(err)}finally{btn.disabled=false}return}
+  try{
+    if(S.editing){await E.collection("tx").doc(S.editing).update(Object.assign(data,{updatedAt:new Date().toISOString(),updatedBy:S.me}));S.editing=null;toast("اتعدّلت الحركة");S.view=admin?"ledger":S.view;go();return}
+    await E.collection("tx").add(Object.assign(data,{createdBy:S.me,createdAt:new Date().toISOString()}));
+    document.getElementById("f_amount").value="";document.getElementById("f_note").value="";const src=document.getElementById("f_source");if(src)src.value="";
+    toast(kind==="custody"?"العهدة اتسجلت على "+pname(data.personId):"اتسجّلت");
+    document.getElementById("f_amount").focus();
+  }catch(err){dbErr(err)}finally{const b2=document.getElementById("f_submit");if(b2)b2.disabled=false}
+}
+async function exportCSV(){
+  if(!S.downloads)return;
+  const cell=v=>{v=String(v??"");return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
+  const rows=[["التاريخ","النوع","البند","المبلغ","الشخص","المصدر","ملاحظات","أثر على الخزنة","سجّلها"]].concat(
+    sortTx(filtered(),true).map(t=>[t.date,KIND[t.kind],t.category,t.amount,t.personId?pname(t.personId):(t.kind==="expense"?"الخزنة":""),t.source,t.note,effect(t),pname(t.createdBy)]));
+  const csv="﻿"+rows.map(r=>r.map(cell).join(",")).join("\r\n");
+  try{await S.downloads.save({filename:"دفتر-الخزنة-"+(S.lf.month||"كل-الفترات")+".csv",data:csv})}catch(err){if(err&&err.code!=="declined")toast("التنزيل ما تمّش")}
+}
+boot();
+})();
+</script>
+
+</body>
+</html>
