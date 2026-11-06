@@ -83,15 +83,7 @@ nav.main + .tools{margin-inline-start:6px}
 .glow{position:absolute;width:780px;height:780px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--acc) 38%,transparent),transparent 65%);top:-260px;inset-inline-end:-200px;filter:blur(20px);opacity:.9;pointer-events:none}
 .spot{position:absolute;inset:0;background:radial-gradient(500px circle at var(--mx,50%) var(--my,40%),color-mix(in srgb,var(--acc) 12%,transparent),transparent 60%);pointer-events:none}
 .hero-grid{position:relative;display:grid;grid-template-columns:1.02fr 1fr;gap:56px;align-items:center;width:100%}
-.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line2);padding:7px 16px 7px 12px;border-radius:999px;background:var(--surface)}
-html[lang=ar] .eyebrow{letter-spacing:0}
-.eyebrow b{width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 25%,transparent);animation:pulse 2s infinite}
-@keyframes pulse{50%{box-shadow:0 0 0 8px color-mix(in srgb,var(--acc) 0%,transparent)}}
-h1{font-size:clamp(36px,4.9vw,64px);font-weight:900;line-height:1.12;letter-spacing:-.02em;margin:22px 0 18px}
-html[lang=ar] h1{letter-spacing:0;line-height:1.3}
-h1 em{font-style:normal;background:linear-gradient(100deg,var(--acc),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
-.lead{font-size:clamp(17px,1.6vw,20px);color:var(--muted);max-width:560px;font-weight:600}
-.choose{margin:34px 0 14px;font-size:14px;font-weight:800;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;gap:12px}
+.choose{margin:0 0 16px;font-size:14px;font-weight:800;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;gap:12px}
 html[lang=ar] .choose{letter-spacing:0;font-size:16px}
 .choose::after{content:"";flex:1;height:1px;background:var(--line2)}
 
@@ -289,10 +281,7 @@ html[lang=ar] .f-grid h6{letter-spacing:0;font-size:15px}
   .icon-btn{width:40px;height:40px}
   .hero{padding:84px 0 36px;min-height:auto}
   .hero-grid{gap:22px}
-  .eyebrow{font-size:12.5px;padding:5px 12px 5px 10px}
-  h1{font-size:clamp(30px,8.6vw,38px);margin:14px 0 10px}
-  .lead{font-size:16px}
-  .choose{margin:22px 0 12px}
+  .choose{margin:0 0 12px}
   .stage{aspect-ratio:4/4.6;border-radius:22px}
   .stage-top{top:14px;inset-inline:14px}
   .stage-body{padding:18px}
@@ -386,9 +375,6 @@ html[lang=ar] .f-grid h6{letter-spacing:0;font-size:15px}
     <div class="glow"></div><div class="spot"></div>
     <div class="wrap hero-grid">
       <div>
-        <span class="eyebrow rv"><b></b><span data-t="eyebrow"></span></span>
-        <h1 class="rv" data-t="h1"></h1>
-        <p class="lead rv" data-t="lead"></p>
         <div class="choose rv" data-t="choose"></div>
         <div class="tabs rv" role="tablist" id="tabs"></div>
       </div>
@@ -584,9 +570,6 @@ oil:`<svg viewBox="0 0 600 420" preserveAspectRatio="xMidYMid slice">
 const T = {
 ar:{
   nav1:"أنشطتنا",nav2:"من نحن",nav3:"تواجدنا",nav4:"تواصل معنا",
-  eyebrow:"مجموعة سوا يونيتد",
-  h1:" <br><em></em>",
-  lead:" ",
   choose:"اختر النشاط",visit:"زيارة الموقع",sector:"القطاع",
   car:{n:"تأجير السيارات",s:"تنقّل بثقة وراحة",d:"أسطول سيارات حديثة للإيجار اليومي والشهري للأفراد والشركات، بخدمة سريعة وأسعار واضحة.",f:["إيجار يومي وشهري","حلول للشركات","حجز سريع"]},
   food:{n:"المواد الغذائية",s:"جودة من المصدر إليك",d:"توريد وتوزيع المواد الغذائية والمنتجات الطازجة بمعايير جودة عالية وسلاسل إمداد موثوقة.",f:["منتجات طازجة","توريد بالجملة","إمداد موثوق"]},
@@ -604,9 +587,6 @@ ar:{
 },
 en:{
   nav1:"Businesses",nav2:"About",nav3:"Presence",nav4:"Contact",
-  eyebrow:"Sawa United Group",
-  h1:"We Build Businesses.<br><em>You See the Impact.</em>",
-  lead:"A diversified group operating in car rental, food supplies, real estate and petroleum products — with one standard of quality and trust.",
   choose:"Choose a business",visit:"Visit Website",sector:"Sector",
   car:{n:"Car Rental",s:"Move with confidence",d:"A modern fleet for daily and monthly rental for individuals and companies, with fast service and clear pricing.",f:["Daily & monthly","Corporate solutions","Quick booking"]},
   food:{n:"Food Supplies",s:"Quality from source to you",d:"Sourcing and distribution of food and fresh produce with high quality standards and reliable supply chains.",f:["Fresh produce","Wholesale supply","Reliable logistics"]},
@@ -624,9 +604,6 @@ en:{
 },
 fr:{
   nav1:"Activités",nav2:"À propos",nav3:"Présence",nav4:"Contact",
-  eyebrow:"Groupe Sawa United",
-  h1:"Nous bâtissons des entreprises.<br><em>Vous en voyez l’impact.</em>",
-  lead:"Un groupe diversifié actif dans la location de voitures, l’alimentaire, l’immobilier et les produits pétroliers — avec un seul standard de qualité et de confiance.",
   choose:"Choisissez une activité",visit:"Visiter le site",sector:"Secteur",
   car:{n:"Location de voitures",s:"Roulez en toute confiance",d:"Une flotte récente en location journalière et mensuelle pour particuliers et entreprises, service rapide et prix clairs.",f:["Jour & mois","Solutions entreprises","Réservation rapide"]},
   food:{n:"Produits alimentaires",s:"La qualité, de la source à vous",d:"Approvisionnement et distribution de produits alimentaires et frais selon des standards élevés et une logistique fiable.",f:["Produits frais","Vente en gros","Logistique fiable"]},
