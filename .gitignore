@@ -1,0 +1,13 @@
+# أسرار محلية / على السيرفر فقط — لا تُرفع أبدًا
+accounts/config.php
+.env
+.env.*
+
+# حزم النشر
+dist/
+*.zip
+
+# ملفات نظام
+.DS_Store
+Thumbs.db
+*.log

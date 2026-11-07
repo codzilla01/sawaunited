@@ -1,0 +1,25 @@
+# Sawa United — إعدادات مجلد الحسابات (تطبيق داخلي)
+# لا تضع أي بيانات سرية في هذا الملف.
+
+# منع الفهرسة في محركات البحث نهائيًا
+<IfModule mod_headers.c>
+  Header always set X-Robots-Tag "noindex, nofollow, noarchive"
+</IfModule>
+
+# منع قراءة ملف الإعدادات من المتصفح
+<FilesMatch "^config(\.sample)?\.php$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# لا تخزين مؤقت لاستجابات الـAPI
+<IfModule mod_headers.c>
+  <FilesMatch "^api\.php$">
+    Header always set Cache-Control "no-store"
+  </FilesMatch>
+</IfModule>
