@@ -31,3 +31,5 @@ bash scripts/package-deploy.sh   # ينتج dist/sawaunited-deploy-<timestamp>.z
 - الحزمة تستبعد `.git/` و`docs/` و`scripts/` و`accounts/config.php` وأصول الصور غير المستخدمة.
 - الأسرار تُنشأ على السيرفر فقط من `accounts/config.sample.php`.
 - الدليل الكامل خطوة بخطوة: [`docs/hostinger-deploy.md`](docs/hostinger-deploy.md).
+- **نشر تلقائي:** كل دمج على `main` ينشر الموقع عبر `.github/workflows/deploy-hostinger.yml`
+  (lftp/FTPS، بدون حذف ملفات السيرفر، مع فحص أسرار واختبارات دخان) — التجهيز في القسم 12 من الدليل.

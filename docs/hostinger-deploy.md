@@ -167,3 +167,97 @@ bash scripts/package-deploy.sh
 - **روابط القطاعات خارجية**: `masharycar.net` · `sawafood.net` · `sawa-united.net` · `startwalk.net` — تأكد من ملكية كل دومين وأنه يعمل قبل الإطلاق (لاحظ الفرق بين `sawaunited.net` و`sawa-united.net`).
 - **صور المشروعات** حاليًا مستضافة من Unsplash؛ يُفضّل استبدالها بصور مملوكة قبل الإطلاق التجاري.
 - **لا Analytics** في النسخة الحالية: أضف معرّف القياس بعد النشر إن رغبت.
+
+---
+
+## 12) النشر التلقائي عبر GitHub Actions
+
+بعد تجهيز هذا القسم مرة واحدة، كل دمج (merge) على `main` ينشر الموقع تلقائيًا.
+
+**الملف:** `.github/workflows/deploy-hostinger.yml`
+
+### 12.1 إنشاء حساب FTP مخصص (لا تستخدم حساب الاستضافة الأساسي)
+
+**hPanel → Files → FTP Accounts → Create FTP Account**
+
+| الحقل | القيمة |
+|---|---|
+| Username | `deploy@sawaunited.net` |
+| Directory | `/public_html` |
+| Password | كلمة سر قوية (20+ حرف) |
+
+حساب مخصص ومحدود المسار = لو تسرّب، لا يصل إلا لمجلد الموقع.
+
+### 12.2 إضافة الأسرار في GitHub
+
+**Repository → Settings → Secrets and variables → Actions**
+
+**Secrets** (إجبارية):
+
+| الاسم | القيمة |
+|---|---|
+| `FTP_SERVER` | `ftp.sawaunited.net` (أو IP الاستضافة) |
+| `FTP_USERNAME` | `deploy@sawaunited.net` |
+| `FTP_PASSWORD` | كلمة السر التي أنشأتها |
+
+**Variables** (اختيارية، لها قيم افتراضية):
+
+| الاسم | الافتراضي | الوصف |
+|---|---|---|
+| `FTP_PORT` | `21` | منفذ FTP |
+| `FTP_SERVER_DIR` | `/public_html/` | مسار النشر على السيرفر |
+| `SITE_URL` | — | مثل `https://sawaunited.net` لتفعيل اختبارات ما بعد النشر |
+
+### 12.3 حماية إضافية (موصى بها)
+
+- **Settings → Environments → production → Required reviewers**: لن يُنشر أي شيء قبل موافقة بشرية.
+- **Settings → Branches → Protect `main`**: يمنع الدفع المباشر ويجعل النشر مرتبطًا بـPull Request مُراجع.
+
+### 12.4 ما يفعله الـWorkflow بالترتيب
+
+1. يبني حزمة نظيفة عبر `scripts/package-deploy.sh --stage dist/site --no-zip`.
+2. **يفشل تلقائيًا** لو ظهر `accounts/config.php` أو `.git` أو كلمة السر القديمة داخل الحزمة.
+3. يرفع الملفات عبر **lftp** باستخدام FTPS + تحقّق من الشهادة.
+4. **لا يحذف أي ملف على السيرفر** (بدون `--delete`)، و`accounts/config.php` مستبعد صراحة → إعدادات السيرفر تبقى سليمة.
+5. يشغّل اختبارات دخان على الموقع الحقيقي (رئيسية 200 + محتوى متوقع + `projects.html` + `robots` + `sitemap` + **التأكد أن `accounts/config.php` غير مقروء**).
+6. يكتب ملخصًا في صفحة التشغيل (عدد الملفات، الحجم، المسار).
+
+### 12.5 التشغيل اليدوي / التجربة بدون رفع
+
+**Actions → Deploy to Hostinger → Run workflow**
+
+- علّم **Dry run** ليُبنى وتُفحص الحزمة فقط بدون أي رفع.
+
+### 12.6 الرجوع لنسخة سابقة
+
+**Actions → اختر تشغيلًا ناجحًا سابقًا → Artifacts → `site`** ثم ارفع المجلد يدويًا إلى `public_html` (أو ادمج commit رجوع ثم شغّل الـworkflow).
+
+### 12.7 حل المشاكل الشائعة
+
+| المشكلة | السبب المرجّح | الحل |
+|---|---|---|
+| `530 Login authentication failed` | يوزر/باسورد خطأ أو الحساب غير مفعّل | أعد إنشاء كلمة السر في hPanel وحدّث السر |
+| `Fatal error: Certificate verification` | شهادة FTPS غير متوقعة | احذف `set ftp:ssl-force yes;` من خطوة Deploy |
+| `550 Permission denied` | مسار `FTP_SERVER_DIR` غير صحيح | تأكد أنه `/public_html/` بحرف كبير/صغير صحيح |
+| العملية "تنجح" لكن الموقع لا يتغيّر | كاش LiteSpeed | hPanel → Cache Manager → Purge All |
+| انتهاء المهلة | جدار حماية/منفذ | جرّب `FTP_PORT=21` وتأكد أن حساب FTP يسمح بالاتصال من أي IP |
+
+### 12.8 بديل: SSH/rsync (لو خطتك تدعم SSH)
+
+استبدل خطوة Deploy بـ:
+
+```yaml
+      - name: Deploy over SSH
+        env:
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+        run: |
+          mkdir -p ~/.ssh && echo "$SSH_KEY" > ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
+          rsync -avz --delete-after \
+            --exclude 'accounts/config.php' \
+            dist/site/ "$SSH_USER@$SSH_HOST:~/public_html/"
+```
+
+> ⚠️ لاحظ `--delete-after`: سيحذف أي ملف على السيرفر غير موجود في المستودع — تأكد من الاستبعادات قبل استخدامه.

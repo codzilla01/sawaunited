@@ -1,0 +1,172 @@
+name: Deploy to Hostinger
+
+# ينشر الموقع تلقائيًا بعد كل دمج على main.
+# التجهيز المطلوب مرة واحدة: docs/hostinger-deploy.md ← قسم «النشر التلقائي».
+#
+# ملاحظات أمان:
+#  - النشر لا يحذف أي ملف على السيرفر (بدون --delete)، لذلك accounts/config.php
+#    وملفات السيرفر الأخرى تبقى كما هي.
+#  - accounts/config.php مستبعد صراحة من المزامنة ولا يُرفع أبدًا.
+#  - بيانات الدخول تُقرأ من GitHub Secrets فقط، ولا تُكتب في أي ملف داخل المستودع.
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'docs/**'
+      - 'README.md'
+      - 'LICENSE'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'بناء الحزمة فقط بدون رفع (Dry run)'
+        type: boolean
+        default: false
+
+concurrency:
+  group: deploy-hostinger
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build deploy package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build clean package
+        run: bash scripts/package-deploy.sh --stage dist/site --no-zip
+
+      - name: Verify no secrets in the package
+        run: |
+          set -euo pipefail
+          test ! -e dist/site/accounts/config.php || { echo "::error::config.php leaked into the package"; exit 1; }
+          test ! -e dist/site/.git || { echo "::error::.git leaked into the package"; exit 1; }
+          test -e dist/site/accounts/config.sample.php || { echo "::error::config.sample.php missing"; exit 1; }
+          if grep -rIl --exclude-dir=assets "SawaAccounts#2026" dist/site; then
+            echo "::error::old database password found in the package"
+            exit 1
+          fi
+          echo "✓ package is clean"
+
+      - name: Show package summary
+        run: |
+          echo "### حزمة النشر" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- الملفات: $(find dist/site -type f | wc -l)" >> "$GITHUB_STEP_SUMMARY"
+          echo "- الحجم: $(du -sh dist/site | cut -f1)" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          (cd dist/site && find . -type f | sort) >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: dist/site
+          retention-days: 14
+
+  deploy:
+    name: Deploy over FTP(S)
+    needs: build
+    if: ${{ github.event_name == 'push' || inputs.dry_run == false }}
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: dist/site
+
+      - name: Check required configuration
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          missing=0
+          for name in FTP_SERVER FTP_USERNAME FTP_PASSWORD; do
+            if [ -z "${!name:-}" ]; then
+              echo "::error::السر $name غير مضبوط في GitHub → Settings → Secrets and variables → Actions"
+              missing=1
+            fi
+          done
+          [ "$missing" -eq 0 ] || exit 1
+
+      - name: Install lftp
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lftp
+
+      - name: Deploy files
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_PORT: ${{ vars.FTP_PORT || '21' }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          SERVER_DIR: ${{ vars.FTP_SERVER_DIR || '/public_html/' }}
+        run: |
+          set -euo pipefail
+
+          # بيانات الدخول في ملف مؤقت بصلاحيات مقيدة — لا تظهر في سطر الأوامر
+          printf 'machine %s login %s password %s\n' "$FTP_SERVER" "$FTP_USERNAME" "$FTP_PASSWORD" > "$HOME/.netrc"
+          chmod 600 "$HOME/.netrc"
+
+          lftp -c "
+            set net:max-retries 3;
+            set net:timeout 30;
+            set ftp:ssl-allow yes;
+            set ftp:ssl-force yes;
+            set ssl:verify-certificate yes;
+            set mirror:parallel-transfer-count 3;
+            open -p '$FTP_PORT' '$FTP_SERVER';
+            mirror --reverse --continue --depth-first --no-perms --verbose=1 \
+              --exclude-glob accounts/config.php \
+              --exclude-glob '*.zip' \
+              --exclude-glob '*.sql' \
+              --exclude-glob '.DS_Store' \
+              ./dist/site '$SERVER_DIR';
+            bye"
+
+      - name: Smoke test
+        if: ${{ vars.SITE_URL != '' }}
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: |
+          set -euo pipefail
+          base="${SITE_URL%/}"
+
+          echo "→ فحص الصفحة الرئيسية"
+          code=$(curl -sS -o /tmp/home.html -w '%{http_code}' "$base/")
+          [ "$code" = "200" ] || { echo "::error::الرئيسية رجعت $code"; exit 1; }
+          grep -q 'data-t="choose"' /tmp/home.html || { echo "::error::محتوى الرئيسية غير متوقع"; exit 1; }
+
+          echo "→ فحص صفحة المشروعات"
+          code=$(curl -sS -o /dev/null -w '%{http_code}' "$base/projects.html")
+          [ "$code" = "200" ] || { echo "::error::projects.html رجعت $code"; exit 1; }
+
+          echo "→ التأكد أن ملف الإعدادات محجوب"
+          cfg=$(curl -sS -o /dev/null -w '%{http_code}' "$base/accounts/config.php")
+          [ "$cfg" != "200" ] || { echo "::error::accounts/config.php مقروء من الإنترنت!"; exit 1; }
+
+          echo "→ التأكد من robots و sitemap"
+          curl -sS -o /dev/null -w '%{http_code}' "$base/robots.txt" | grep -qx 200 || { echo "::error::robots.txt غير متاح"; exit 1; }
+          curl -sS -o /dev/null -w '%{http_code}' "$base/sitemap.xml" | grep -qx 200 || { echo "::error::sitemap.xml غير متاح"; exit 1; }
+
+          echo "✓ كل الفحوص نجحت"
+
+      - name: Summary
+        run: |
+          echo "### تم النشر ✅" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- المسار على السيرفر: \`${{ vars.FTP_SERVER_DIR || '/public_html/' }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- الموقع: ${{ vars.SITE_URL || '—' }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "> تذكير: امسح كاش LiteSpeed من hPanel (Cache Manager → Purge All) لظهور التغييرات فورًا." >> "$GITHUB_STEP_SUMMARY"
