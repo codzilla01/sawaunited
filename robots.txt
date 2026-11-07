@@ -1,3 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /accounts/
+Disallow: /docs/
+Disallow: /scripts/
+
 Sitemap: https://sawaunited.net/sitemap.xml

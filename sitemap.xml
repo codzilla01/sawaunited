@@ -1,2 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://sawaunited.net/</loc></url></urlset>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://sawaunited.net/</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://sawaunited.net/?lang=ar"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sawaunited.net/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://sawaunited.net/?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://sawaunited.net/"/>
+  </url>
+  <url>
+    <loc>https://sawaunited.net/projects.html</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://sawaunited.net/projects.html?lang=ar"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sawaunited.net/projects.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://sawaunited.net/projects.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://sawaunited.net/projects.html"/>
+  </url>
+</urlset>

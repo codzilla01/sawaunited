@@ -20,3 +20,14 @@ No card/list rendering loop is required for the static content.
 
 
 V6: isolated project modal content panel to prevent legacy CSS from hiding project text.
+
+
+## النشر على Hostinger
+
+```bash
+bash scripts/package-deploy.sh   # ينتج dist/sawaunited-deploy-<timestamp>.zip
+```
+
+- الحزمة تستبعد `.git/` و`docs/` و`scripts/` و`accounts/config.php` وأصول الصور غير المستخدمة.
+- الأسرار تُنشأ على السيرفر فقط من `accounts/config.sample.php`.
+- الدليل الكامل خطوة بخطوة: [`docs/hostinger-deploy.md`](docs/hostinger-deploy.md).
