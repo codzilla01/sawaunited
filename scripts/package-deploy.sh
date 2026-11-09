@@ -42,9 +42,24 @@ copy() {
 }
 
 # ---------- الموقع العام ----------
-for f in index.html projects.html robots.txt sitemap.xml .htaccess; do copy "$f"; done
-copy css/styles.css
+for f in index.html projects.html 404.html robots.txt sitemap.xml .htaccess; do copy "$f"; done
+for f in css/styles.css css/home.css css/design-system.css; do copy "$f"; done
 copy js
+
+# ---------- البورتفوليو المؤسسي والتنزيلات الموجودة ----------
+copy portfolio/index.html
+copy portfolio/assets/logo-transparent.png
+for f in "$ROOT"/portfolio/assets/*.webp; do
+  [ -e "$f" ] || continue
+  case "$(basename "$f")" in
+    global-map.webp|sawafood-facility.webp) continue ;;
+  esac
+  copy "portfolio/assets/$(basename "$f")"
+done
+for f in "$ROOT"/portfolio/*.pdf "$ROOT"/portfolio/*.pptx; do
+  [ -e "$f" ] || continue
+  copy "portfolio/$(basename "$f")"
+done
 
 # أصول غير مستخدمة في أي صفحة — تُستبعد لتقليل حجم النشر (تبقى في المستودع)
 EXCLUDE_ASSETS=("will\\.png" "global-map\\.png" "favicon\\.png")

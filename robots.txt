@@ -3,5 +3,6 @@ Allow: /
 Disallow: /accounts/
 Disallow: /docs/
 Disallow: /scripts/
+Disallow: /backups/
 
 Sitemap: https://sawaunited.net/sitemap.xml

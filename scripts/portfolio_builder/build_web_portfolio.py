@@ -2,19 +2,29 @@
 import json, os
 from sawa_data import BRAND, CONTENT
 
-data_json = json.dumps(CONTENT, ensure_ascii=False)
+data_json = json.dumps(CONTENT, ensure_ascii=False).replace(".jpg", ".webp")
 
 html = f"""<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>SAWA UNITED GROUP | البورتفوليو المؤسسي Corporate Portfolio 2026</title>
-<meta name="description" content="SAWA UNITED GROUP Corporate Profile & Business Portfolio — Arabic & English Editions (18-Page Full Portfolio + 6-Page Executive Profile).">
+<title id="pageTitle">SAWA UNITED GROUP | Corporate Profile & Business Portfolio</title>
+<meta name="description" id="metaDescription" content="Explore the SAWA UNITED GROUP corporate profile and business portfolio in Arabic and English.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://sawaunited.net/portfolio/">
+<link rel="alternate" hreflang="ar" href="https://sawaunited.net/portfolio/?lang=ar">
+<link rel="alternate" hreflang="en" href="https://sawaunited.net/portfolio/?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://sawaunited.net/portfolio/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SAWA UNITED GROUP">
+<meta property="og:title" content="SAWA UNITED GROUP | Corporate Profile">
+<meta property="og:description" content="Corporate profile and business portfolio in Arabic and English.">
+<meta property="og:url" content="https://sawaunited.net/portfolio/">
+<meta property="og:image" content="https://sawaunited.net/assets/sawa-header-logo.webp">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/logo-transparent.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/design-system.css">
 <style>
 :root {{
   --obsidian: #07090E;
@@ -36,7 +46,7 @@ html = f"""<!DOCTYPE html>
   --car: #F26B3A;
   --oil: #2F7BEA;
   --font-head: 'Cairo', system-ui, sans-serif;
-  --font-body: 'IBM Plex Sans Arabic', 'Cairo', system-ui, sans-serif;
+  --font-body: 'Cairo', system-ui, sans-serif;
 }}
 html[lang="en"] {{
   --font-head: 'Manrope', system-ui, sans-serif;
@@ -70,6 +80,8 @@ button, a {{ font-family: inherit; color: inherit; text-decoration: none; cursor
 .brand-txt span {{ font-size: 11.5px; color: var(--gold-bright); font-weight: 600; }}
 
 .controls {{ display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }}
+.home-link {{ display: inline-flex; align-items: center; min-height: 40px; padding: 6px 12px; border: 1px solid rgba(212,160,51,.32); border-radius: 999px; color: var(--gold-bright); font-size: 12px; font-weight: 800; white-space: nowrap; }}
+.home-link:hover {{ background: rgba(212,160,51,.1); }}
 .pill-group {{
   display: inline-flex; background: #101622; border: 1px solid rgba(255,255,255,0.10);
   border-radius: 999px; padding: 3px;
@@ -93,6 +105,7 @@ button, a {{ font-family: inherit; color: inherit; text-decoration: none; cursor
   padding: 16px 20px;
 }}
 .dl-drawer.open {{ display: block; }}
+.dl-drawer[hidden] {{ display: none !important; }}
 .dl-grid {{
   max-width: 1480px; margin: 0 auto;
   display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px;
@@ -198,9 +211,14 @@ button, a {{ font-family: inherit; color: inherit; text-decoration: none; cursor
 .card.dashed {{ border-style: dashed; border-color: var(--gold); background: rgba(212,160,51,0.05); }}
 
 .photo-card {{
-  border-radius: 16px; overflow: hidden; border: 1px solid var(--gold);
+  position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--gold);
   background-size: cover; background-position: center; min-height: 180px;
 }}
+.visual-note {{ position:absolute; inset-inline-start:10px; inset-block-end:10px; z-index:1; max-width:calc(100% - 20px); padding:5px 9px; border:1px solid rgba(255,255,255,.22); border-radius:999px; color:#fff; background:rgba(7,9,14,.78); font-size:10px; line-height:1.4; backdrop-filter:blur(8px); }}
+.profile-diagram {{ position:relative; min-height:270px; display:grid; place-content:center; gap:14px; padding:24px; border:1px solid var(--gold); border-radius:16px; background:radial-gradient(ellipse at center,rgba(212,160,51,.12),transparent 70%),var(--obsidian-card); }}
+.profile-diagram > strong {{ text-align:center; color:var(--gold-bright); font-size:15px; }}
+.profile-diagram-grid {{ display:grid; grid-template-columns:1fr 1fr; gap:9px; }}
+.profile-diagram-grid span {{ display:grid; place-items:center; min-height:58px; padding:8px; border:1px solid var(--obsidian-line); border-radius:10px; color:var(--silver); background:var(--obsidian); font-size:11px; text-align:center; }}
 .ltr {{ direction: ltr; unicode-bidi: isolate; font-family: 'Manrope', sans-serif; display: inline-block; }}
 .badge {{
   display: inline-block; padding: 3px 10px; border-radius: 999px;
@@ -224,7 +242,8 @@ button, a {{ font-family: inherit; color: inherit; text-decoration: none; cursor
 }}
 </style>
 </head>
-<body>
+<body class="portfolio-page">
+<a class="skip-link" id="skipLink" href="#slidesContainer" style="position:fixed;top:12px;inset-inline-start:12px;z-index:300;transform:translateY(-180%);padding:10px 16px;border-radius:8px;background:#D4A033;color:#071018;font-weight:800;">تجاوز إلى المحتوى</a>
 
 <header class="topbar">
   <div class="topbar-inner">
@@ -236,26 +255,27 @@ button, a {{ font-family: inherit; color: inherit; text-decoration: none; cursor
       </div>
     </div>
     <div class="controls">
-      <div class="pill-group" aria-label="Language">
-        <button id="btnAr" class="active" onclick="setLang('ar')">العربية (RTL)</button>
-        <button id="btnEn" onclick="setLang('en')">English (LTR)</button>
+      <a class="home-link" id="homeLink" href="/">الصفحة الرئيسية</a>
+      <div class="pill-group" id="languageGroup" role="group" aria-label="Language">
+        <button type="button" id="btnAr" class="active" aria-pressed="true" onclick="setLang('ar')">العربية (RTL)</button>
+        <button type="button" id="btnEn" aria-pressed="false" onclick="setLang('en')">English (LTR)</button>
       </div>
-      <div class="pill-group" aria-label="Edition">
-        <button id="btnFull" class="active" onclick="setDeck('full')"><span id="lblFull">البورتفوليو الكامل (18)</span></button>
-        <button id="btnExec" onclick="setDeck('exec')"><span id="lblExec">الملف التنفيذي (6)</span></button>
+      <div class="pill-group" id="editionGroup" role="group" aria-label="Edition">
+        <button type="button" id="btnFull" class="active" aria-pressed="true" onclick="setDeck('full')"><span id="lblFull">البورتفوليو الكامل (18)</span></button>
+        <button type="button" id="btnExec" aria-pressed="false" onclick="setDeck('exec')"><span id="lblExec">الملف التنفيذي (6)</span></button>
       </div>
-      <div class="pill-group" aria-label="View Mode">
-        <button id="btnStage" class="active" onclick="setMode('stage')"><span id="lblStage">عرض شرائح 16:9</span></button>
-        <button id="btnScroll" onclick="setMode('scroll')"><span id="lblScroll">عرض متتالي</span></button>
+      <div class="pill-group" id="viewModeGroup" role="group" aria-label="View Mode">
+        <button type="button" id="btnStage" class="active" aria-pressed="true" onclick="setMode('stage')"><span id="lblStage">عرض شرائح 16:9</span></button>
+        <button type="button" id="btnScroll" aria-pressed="false" onclick="setMode('scroll')"><span id="lblScroll">عرض متتالي</span></button>
       </div>
-      <button class="dl-btn" onclick="toggleDownloads()">
-        <span>⬇</span> <span id="lblDl">تحميل PDF & PPTX</span>
+      <button type="button" class="dl-btn" id="downloadToggle" aria-controls="dlDrawer" aria-expanded="false" onclick="toggleDownloads()">
+        <span aria-hidden="true">⬇</span> <span id="lblDl">تحميل PDF & PPTX</span>
       </button>
     </div>
   </div>
 </header>
 
-<section class="dl-drawer" id="dlDrawer">
+<section class="dl-drawer" id="dlDrawer" aria-label="Download documents" hidden>
   <div class="dl-grid">
     <a class="dl-card" href="SAWA-UNITED-Corporate-Portfolio-AR.pdf" download>
       <div><b>البورتفوليو المؤسسي الكامل (عربي)</b><small>18 صفحة · 16:9 Vector High-Res</small></div>
@@ -306,6 +326,7 @@ button, a {{ font-family: inherit; color: inherit; text-decoration: none; cursor
   <div class="slides-wrap mode-stage" id="slidesContainer"></div>
 </main>
 
+<style>.portfolio-page .skip-link:focus{{transform:translateY(0)}}.portfolio-page :focus-visible{{outline:3px solid #E3B85A;outline-offset:3px}}.portfolio-page .pill-group button:focus-visible,.portfolio-page .nav-btn:focus-visible,.portfolio-page .thumb-dot:focus-visible{{position:relative;z-index:1}}</style>
 <script>
 const DATA = {data_json};
 const COLORS = {{
@@ -324,15 +345,36 @@ function esc(s) {{
 }}
 
 function toggleDownloads() {{
-  document.getElementById("dlDrawer").classList.toggle("open");
+  const button = document.getElementById("downloadToggle");
+  const drawer = document.getElementById("dlDrawer");
+  const isOpen = drawer.classList.toggle("open");
+  drawer.hidden = !isOpen;
+  button.setAttribute("aria-expanded", String(isOpen));
 }}
+
 
 function setLang(l) {{
   curLang = l;
+  try {{ localStorage.setItem("sawa_lang", l); }} catch (error) {{ /* Storage may be disabled; language still works for this visit. */ }}
+  document.getElementById("metaDescription").content = l === "ar"
+    ? "تعرّف على الملف التعريفي المؤسسي ومحفظة أعمال مجموعة سوا يونيتد باللغتين العربية والإنجليزية."
+    : "Explore the SAWA UNITED GROUP corporate profile and business portfolio in Arabic and English.";
+  document.getElementById("pageTitle").textContent = l === "ar"
+    ? "مجموعة سوا يونيتد | الملف التعريفي ومحفظة الأعمال"
+    : "SAWA UNITED GROUP | Corporate Profile & Business Portfolio";
   document.documentElement.lang = l;
   document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
   document.getElementById("btnAr").classList.toggle("active", l === "ar");
   document.getElementById("btnEn").classList.toggle("active", l === "en");
+  document.getElementById("btnAr").setAttribute("aria-pressed", String(l === "ar"));
+  document.getElementById("btnEn").setAttribute("aria-pressed", String(l === "en"));
+  document.getElementById("homeLink").textContent = l === "ar" ? "الصفحة الرئيسية" : "Home";
+  document.getElementById("skipLink").textContent = l === "ar" ? "تجاوز إلى المحتوى" : "Skip to content";
+  document.getElementById("languageGroup").setAttribute("aria-label", l === "ar" ? "اللغة" : "Language");
+  document.getElementById("editionGroup").setAttribute("aria-label", l === "ar" ? "الإصدار" : "Edition");
+  document.getElementById("viewModeGroup").setAttribute("aria-label", l === "ar" ? "طريقة العرض" : "View mode");
+  document.getElementById("dlDrawer").setAttribute("aria-label", l === "ar" ? "تنزيل المستندات" : "Download documents");
+  document.getElementById("topSub").textContent = l === "ar" ? "الملف التعريفي المؤسسي · 2026" : "Corporate Profile · 2026";
   document.getElementById("topBrand").textContent = DATA[l].group_name;
   document.getElementById("lblFull").textContent = l === "ar" ? "البورتفوليو الكامل (18)" : "Full Portfolio (18)";
   document.getElementById("lblExec").textContent = l === "ar" ? "الملف التنفيذي (6)" : "Executive Profile (6)";
@@ -348,6 +390,8 @@ function setDeck(dk) {{
   curIdx = 0;
   document.getElementById("btnFull").classList.toggle("active", dk === "full");
   document.getElementById("btnExec").classList.toggle("active", dk === "exec");
+  document.getElementById("btnFull").setAttribute("aria-pressed", String(dk === "full"));
+  document.getElementById("btnExec").setAttribute("aria-pressed", String(dk === "exec"));
   renderDeck();
 }}
 
@@ -355,6 +399,8 @@ function setMode(m) {{
   curMode = m;
   document.getElementById("btnStage").classList.toggle("active", m === "stage");
   document.getElementById("btnScroll").classList.toggle("active", m === "scroll");
+  document.getElementById("btnStage").setAttribute("aria-pressed", String(m === "stage"));
+  document.getElementById("btnScroll").setAttribute("aria-pressed", String(m === "scroll"));
   const wrap = document.getElementById("slidesContainer");
   wrap.className = "slides-wrap mode-" + m;
   document.getElementById("deckNav").style.display = m === "stage" ? "flex" : "none";
@@ -396,7 +442,7 @@ function buildSlidesHTML(lang, isExec) {{
             <p class="s-sub" style="color:var(--silver);">${{esc(s1.lead)}}</p>
             <div style="font-weight:800; color:var(--gold-bright); font-size:15px;">${{esc(d.tagline)}}</div>
           </div>
-          <div class="photo-card" style="height:100%; min-height:280px; background-image:url('assets/ecosystem-hero.jpg');"></div>
+          <div class="photo-card" role="img" aria-label="${{rtl ? "صورة توضيحية" : "Illustrative image"}}" style="height:100%; min-height:280px; background-image:url('assets/ecosystem-hero.webp');"><span class="visual-note">${{rtl ? "صورة توضيحية" : "Illustrative image"}}</span></div>
         </div>
         <div class="g4" style="margin-top:14px;">
           ${{s1.sectors_bar.map(([nm, dm, ak]) => `
@@ -428,7 +474,7 @@ function buildSlidesHTML(lang, isExec) {{
               <div style="background:var(--ivory2); border:1px solid var(--gold); border-radius:10px; padding:9px 13px; font-weight:700; font-size:12.5px; color:var(--gold-deep);">${{esc(s2.quote)}}</div>
             </div>
           </div>
-          <div class="photo-card" style="background-image:url('assets/skyline-corporate.jpg');"></div>
+          <div class="photo-card" role="img" aria-label="${{rtl ? "صورة توضيحية" : "Illustrative image"}}" style="background-image:url('assets/skyline-corporate.webp');"><span class="visual-note">${{rtl ? "صورة توضيحية" : "Illustrative image"}}</span></div>
         </div>
         <div class="g5">
           ${{s2.kpis.map(([v, l]) => `
@@ -540,7 +586,7 @@ function buildSlidesHTML(lang, isExec) {{
                 </div>
               </div>
               <div style="display:flex; flex-direction:column; gap:9px;">
-                <div class="photo-card" style="flex:1; border-color:${{acc}}; background-image:url('assets/${{sc.photo}}');"></div>
+                <div class="photo-card" role="img" aria-label="${{rtl ? "صورة توضيحية وليست توثيقاً لمشروع" : "Illustrative image, not a project photograph"}}" style="flex:1; border-color:${{acc}}; background-image:url('assets/${{sc.photo}}');"><span class="visual-note">${{rtl ? "صورة توضيحية — ليست توثيقاً لمشروع" : "Illustrative image — not a project photo"}}</span></div>
                 ${{sc.highlights.map(([hv, hl]) => `
                   <div class="card" style="padding:8px 14px; display:flex; align-items:center; justify-content:space-between; gap:10px; border-inline-start:4px solid ${{acc}};">
                     <strong style="color:${{acc}}; font-size:13px;">${{esc(hv)}}</strong>
@@ -582,7 +628,7 @@ function buildSlidesHTML(lang, isExec) {{
 
     // 10 Projects & Ventures
     const s10 = d.s10;
-    const vPhotos = ["sector-realestate.jpg","sector-food.jpg","sector-automotive.jpg","sector-petroleum.jpg"];
+    const vPhotos = ["sector-realestate.webp","sector-food.webp","sector-automotive.webp","sector-petroleum.webp"];
     slides.push({{
       label: rtl ? "10 المشروعات" : "10 Ventures",
       dark: false,
@@ -593,7 +639,7 @@ function buildSlidesHTML(lang, isExec) {{
           <div class="g2-eq" style="flex:1;">
             ${{s10.ventures.map(([vt, vm, ak, vd], i) => `
               <div class="card" style="display:grid; grid-template-columns:130px 1fr; gap:14px; align-items:stretch;">
-                <div class="photo-card" style="min-height:120px; border-color:${{COLORS[ak]}}; background-image:url('assets/${{vPhotos[i]}}');"></div>
+                <div class="photo-card" role="img" aria-label="${{rtl ? "صورة توضيحية وليست توثيقاً لمشروع" : "Illustrative image, not a project photograph"}}" style="min-height:120px; border-color:${{COLORS[ak]}}; background-image:url('assets/${{vPhotos[i]}}');"><span class="visual-note">${{rtl ? "توضيحية فقط" : "Illustrative only"}}</span></div>
                 <div style="display:flex; flex-direction:column; gap:4px;">
                   <span style="font-size:11px; font-weight:800; color:${{COLORS[ak]}};">${{esc(vm)}}</span>
                   <strong class="ltr" style="font-size:14px;">${{esc(vt)}}</strong>
@@ -609,18 +655,19 @@ function buildSlidesHTML(lang, isExec) {{
     // 11 Capabilities & Operating Model
     const s11 = d.s11, s12 = d.s12;
     slides.push({{
-      label: rtl ? "11 القدرات ونموذج العمل" : "11 Scale & Model",
+      label: rtl ? "11 نطاق المعلومات" : "11 Information scope",
       dark: true,
       html: `
         ${{hdrHTML(d, false)}}
         <div class="s-body">
           <div>
-            <div class="kicker">${{rtl ? "خبراتنا ونموذج العمل · CAPABILITIES & OPERATING MODEL" : "CAPABILITIES & EXECUTION · SCALE & OPERATING MODEL"}}</div>
-            <h2 class="s-title">${{rtl ? "إمكانيات تشغيلية موثقة.. ومنهجية عمل منضبطة من 5 مراحل" : "Quantified Operational Scale & Five-Stage Execution Model"}}</h2>
+            <div class="kicker">${{esc(s11.kicker)}}</div>
+            <h2 class="s-title">${{esc(s11.title)}}</h2>
+            <p class="s-sub">${{esc(s11.sub)}}</p>
           </div>
           <div class="g2" style="flex:1;">
             <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
-              <strong style="color:var(--gold-bright); font-size:14.5px;">${{rtl ? "مؤشرات القدرة التشغيلية الموثقة" : "Verified Operational Capacity Benchmarks"}}</strong>
+              <strong style="color:var(--gold-bright); font-size:14.5px;">${{rtl ? "عناصر المحتوى المدرجة" : "Listed website content"}}</strong>
               ${{s11.bars.map(([bl, bv, br, ak]) => `
                 <div>
                   <div style="display:flex; justify-content:space-between; gap:8px; font-size:11.8px;">
@@ -632,7 +679,7 @@ function buildSlidesHTML(lang, isExec) {{
               `).join("")}}
             </div>
             <div class="card" style="border-color:var(--gold); display:flex; flex-direction:column; justify-content:space-between; gap:6px;">
-              <strong style="color:var(--gold-bright); font-size:14.5px;">${{rtl ? "نموذج العمل المؤسسي (من الفرصة إلى الاستدامة)" : "5-Stage Institutional Execution Lifecycle"}}</strong>
+              <strong style="color:var(--gold-bright); font-size:14.5px;">${{rtl ? "قائمة تحقق للقارئ" : "Reader verification checklist"}}</strong>
               ${{s12.steps.map(([sn, st, sp]) => `
                 <div style="display:flex; gap:10px; align-items:center; background:#0C121C; padding:7px 10px; border-radius:10px; border:1px solid var(--obsidian-line);">
                   <span class="badge" style="background:var(--gold); color:#080B10; padding:6px 9px;">${{sn}}</span>
@@ -648,7 +695,7 @@ function buildSlidesHTML(lang, isExec) {{
     // 12 Competitive Advantage
     const s13 = d.s13;
     slides.push({{
-      label: rtl ? "12 القيمة التنافسية" : "12 Why SAWA UNITED",
+      label: rtl ? "12 ملاحظات الإفصاح" : "12 Disclosure notes",
       dark: false,
       html: `
         ${{hdrHTML(d, false)}}
@@ -679,7 +726,7 @@ function buildSlidesHTML(lang, isExec) {{
     // 13 Partners & Clients
     const s14 = d.s14;
     slides.push({{
-      label: rtl ? "13 الشركاء والعملاء" : "13 Partners & Clients",
+      label: rtl ? "13 الشراكات والاعتمادات" : "13 Partnerships & Credentials",
       dark: true,
       html: `
         ${{hdrHTML(d, false)}}
@@ -707,7 +754,7 @@ function buildSlidesHTML(lang, isExec) {{
   const s15 = d.s15;
   const mktPg = isExec ? 4 : 14;
   slides.push({{
-    label: rtl ? `${{String(mktPg).padStart(2,'0')}} الأسواق` : `${{String(mktPg).padStart(2,'0')}} Markets`,
+    label: rtl ? `${{String(mktPg).padStart(2,'0')}} المواقع` : `${{String(mktPg).padStart(2,'0')}} Websites`,
     dark: true,
     html: `
       ${{hdrHTML(d, isExec)}}
@@ -715,14 +762,18 @@ function buildSlidesHTML(lang, isExec) {{
         <div><div class="kicker">${{esc(s15.kicker)}}</div><h2 class="s-title">${{esc(s15.title)}}</h2><p class="s-sub">${{esc(s15.sub)}}</p></div>
         <div class="g2" style="flex:1;">
           <div style="display:flex; flex-direction:column; gap:6px; justify-content:space-between;">
-            ${{s15.regions.map(([cn, cd, cs]) => `
+            ${{s15.websites.map(([cn, cd, cs]) => `
               <div class="card" style="padding:7px 12px; display:flex; align-items:center; gap:10px; border-color:${{cd==='EXP'?COLORS.oil:'var(--obsidian-line)'}};">
                 <span class="badge" style="background:${{cd==='EXP'?COLORS.oil:'var(--gold)'}}; color:${{cd==='EXP'?'#fff':'#080A0F'}}; min-width:40px; text-align:center;">${{cd}}</span>
                 <div><strong style="font-size:12.5px; display:block;">${{esc(cn)}}</strong><span style="font-size:11px; color:var(--muted-dark);">${{esc(cs)}}</span></div>
               </div>
             `).join("")}}
           </div>
-          <div class="photo-card" style="background-color:#0A0E16; background-size:contain; background-repeat:no-repeat; background-image:url('assets/global-map.jpg');"></div>
+          <div class="profile-diagram" role="img" aria-label="${{rtl ? "مخطط توضيحي لروابط المواقع، وليس خريطة تشغيل" : "Illustrative website-link diagram, not an operating map"}}">
+            <strong>SAWA UNITED GROUP</strong>
+            <div class="profile-diagram-grid">${{s15.websites.map(([cn, cd, cs]) => `<span>${{esc(cn)}}<br><b class="ltr">${{esc(cs)}}</b></span>`).join("")}}</div>
+            <span class="visual-note">${{rtl ? "مخطط توضيحي — لا يحدد مواقع التشغيل" : "Illustrative diagram — no operating locations shown"}}</span>
+          </div>
         </div>
       </div>
       ${{ftrHTML(d, mktPg, tot)}}`
@@ -732,7 +783,7 @@ function buildSlidesHTML(lang, isExec) {{
     // 15 Quality & HSE
     const s17 = d.s17;
     slides.push({{
-      label: rtl ? "15 الجودة والالتزام" : "15 Quality & HSE",
+      label: rtl ? "15 التحقق المستقل" : "15 Independent review",
       dark: false,
       html: `
         ${{hdrHTML(d, false)}}
@@ -759,7 +810,7 @@ function buildSlidesHTML(lang, isExec) {{
   const s16 = d.s16;
   const prtPg = isExec ? 5 : 16;
   slides.push({{
-    label: rtl ? `${{String(prtPg).padStart(2,'0')}} فرص الشراكة` : `${{String(prtPg).padStart(2,'0')}} Partnerships`,
+    label: rtl ? `${{String(prtPg).padStart(2,'0')}} الاستفسارات` : `${{String(prtPg).padStart(2,'0')}} Inquiries`,
     dark: true,
     html: `
       ${{hdrHTML(d, isExec)}}
@@ -777,7 +828,7 @@ function buildSlidesHTML(lang, isExec) {{
           `).join("")}}
         </div>
         <div class="card" style="background:#161F30; border-color:var(--gold); text-align:center; font-weight:800; color:var(--gold-bright); font-size:13.2px;">
-          ${{rtl ? "دعوة للتعاون: شاركنا مشروعك أو احتياجك التجاري اليوم — وسيقوم الفريق المختص بالرد المباشر وهيكلة الحل الأنسب لأعمالك." : "Call to Action: Share your investment mandate, distribution inquiry, or supply requirement — our specialist unit will respond directly."}}
+          ${{rtl ? "للمعلومات الحالية، راجع الموقع المدرج للقطاع المعني. إدراج الروابط لا يؤكد توفر خدمة أو يمثل عرضاً تجارياً." : "For current information, visit the relevant listed sector website. Listing these links does not confirm service availability or constitute a commercial offer."}}
         </div>
       </div>
       ${{ftrHTML(d, prtPg, tot)}}`
@@ -825,8 +876,8 @@ function buildSlidesHTML(lang, isExec) {{
         <h2 class="s-title" style="font-size:clamp(24px,2.6vw,36px);">${{esc(d.group_name)}}</h2>
         <div style="font-size:17px; font-weight:800; color:var(--gold-bright);">${{esc(d.tagline)}}</div>
         <p class="s-sub" style="text-align:center;">${{esc(d.sub_tagline)}}</p>
-        <a href="https://wa.me/201011225592" target="_blank" rel="noopener" class="card ltr" style="border-radius:999px; border-color:var(--gold); padding:10px 26px; font-weight:800; color:var(--gold-bright); font-size:14px;">
-          sawaunited.net &nbsp;|&nbsp; WhatsApp: +20 101 122 5592
+        <a href="https://wa.me/201011225592" target="_blank" rel="noopener noreferrer" class="card ltr" style="border-radius:999px; border-color:var(--gold); padding:10px 26px; font-weight:800; color:var(--gold-bright); font-size:14px;">
+          ${{rtl ? "sawaunited.net | واتساب · رقم مدرج، تحقق قبل الاستخدام" : "sawaunited.net | WhatsApp — listed number; verify first"}}
         </a>
         <div class="g4" style="width:100%; max-width:820px; margin-top:8px;">
           <a href="https://sawa-united.net" target="_blank" class="card ltr" style="padding:9px; border-color:${{COLORS.estate}}; color:${{COLORS.estate}}; font-weight:800; font-size:12.5px;">sawa-united.net</a>
@@ -887,7 +938,13 @@ document.addEventListener("keydown", (e) => {{
   if (e.key === " ") {{ e.preventDefault(); stepSlide(1); }}
 }});
 
-setLang("ar");
+let initialLang = "ar";
+try {{
+  const urlLang = new URLSearchParams(window.location.search).get("lang");
+  const savedLang = localStorage.getItem("sawa_lang");
+  initialLang = ["ar", "en"].includes(urlLang) ? urlLang : (["ar", "en"].includes(savedLang) ? savedLang : initialLang);
+}} catch (error) {{ /* Continue with Arabic when browser storage is unavailable. */ }}
+setLang(initialLang);
 </script>
 </body>
 </html>

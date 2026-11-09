@@ -159,6 +159,9 @@ def p_s01(prs, d, is_exec=False):
     img_p = prep_photo("ecosystem-hero.jpg", 430, 412, radius_pt=20, overlay_alpha=0.22)
     add_img(sl, 484, 34, 430, 412, img_p, rtl=rtl)
     add_shape(sl, 484, 34, 430, 412, fill=None, stroke=BRAND["gold"], stroke_w=0.9, rtl=rtl)
+    visual_note = "صورة توضيحية" if rtl else "Illustrative image"
+    add_shape(sl, 754, 414, 144, 22, fill=BRAND["obsidian"], stroke=BRAND["gold"], stroke_w=0.6, rtl=rtl)
+    add_txt(sl, 762, 418, 128, 14, visual_note, size=7.2, bold=True, color=BRAND["silver"], rtl=rtl, align="center")
 
     add_logo_contain(sl, 46, 36, 152, 132, rtl=rtl)
     eyebrow = d["doc_label_exec"] if is_exec else s["eyebrow"]
@@ -196,6 +199,9 @@ def p_s02(prs, d, num, total, is_exec=False):
     img_p = prep_photo("skyline-corporate.jpg", 364, 286, radius_pt=16, overlay_alpha=0.08)
     add_img(sl, 550, 66, 364, 286, img_p, rtl=rtl)
     add_shape(sl, 550, 66, 364, 286, fill=None, stroke=BRAND["gold"], rtl=rtl)
+    visual_note = "صورة توضيحية" if rtl else "Illustrative image"
+    add_shape(sl, 748, 320, 150, 22, fill=BRAND["obsidian"], stroke=BRAND["gold"], stroke_w=0.6, rtl=rtl)
+    add_txt(sl, 756, 324, 134, 14, visual_note, size=7.2, bold=True, color=BRAND["silver"], rtl=rtl, align="center")
 
     kw = (868 - 44) / 5.0
     for idx, (val, lbl) in enumerate(s["kpis"]):
@@ -297,6 +303,9 @@ def p_sector(prs, d, s_key, num, total, dark=True):
     img_p = prep_photo(s["photo"], 360, 232, radius_pt=16, overlay_alpha=0.05)
     add_img(sl, 554, 118, 360, 232, img_p, rtl=rtl)
     add_shape(sl, 554, 118, 360, 232, fill=None, stroke=acc, rtl=rtl)
+    visual_note = "توضيحية فقط — ليست صورة مشروع" if rtl else "Illustrative only — not a project photo"
+    add_shape(sl, 690, 318, 212, 22, fill=BRAND["obsidian"], stroke=acc, stroke_w=0.6, rtl=rtl)
+    add_txt(sl, 698, 322, 196, 14, visual_note, size=6.8, bold=True, color=BRAND["silver"], rtl=rtl, align="center")
 
     for idx, (hv, hl) in enumerate(s["highlights"]):
         ry = 360 + idx * 44
@@ -340,6 +349,9 @@ def p_s10(prs, d, num, total):
         add_shape(sl, cx, cy, cw, ch, fill=BRAND["ivory_card"], stroke=BRAND["ivory_line"], rtl=rtl)
         img_p = prep_photo(photos[idx], 132, ch - 20, radius_pt=10, overlay_alpha=0.06)
         add_img(sl, cx + 10, cy + 10, 132, ch - 20, img_p, rtl=rtl)
+        visual_note = "توضيحية فقط" if rtl else "Illustrative only"
+        add_shape(sl, cx + 14, cy + 125, 124, 20, fill=BRAND["obsidian"], stroke=BRAND["gold"], stroke_w=0.5, rtl=rtl)
+        add_txt(sl, cx + 18, cy + 128, 116, 14, visual_note, size=6.8, bold=True, color=BRAND["silver"], rtl=rtl, align="center")
         add_txt(sl, cx + 154, cy + 12, cw - 166, 18, v_meta, size=8, bold=True, color=acc, rtl=rtl)
         add_txt(sl, cx + 154, cy + 30, cw - 166, 22, v_title, size=10.2, bold=True, color=BRAND["ink_light"], font="Manrope", rtl=rtl)
         add_txt(sl, cx + 154, cy + 54, cw - 166, 98, v_desc, size=8.1, bold=False, color=BRAND["muted_light"], rtl=rtl, line_sp=1.32)
@@ -349,33 +361,31 @@ def p_s11(prs, d, num, total):
     rtl = d["rtl"]
     s11, s12 = d["s11"], d["s12"]
     ppt_chrome(sl, d, num, total, dark=True)
-    kicker = "خبراتنا ونموذج العمل · CAPABILITIES & OPERATING MODEL" if rtl else "CAPABILITIES & EXECUTION · SCALE & OPERATING MODEL"
-    title = "إمكانيات تشغيلية موثقة.. ومنهجية عمل منضبطة من 5 مراحل" if rtl else "Quantified Operational Scale & Five-Stage Execution Model"
-    ppt_heading(sl, d, kicker, title, dark=True, y=58)
+    ppt_heading(sl, d, s11["kicker"], s11["title"], s11["sub"], dark=True, y=58)
 
-    add_shape(sl, 46, 122, 452, 368, fill=BRAND["obsidian_card"], stroke=BRAND["obsidian_line"], rtl=rtl)
-    h1 = "مؤشرات القدرة التشغيلية الموثقة" if rtl else "Verified Operational Capacity Benchmarks"
-    add_txt(sl, 62, 132, 420, 22, h1, size=10.8, bold=True, color=BRAND["gold_bright"], rtl=rtl)
+    add_shape(sl, 46, 158, 452, 332, fill=BRAND["obsidian_card"], stroke=BRAND["obsidian_line"], rtl=rtl)
+    h1 = "عناصر المحتوى المدرجة" if rtl else "Listed website content"
+    add_txt(sl, 62, 166, 420, 22, h1, size=10.8, bold=True, color=BRAND["gold_bright"], rtl=rtl)
 
     for idx, (lbl, val_txt, ratio, acc_k) in enumerate(s11["bars"]):
-        ry = 164 + idx * 52
+        ry = 196 + idx * 46
         acc = BRAND[acc_k]
         add_txt(sl, 62, ry, 265, 18, lbl, size=8.2, bold=True, color=BRAND["silver"], rtl=rtl)
         add_txt(sl, 330, ry, 152, 18, val_txt, size=8.2, bold=True, color=acc, rtl=rtl, align="opp")
         add_shape(sl, 62, ry + 22, 420, 9, fill="#090D14", rtl=rtl)
         add_shape(sl, 62, ry + 22, 420 * ratio, 9, fill=acc, rtl=rtl)
 
-    add_shape(sl, 514, 122, 400, 368, fill=BRAND["obsidian_card"], stroke=BRAND["gold"], rtl=rtl)
-    h2 = "نموذج العمل المؤسسي (من الفرصة إلى الاستدامة)" if rtl else "5-Stage Institutional Execution Lifecycle"
-    add_txt(sl, 530, 132, 368, 22, h2, size=10.8, bold=True, color=BRAND["gold_bright"], rtl=rtl)
+    add_shape(sl, 514, 158, 400, 332, fill=BRAND["obsidian_card"], stroke=BRAND["gold"], rtl=rtl)
+    h2 = "قائمة تحقق للقارئ" if rtl else "Reader verification checklist"
+    add_txt(sl, 530, 166, 368, 22, h2, size=10.8, bold=True, color=BRAND["gold_bright"], rtl=rtl)
 
     for idx, (st_n, st_t, st_p) in enumerate(s12["steps"]):
-        ry = 164 + idx * 63
-        add_shape(sl, 530, ry, 368, 56, fill="#0C121C", stroke=BRAND["obsidian_line"], rtl=rtl)
-        add_shape(sl, 538, ry + 10, 32, 36, fill=BRAND["gold"], rtl=rtl)
-        add_txt(sl, 538, ry + 18, 32, 22, st_n, size=9.2, bold=True, color="#080B10", font="Manrope", rtl=rtl, align="center")
-        add_txt(sl, 578, ry + 5, 312, 18, st_t, size=9.2, bold=True, color=BRAND["ink_dark"], rtl=rtl)
-        add_txt(sl, 578, ry + 24, 312, 30, st_p, size=7.8, bold=False, color=BRAND["muted_dark"], rtl=rtl, line_sp=1.25)
+        ry = 196 + idx * 55
+        add_shape(sl, 530, ry, 368, 52, fill="#0C121C", stroke=BRAND["obsidian_line"], rtl=rtl)
+        add_shape(sl, 538, ry + 8, 32, 36, fill=BRAND["gold"], rtl=rtl)
+        add_txt(sl, 538, ry + 16, 32, 22, st_n, size=9.2, bold=True, color="#080B10", font="Manrope", rtl=rtl, align="center")
+        add_txt(sl, 578, ry + 4, 312, 18, st_t, size=9.2, bold=True, color=BRAND["ink_dark"], rtl=rtl)
+        add_txt(sl, 578, ry + 22, 312, 28, st_p, size=7.8, bold=False, color=BRAND["muted_dark"], rtl=rtl, line_sp=1.25)
 
 def p_s12(prs, d, num, total):
     sl = prs.slides.add_slide(prs.slide_layouts[6])
@@ -424,25 +434,33 @@ def p_s13(prs, d, num, total):
         add_shape(sl, sx, sy, sw, 64, fill="#0B1018", stroke=BRAND["gold"], rtl=rtl, dashed=True)
         add_txt(sl, sx + 10, sy + 21, sw - 20, 24, slot_lbl, size=8.8, bold=True, color=BRAND["muted_dark"], rtl=rtl, align="center")
 
-def p_s14(prs, d, num, total, is_exec=False):
+def p_s14_websites(prs, d, num, total, is_exec=False):
     sl = prs.slides.add_slide(prs.slide_layouts[6])
     rtl = d["rtl"]
     s = d["s15"]
     ppt_chrome(sl, d, num, total, dark=True, is_exec=is_exec)
     ppt_heading(sl, d, s["kicker"], s["title"], s["sub"], dark=True, y=58)
 
-    img_p = prep_photo("global-map.jpg", 392, 326, radius_pt=16, overlay_alpha=0.0)
-    add_img(sl, 522, 158, 392, 326, img_p, rtl=rtl)
-    add_shape(sl, 522, 158, 392, 326, fill=None, stroke=BRAND["gold"], rtl=rtl)
+    # Abstract sector/domain diagram instead of a geographic footprint map.
+    add_shape(sl, 522, 158, 392, 326, fill=BRAND["obsidian_card"], stroke=BRAND["gold"], rtl=rtl)
+    add_shape(sl, 596, 174, 244, 42, fill=BRAND["obsidian"], stroke=BRAND["gold"], rtl=rtl)
+    add_txt(sl, 606, 184, 224, 20, "SAWA UNITED GROUP", size=10, bold=True, color=BRAND["gold_bright"], font="Manrope", rtl=rtl, align="center")
+    visual_note = "مخطط توضيحي — لا يحدد مواقع التشغيل" if rtl else "Illustrative diagram — no operating locations shown"
+    for idx, (sector_name, code, domain) in enumerate(s["websites"]):
+        col, row = idx % 2, idx // 2
+        cx, cy = 540 + col * 184, 238 + row * 102
+        add_shape(sl, cx, cy, 168, 82, fill="#0B1018", stroke=BRAND["obsidian_line"], rtl=rtl)
+        add_txt(sl, cx + 10, cy + 12, 148, 26, sector_name, size=8.4, bold=True, color=BRAND["ink_dark"], rtl=rtl, align="center")
+        add_txt(sl, cx + 10, cy + 44, 148, 22, domain, size=7.7, bold=True, color=BRAND["gold_bright"], font="Manrope", rtl=rtl, align="center")
+    add_txt(sl, 542, 448, 352, 26, visual_note, size=7.1, bold=True, color=BRAND["muted_dark"], rtl=rtl, align="center")
 
-    for idx, (c_name, code, sec_list) in enumerate(s["regions"]):
+    for idx, (sector_name, code, domain) in enumerate(s["websites"]):
         ry = 158 + idx * 47
-        is_exp = (code == "EXP")
-        add_shape(sl, 46, ry, 460, 41, fill=BRAND["obsidian_card"], stroke=BRAND["oil"] if is_exp else BRAND["obsidian_line"], rtl=rtl)
-        add_shape(sl, 54, ry + 8, 38, 25, fill=BRAND["oil"] if is_exp else BRAND["gold"], rtl=rtl)
-        add_txt(sl, 54, ry + 12, 38, 18, code, size=8, bold=True, color="#FFFFFF" if is_exp else "#080A0F", font="Manrope", rtl=rtl, align="center")
-        add_txt(sl, 100, ry + 3, 396, 18, c_name, size=9.1, bold=True, color=BRAND["ink_dark"], rtl=rtl)
-        add_txt(sl, 100, ry + 21, 396, 18, sec_list, size=7.9, bold=False, color=BRAND["muted_dark"], rtl=rtl)
+        add_shape(sl, 46, ry, 460, 41, fill=BRAND["obsidian_card"], stroke=BRAND["obsidian_line"], rtl=rtl)
+        add_shape(sl, 54, ry + 8, 38, 25, fill=BRAND["gold"], rtl=rtl)
+        add_txt(sl, 54, ry + 12, 38, 18, code, size=8, bold=True, color="#080A0F", font="Manrope", rtl=rtl, align="center")
+        add_txt(sl, 100, ry + 3, 396, 18, sector_name, size=9.1, bold=True, color=BRAND["ink_dark"], rtl=rtl)
+        add_txt(sl, 100, ry + 21, 396, 18, domain, size=7.9, bold=False, color=BRAND["muted_dark"], rtl=rtl)
 
 def p_s15(prs, d, num, total):
     sl = prs.slides.add_slide(prs.slide_layouts[6])
@@ -485,9 +503,9 @@ def p_s16(prs, d, num, total, is_exec=False):
         add_txt(sl, cx + 16, cy + 42, cw - 32, 72, t_desc, size=8.5, bold=False, color=BRAND["silver"], rtl=rtl, line_sp=1.35)
 
     cta_txt = (
-        "دعوة للتعاون: شاركنا مشروعك أو احتياجك التجاري اليوم — وسيقوم الفريق المختص بالرد المباشر وهيكلة الحل الأنسب لأعمالك."
+        "للتفاصيل الحالية، استخدم الموقع المرتبط بالقطاع وتحقق مباشرة من الخدمات والشروط."
         if rtl else
-        "Call to Action: Share your investment mandate, distribution inquiry, or supply requirement — our specialist unit will respond directly."
+        "For current details, use the relevant sector website and confirm services and terms directly."
     )
     add_shape(sl, 46, 434, 868, 56, fill="#161F30", stroke=BRAND["gold"], stroke_w=1.1, rtl=rtl)
     add_txt(sl, 66, 446, 828, 34, cta_txt, size=9.5, bold=True, color=BRAND["gold_bright"], rtl=rtl, align="center")
@@ -497,9 +515,7 @@ def p_s17(prs, d, num, total):
     rtl = d["rtl"]
     s = d["s18"]
     ppt_chrome(sl, d, num, total, dark=False)
-    kicker = "معلومات الاتصال الرسمية · OFFICIAL CONTACT CHANNELS" if rtl else "OFFICIAL CONTACTS · DIGITAL PORTALS & DIRECT ACCESS"
-    title = "قنوات التواصل الرسمية ومنصات المجموعة" if rtl else "Official Group Portals & Direct Communication Channels"
-    ppt_heading(sl, d, kicker, title, s["lead"], dark=False, y=58)
+    ppt_heading(sl, d, s["kicker"], s["title"], s["lead"], dark=False, y=58)
 
     cw = (868 - 16) / 2.0
     for idx, (lbl, val) in enumerate(s["contacts"][:8]):
@@ -530,7 +546,12 @@ def p_s18(prs, d):
     add_txt(sl, 110, 330, 740, 28, d["sub_tagline"], size=9.5, bold=False, color=BRAND["muted_dark"], rtl=rtl, align="center")
 
     add_shape(sl, 270, 376, 420, 38, fill=BRAND["obsidian_card"], stroke=BRAND["gold"], stroke_w=1.0)
-    add_txt(sl, 280, 384, 400, 22, "sawaunited.net   |   WhatsApp: +20 101 122 5592", size=9.8, bold=True, color=BRAND["gold_bright"], font="Manrope", rtl=False, align="center")
+    contact_line = (
+        "sawaunited.net | رقم مدرج في ملفات الموقع؛ تحقق قبل الاستخدام: +20 101 122 5592"
+        if rtl else
+        "sawaunited.net | Number listed in site files; confirm before use: +20 101 122 5592"
+    )
+    add_txt(sl, 280, 384, 400, 22, contact_line, size=8.6, bold=True, color=BRAND["gold_bright"], font="Manrope", rtl=rtl, align="center")
 
     doms = [("sawa-united.net", BRAND["estate"]), ("sawafood.net", BRAND["food"]), ("masharycar.net", BRAND["car"]), ("startwalk.net", BRAND["oil"])]
     dw, gap = 176, 20
@@ -560,7 +581,7 @@ def generate_full_pptx(lang, out_path):
     p_s11(prs, d, 11, total)
     p_s12(prs, d, 12, total)
     p_s13(prs, d, 13, total)
-    p_s14(prs, d, 14, total)
+    p_s14_websites(prs, d, 14, total)
     p_s15(prs, d, 15, total)
     p_s16(prs, d, 16, total)
     p_s17(prs, d, 17, total)
@@ -577,7 +598,7 @@ def generate_exec_pptx(lang, out_path):
     p_s01(prs, d, True)
     p_s02(prs, d, 2, total, True)
     p_s04(prs, d, 3, total, True)
-    p_s14(prs, d, 4, total, True)
+    p_s14_websites(prs, d, 4, total, True)
     p_s16(prs, d, 5, total, True)
     p_s18(prs, d)
     prs.save(out_path)
