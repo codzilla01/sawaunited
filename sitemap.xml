@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://sawaunited.net/</loc>
-    <lastmod>2026-11-07</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ar" href="https://sawaunited.net/?lang=ar"/>
@@ -13,12 +13,21 @@
   </url>
   <url>
     <loc>https://sawaunited.net/projects.html</loc>
-    <lastmod>2026-11-07</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="ar" href="https://sawaunited.net/projects.html?lang=ar"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://sawaunited.net/projects.html?lang=en"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://sawaunited.net/projects.html?lang=fr"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://sawaunited.net/projects.html"/>
+  </url>
+  <url>
+    <loc>https://sawaunited.net/portfolio/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://sawaunited.net/portfolio/?lang=ar"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sawaunited.net/portfolio/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://sawaunited.net/portfolio/"/>
   </url>
 </urlset>

@@ -11,16 +11,13 @@ OUT_DIR = os.path.join(ROOT_DIR, "portfolio")
 PREP_DIR = os.environ.get("SAWA_PREP_DIR", "/tmp/prepared_imgs")
 os.makedirs(PREP_DIR, exist_ok=True)
 
-FONT_ARCH = pymupdf.Archive(os.environ.get("SAWA_FONT_DIR", "/tmp/fonts"))
+FONT_ARCH = pymupdf.Archive(os.environ.get("SAWA_FONT_DIR", os.path.join(os.path.dirname(__file__), "fonts")))
 
 BASE_CSS = """
+@font-face { font-family: 'Cairo'; src: url(Cairo-Regular.ttf); font-weight: 400; }
 @font-face { font-family: 'Cairo'; src: url(Cairo-SemiBold.ttf); font-weight: 600; }
 @font-face { font-family: 'Cairo'; src: url(Cairo-Bold.ttf); font-weight: 700; }
 @font-face { font-family: 'Cairo'; src: url(Cairo-ExtraBold.ttf); font-weight: 800; }
-@font-face { font-family: 'IBM'; src: url(IBMPlexSansArabic-Regular.ttf); font-weight: 400; }
-@font-face { font-family: 'IBM'; src: url(IBMPlexSansArabic-Medium.ttf); font-weight: 500; }
-@font-face { font-family: 'IBM'; src: url(IBMPlexSansArabic-SemiBold.ttf); font-weight: 600; }
-@font-face { font-family: 'IBM'; src: url(IBMPlexSansArabic-Bold.ttf); font-weight: 700; }
 @font-face { font-family: 'Manrope'; src: url(Manrope-Regular.ttf); font-weight: 400; }
 @font-face { font-family: 'Manrope'; src: url(Manrope-SemiBold.ttf); font-weight: 600; }
 @font-face { font-family: 'Manrope'; src: url(Manrope-Bold.ttf); font-weight: 700; }
@@ -72,18 +69,18 @@ def tbox(page, x, y, w, h, html_inner, rtl=False, align="start", pad=0, tag=""):
     # Under dir="rtl", default alignment is FLUSH RIGHT ("start"), text-align:center centers, and dir="ltr" aligns left.
     if rtl:
         if align == "start":
-            wrapper = f'<div dir="rtl" style="font-family:\'IBM\',\'Cairo\';">{html_inner}</div>'
+            wrapper = f'<div dir="rtl" style="font-family:\'Cairo\',\'Manrope\';">{html_inner}</div>'
         elif align == "center":
-            wrapper = f'<div dir="rtl" style="font-family:\'IBM\',\'Cairo\'; text-align:center;">{html_inner}</div>'
+            wrapper = f'<div dir="rtl" style="font-family:\'Cairo\',\'Manrope\'; text-align:center;">{html_inner}</div>'
         elif align == "ltr_left":
-            wrapper = f'<div dir="ltr" style="font-family:\'Manrope\',\'IBM\'; text-align:left;">{html_inner}</div>'
+            wrapper = f'<div dir="ltr" style="font-family:\'Manrope\',\'Cairo\'; text-align:left;">{html_inner}</div>'
         elif align == "ltr_right":
-            wrapper = f'<div dir="ltr" style="font-family:\'Manrope\',\'IBM\'; text-align:right;">{html_inner}</div>'
+            wrapper = f'<div dir="ltr" style="font-family:\'Manrope\',\'Cairo\'; text-align:right;">{html_inner}</div>'
         else:
-            wrapper = f'<div dir="rtl" style="font-family:\'IBM\',\'Cairo\';">{html_inner}</div>'
+            wrapper = f'<div dir="rtl" style="font-family:\'Cairo\',\'Manrope\';">{html_inner}</div>'
     else:
         ta = "left" if align == "start" else ("right" if align == "end" else "center")
-        wrapper = f'<div dir="ltr" style="font-family:\'Manrope\',\'IBM\'; text-align:{ta};">{html_inner}</div>'
+        wrapper = f'<div dir="ltr" style="font-family:\'Manrope\',\'Cairo\'; text-align:{ta};">{html_inner}</div>'
     spare, scale = page.insert_htmlbox(r, wrapper, css=BASE_CSS, archive=FONT_ARCH, scale_low=0.72)
     if scale < 0.999 or spare < 0:
         OVERFLOWS.append((tag, spare, scale))
@@ -203,6 +200,9 @@ def build_s01_cover(doc, d, is_exec=False):
     img_r = mrect(484, 34, 430, 412, rtl=rtl)
     page.insert_image(img_r, filename=img_path)
     draw_box(page, 484, 34, 430, 412, fill=None, stroke=BRAND["gold"], stroke_w=0.9, radius=20, rtl=rtl)
+    visual_note = "صورة توضيحية" if rtl else "Illustrative image"
+    draw_box(page, 754, 414, 144, 22, fill=BRAND["obsidian"], stroke=BRAND["gold"], stroke_w=0.6, radius=8, rtl=rtl)
+    tbox(page, 762, 418, 128, 14, f'<span style="font-size:7.5pt;font-weight:700;color:{BRAND["silver"]};">{visual_note}</span>', rtl=rtl, align="center", tag="s01_visual_note")
 
     # Prominent official 3D Metallic Logo
     logo_r = mrect(46, 36, 152, 132, rtl=rtl)
@@ -294,8 +294,11 @@ def build_s02_about(doc, d, num, total, is_exec=False):
     img_p = prep_photo("skyline-corporate.jpg", 364, 286, radius_pt=16, overlay_alpha=0.08)
     page.insert_image(mrect(550, 66, 364, 286, rtl=rtl), filename=img_p)
     draw_box(page, 550, 66, 364, 286, fill=None, stroke=BRAND["gold"], stroke_w=0.9, radius=16, rtl=rtl)
+    visual_note = "صورة توضيحية" if rtl else "Illustrative image"
+    draw_box(page, 748, 320, 150, 22, fill=BRAND["obsidian"], stroke=BRAND["gold"], stroke_w=0.6, radius=8, rtl=rtl)
+    tbox(page, 756, 324, 134, 14, f'<span style="font-size:7.5pt;font-weight:700;color:{BRAND["silver"]};">{visual_note}</span>', rtl=rtl, align="center", tag="s02_visual_note")
 
-    # 5 Verified KPI Cards across bottom
+    # Structural website-content cards across bottom
     kw = (868 - 4 * 11) / 5.0
     ky = 368
     for idx, (val, lbl) in enumerate(s["kpis"]):
@@ -529,8 +532,11 @@ def build_sector_page(doc, d, s_key, num, total, dark=True):
     img_p = prep_photo(s["photo"], 360, 232, radius_pt=16, overlay_alpha=0.05)
     page.insert_image(mrect(554, 118, 360, 232, rtl=rtl), filename=img_p)
     draw_box(page, 554, 118, 360, 232, fill=None, stroke=acc, stroke_w=1.0, radius=16, rtl=rtl)
+    visual_note = "صورة توضيحية — ليست صورة مشروع" if rtl else "Illustrative — not a project photo"
+    draw_box(page, 690, 318, 212, 22, fill=BRAND["obsidian"], stroke=acc, stroke_w=0.6, radius=8, rtl=rtl)
+    tbox(page, 698, 322, 196, 14, f'<span style="font-size:7.1pt;font-weight:700;color:{BRAND["silver"]};">{htmllib.escape(visual_note)}</span>', rtl=rtl, align="center", tag=f"{s_key}_visual_note")
 
-    # 3 Stacked Highlight Cards under photo
+    # 3 Stacked Information Cards under photo
     hy = 360
     for idx, (hv, hl) in enumerate(s["highlights"]):
         ry = hy + idx * 44
@@ -605,6 +611,9 @@ def build_s10_projects(doc, d, num, total):
         # Photo thumbnail inside card
         img_p = prep_photo(photos[idx], 132, ch - 20, radius_pt=10, overlay_alpha=0.06)
         page.insert_image(mrect(cx + 10, cy + 10, 132, ch - 20, rtl=rtl), filename=img_p)
+        visual_note = "توضيحية فقط" if rtl else "Illustrative only"
+        draw_box(page, cx + 14, cy + 125, 124, 20, fill=BRAND["obsidian"], stroke=BRAND["gold"], stroke_w=0.5, radius=7, rtl=rtl)
+        tbox(page, cx + 18, cy + 128, 116, 14, f'<span style="font-size:6.7pt;font-weight:700;color:{BRAND["silver"]};">{visual_note}</span>', rtl=rtl, align="center", tag=f"s10_visual_note_{idx}")
 
         tbox(
             page, cx + 154, cy + 12, cw - 166, 18,
@@ -623,7 +632,7 @@ def build_s10_projects(doc, d, num, total):
         )
 
 def build_s11_capabilities_and_model(doc, d, num, total):
-    """Combines Quantified Operational Capabilities + 5-Stage Operating Model cleanly on Slide 11."""
+    """Shows the website-content inventory and reader verification steps on slide 11."""
     page = doc.new_page(width=W, height=H)
     rtl = d["rtl"]
     s11 = d["s11"]
@@ -631,23 +640,20 @@ def build_s11_capabilities_and_model(doc, d, num, total):
     h_font = "Cairo" if rtl else "Manrope"
 
     draw_bg_and_chrome(page, d, num, total, dark=True)
-    kicker = "خبراتنا ونموذج العمل · CAPABILITIES & OPERATING MODEL" if rtl else "CAPABILITIES & EXECUTION · SCALE & OPERATING MODEL"
-    title = "إمكانيات تشغيلية موثقة.. ومنهجية عمل منضبطة من 5 مراحل" if rtl else "Quantified Operational Scale & Five-Stage Execution Model"
-    section_heading(page, d, kicker, title, dark=True, y=58)
+    section_heading(page, d, s11["kicker"], s11["title"], s11["sub"], dark=True, y=58)
 
-    # Top-Half: 6 Quantified Data Bars in 2 columns (3 + 3) + 3 Capability strips?
-    # Even cleaner: Start Half (width 452) = 6 Verified Scale Progress Bars; Opposite Half (width 400) = 5-Stage Operating Model Timeline!
-    draw_box(page, 46, 122, 452, 368, fill=BRAND["obsidian_card"], stroke=BRAND["obsidian_line"], stroke_w=0.9, radius=14, rtl=rtl)
-    sub_h1 = "مؤشرات القدرة التشغيلية الموثقة" if rtl else "Verified Operational Capacity Benchmarks"
+    # The panels sit below the disclosure subtitle; counts refer only to visible site content.
+    draw_box(page, 46, 158, 452, 332, fill=BRAND["obsidian_card"], stroke=BRAND["obsidian_line"], stroke_w=0.9, radius=14, rtl=rtl)
+    sub_h1 = "عناصر المحتوى المدرجة" if rtl else "Listed website content"
     tbox(
-        page, 62, 134, 420, 22,
+        page, 62, 166, 420, 22,
         f'<span style="font-family:\'{h_font}\'; font-size:11pt; font-weight:800; color:{BRAND["gold_bright"]};">{htmllib.escape(sub_h1)}</span>',
         rtl=rtl, align="start", tag="s11_h1"
     )
 
-    by = 164
+    by = 196
     for idx, (lbl, val_txt, ratio, acc_k) in enumerate(s11["bars"]):
-        ry = by + idx * 52
+        ry = by + idx * 46
         acc = BRAND[acc_k]
         tbox(
             page, 62, ry, 280, 18,
@@ -657,14 +663,6 @@ def build_s11_capabilities_and_model(doc, d, num, total):
         if rtl:
             # Place at mirrored x (rx(320, 162, True) = 478..640) aligned to left end of the RTL row!
             r_val = mrect(320, ry, 162, 18, rtl=True)
-            val_ar_map = {
-                "90,000,000+ لتر": "لتر +90,000,000",
-                "1,400+ شريك تجزئة": "شريك تجزئة +1,400",
-                "2,500+ فرد متخصص": "فرد متخصص +2,500",
-                "384+ شركة وعميل": "شركة وعميل +384",
-                "250+ منتج / 120+ علامة": "منتج +250 / علامة +120",
-                "40+ مشروعاً / 25+ شاحنة صهريج": "مشروعاً +40 / شاحنة +25",
-            }
             page.insert_htmlbox(
                 r_val,
                 f'<div dir="rtl" style="font-family:\'Cairo\',\'Manrope\'; font-size:8.2pt; font-weight:800; color:{acc}; text-align:right;">&#x200F;{htmllib.escape(val_txt)}</div>',
@@ -680,32 +678,32 @@ def build_s11_capabilities_and_model(doc, d, num, total):
         draw_box(page, 62, ry + 22, 420, 9, fill="#090D14", radius=4.5, rtl=rtl)
         draw_box(page, 62, ry + 22, 420 * ratio, 9, fill=acc, radius=4.5, rtl=rtl)
 
-    # Opposite Half (x=514, width=400): 5-Stage Operating Model
-    draw_box(page, 514, 122, 400, 368, fill=BRAND["obsidian_card"], stroke=BRAND["gold"], stroke_w=0.9, radius=14, rtl=rtl)
-    sub_h2 = "نموذج العمل المؤسسي (من الفرصة إلى الاستدامة)" if rtl else "5-Stage Institutional Execution Lifecycle"
+    # Reader guidance is kept separate from the website-content counts.
+    draw_box(page, 514, 158, 400, 332, fill=BRAND["obsidian_card"], stroke=BRAND["gold"], stroke_w=0.9, radius=14, rtl=rtl)
+    sub_h2 = "قائمة تحقق للقارئ" if rtl else "Reader verification checklist"
     tbox(
-        page, 530, 134, 368, 22,
+        page, 530, 166, 368, 22,
         f'<span style="font-family:\'{h_font}\'; font-size:11pt; font-weight:800; color:{BRAND["gold_bright"]};">{htmllib.escape(sub_h2)}</span>',
         rtl=rtl, align="start", tag="s11_h2"
     )
 
-    sy = 164
+    sy = 196
     for idx, (st_n, st_t, st_p) in enumerate(s12["steps"]):
-        ry = sy + idx * 63
-        draw_box(page, 530, ry, 368, 56, fill="#0C121C", stroke=BRAND["obsidian_line"], stroke_w=0.7, radius=10, rtl=rtl)
-        draw_box(page, 538, ry + 10, 32, 36, fill=BRAND["gold"], radius=7, rtl=rtl)
+        ry = sy + idx * 55
+        draw_box(page, 530, ry, 368, 52, fill="#0C121C", stroke=BRAND["obsidian_line"], stroke_w=0.7, radius=10, rtl=rtl)
+        draw_box(page, 538, ry + 8, 32, 36, fill=BRAND["gold"], radius=7, rtl=rtl)
         tbox(
-            page, 538, ry + 18, 32, 22,
+            page, 538, ry + 16, 32, 22,
             f'<span style="font-family:\'Manrope\'; font-size:9.5pt; font-weight:800; color:#080B10;">{st_n}</span>',
             rtl=rtl, align="center", tag=f"s11_sn_{idx}"
         )
         tbox(
-            page, 578, ry + 6, 312, 18,
+            page, 578, ry + 4, 312, 18,
             f'<span style="font-family:\'{h_font}\'; font-size:9.4pt; font-weight:800; color:{BRAND["ink_dark"]};">{htmllib.escape(st_t)}</span>',
             rtl=rtl, align="start", tag=f"s11_st_{idx}"
         )
         tbox(
-            page, 578, ry + 24, 312, 30,
+            page, 578, ry + 22, 312, 28,
             f'<span style="font-size:7.9pt; font-weight:400; color:{BRAND["muted_dark"]}; line-height:1.35;">{htmllib.escape(st_p)}</span>',
             rtl=rtl, align="start", tag=f"s11_sp_{idx}"
         )
@@ -803,7 +801,7 @@ def build_s13_partners(doc, d, num, total):
             rtl=rtl, align="center", tag=f"s13_sl_{idx}"
         )
 
-def build_s14_markets(doc, d, num, total, is_exec=False):
+def build_s14_websites(doc, d, num, total, is_exec=False):
     page = doc.new_page(width=W, height=H)
     rtl = d["rtl"]
     s = d["s15"]
@@ -812,20 +810,28 @@ def build_s14_markets(doc, d, num, total, is_exec=False):
     draw_bg_and_chrome(page, d, num, total, dark=True, is_exec=is_exec)
     section_heading(page, d, s["kicker"], s["title"], s["sub"], dark=True, y=58)
 
-    # Map Visual Card on opposite side
-    img_p = prep_photo("global-map.jpg", 392, 326, radius_pt=16, overlay_alpha=0.0)
-    page.insert_image(mrect(522, 158, 392, 326, rtl=rtl), filename=img_p)
-    draw_box(page, 522, 158, 392, 326, fill=None, stroke=BRAND["gold"], stroke_w=1.0, radius=16, rtl=rtl)
+    # Abstract website-link diagram; intentionally does not imply a geographic footprint.
+    draw_box(page, 522, 158, 392, 326, fill=BRAND["obsidian_card"], stroke=BRAND["gold"], stroke_w=1.0, radius=16, rtl=rtl)
+    draw_box(page, 596, 174, 244, 42, fill=BRAND["obsidian"], stroke=BRAND["gold"], stroke_w=0.8, radius=10, rtl=rtl)
+    group_label = "SAWA UNITED GROUP"
+    tbox(page, 606, 184, 224, 20, f"<span style='font-family:Manrope;font-size:10pt;font-weight:800;color:{BRAND['gold_bright']};'>{group_label}</span>", rtl=rtl, align="center", tag="s14_diagram_group")
+    visual_note = "مخطط توضيحي — لا يحدد مواقع التشغيل" if rtl else "Illustrative diagram — no operating locations shown"
+    for idx, (sector_name, code, domain) in enumerate(s["websites"]):
+        col, row = idx % 2, idx // 2
+        cx, cy = 540 + col * 184, 238 + row * 102
+        draw_box(page, cx, cy, 168, 82, fill="#0B1018", stroke=BRAND["obsidian_line"], stroke_w=0.8, radius=10, rtl=rtl)
+        tbox(page, cx + 10, cy + 12, 148, 26, f"<span style='font-family:{h_font};font-size:8.5pt;font-weight:800;color:{BRAND['ink_dark']};'>{htmllib.escape(sector_name)}</span>", rtl=rtl, align="center", tag=f"s14_diagram_sector_{idx}")
+        tbox(page, cx + 10, cy + 44, 148, 22, f"<span style='font-family:Manrope;font-size:7.8pt;font-weight:700;color:{BRAND['gold_bright']};'>{htmllib.escape(domain)}</span>", rtl=rtl, align="center", tag=f"s14_diagram_domain_{idx}")
+    tbox(page, 542, 448, 352, 26, f'<span style="font-size:7.4pt;font-weight:600;color:{BRAND["muted_dark"]};">{htmllib.escape(visual_note)}</span>', rtl=rtl, align="center", tag="s14_diagram_note")
 
-    # 7 Market Rows on start side
+    # Four listed website rows on the opposite side.
     ry0 = 158
-    for idx, (c_name, code, sec_list) in enumerate(s["regions"]):
+    for idx, (sector_name, code, domain) in enumerate(s["websites"]):
         ry = ry0 + idx * 47
-        is_exp = (code == "EXP")
-        stroke_c = BRAND["oil"] if is_exp else BRAND["obsidian_line"]
+        stroke_c = BRAND["obsidian_line"]
         draw_box(page, 46, ry, 460, 41, fill=BRAND["obsidian_card"], stroke=stroke_c, stroke_w=0.8, radius=9, rtl=rtl)
-        badge_bg = BRAND["oil"] if is_exp else BRAND["gold"]
-        badge_fg = "#FFFFFF" if is_exp else "#080A0F"
+        badge_bg = BRAND["gold"]
+        badge_fg = "#080A0F"
         draw_box(page, 54, ry + 8, 38, 25, fill=badge_bg, radius=6, rtl=rtl)
         tbox(
             page, 54, ry + 13, 38, 18,
@@ -834,12 +840,12 @@ def build_s14_markets(doc, d, num, total, is_exec=False):
         )
         tbox(
             page, 100, ry + 4, 396, 17,
-            f'<span style="font-family:\'{h_font}\'; font-size:9.3pt; font-weight:800; color:{BRAND["ink_dark"]};">{htmllib.escape(c_name)}</span>',
+            f'<span style="font-family:\'{h_font}\'; font-size:9.3pt; font-weight:800; color:{BRAND["ink_dark"]};">{htmllib.escape(sector_name)}</span>',
             rtl=rtl, align="start", tag=f"s14_cn_{idx}"
         )
         tbox(
             page, 100, ry + 21, 396, 17,
-            f'<span style="font-size:8pt; font-weight:500; color:{BRAND["muted_dark"]};">{htmllib.escape(sec_list)}</span>',
+            f'<span style="font-size:8pt; font-weight:500; color:{BRAND["muted_dark"]};">{htmllib.escape(domain)}</span>',
             rtl=rtl, align="start", tag=f"s14_cs_{idx}"
         )
 
@@ -925,9 +931,9 @@ def build_s16_partnerships_cta(doc, d, num, total, is_exec=False):
 
     # Executive Call-To-Action Banner at Bottom
     cta_txt = (
-        "دعوة للتعاون: شاركنا مشروعك أو احتياجك التجاري اليوم — وسيقوم الفريق المختص بالرد المباشر وهيكلة الحل الأنسب لأعمالك."
+        "للتفاصيل الحالية، استخدم الموقع المرتبط بالقطاع وتحقق مباشرة من الخدمات والشروط."
         if rtl else
-        "Call to Action: Share your investment mandate, distribution inquiry, or supply requirement — our specialist unit will respond directly."
+        "For current details, use the relevant sector website and confirm services and terms directly."
     )
     draw_box(page, 46, 434, 868, 56, fill="#161F30", stroke=BRAND["gold"], stroke_w=1.1, radius=12, rtl=rtl)
     tbox(
@@ -943,9 +949,7 @@ def build_s17_contacts(doc, d, num, total):
     h_font = "Cairo" if rtl else "Manrope"
 
     draw_bg_and_chrome(page, d, num, total, dark=False)
-    kicker = "معلومات الاتصال الرسمية · OFFICIAL CONTACT CHANNELS" if rtl else "OFFICIAL CONTACTS · DIGITAL PORTALS & DIRECT ACCESS"
-    title = "قنوات التواصل الرسمية ومنصات المجموعة" if rtl else "Official Group Portals & Direct Communication Channels"
-    section_heading(page, d, kicker, title, s["lead"], dark=False, y=58)
+    section_heading(page, d, s["kicker"], s["title"], s["lead"], dark=False, y=58)
 
     # 2-Column Contact Directory (first 8 items in 2x4 grid, 9th item spanning bottom placeholder)
     cw = (868 - 16) / 2.0
@@ -1013,12 +1017,17 @@ def build_s18_closing(doc, d, is_exec=False):
         rtl=rtl, align="center", tag="s18_stg"
     )
 
-    # Unified Contact Pill
+    # Contact details from the site files; label the phone as unverified before use.
+    contact_line = (
+        "sawaunited.net | رقم مدرج في ملفات الموقع؛ تحقق قبل الاستخدام: +20 101 122 5592"
+        if rtl else
+        "sawaunited.net | Number listed in site files; confirm before use: +20 101 122 5592"
+    )
     draw_box(page, 270, 376, 420, 38, fill=BRAND["obsidian_card"], stroke=BRAND["gold"], stroke_w=1.0, radius=19, rtl=False)
     tbox(
         page, 280, 386, 400, 22,
-        f'<span style="font-family:\'Manrope\'; font-size:10pt; font-weight:800; color:{BRAND["gold_bright"]};">sawaunited.net   |   WhatsApp: +20 101 122 5592</span>',
-        rtl=False, align="center", tag="s18_pill"
+        f'<span style="font-family:\'Manrope\'; font-size:8.8pt; font-weight:800; color:{BRAND["gold_bright"]};">{htmllib.escape(contact_line)}</span>',
+        rtl=rtl, align="center", tag="s18_pill"
     )
 
     # 4 Official Ecosystem Portals along bottom
@@ -1058,7 +1067,7 @@ def generate_full_pdf(lang, out_pdf):
     build_s11_capabilities_and_model(doc, d, 11, total)              # 11 Capabilities & Model
     build_s12_competitive(doc, d, 12, total)                         # 12 Why SAWA UNITED
     build_s13_partners(doc, d, 13, total)                            # 13 Partners & Clients
-    build_s14_markets(doc, d, 14, total)                             # 14 Markets
+    build_s14_websites(doc, d, 14, total)                             # 14 Listed website links
     build_s15_quality(doc, d, 15, total)                             # 15 Quality & HSE
     build_s16_partnerships_cta(doc, d, 16, total)                    # 16 Partnerships & CTA
     build_s17_contacts(doc, d, 17, total)                            # 17 Contacts
@@ -1073,9 +1082,9 @@ def generate_exec_pdf(lang, out_pdf):
     doc = pymupdf.open()
     total = 6
     build_s01_cover(doc, d, is_exec=True)                            # 01 Executive Cover
-    build_s02_about(doc, d, 2, total, is_exec=True)                  # 02 Overview & Verified KPIs
+    build_s02_about(doc, d, 2, total, is_exec=True)                  # 02 Content inventory and scope
     build_s04_ecosystem(doc, d, 3, total, is_exec=True)              # 03 4-Sector Business Ecosystem
-    build_s14_markets(doc, d, 4, total, is_exec=True)                # 04 Regional & Export Footprint
+    build_s14_websites(doc, d, 4, total, is_exec=True)                # 04 Listed website links
     build_s16_partnerships_cta(doc, d, 5, total, is_exec=True)       # 05 Partnership Tracks & CTA
     build_s18_closing(doc, d, is_exec=True)                          # 06 Direct Contact & Closing Cover
     doc.save(out_pdf, garbage=4, deflate=True)

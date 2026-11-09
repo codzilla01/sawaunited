@@ -1,214 +1,201 @@
 <!doctype html>
-<html lang="en" dir="ltr" data-i18n-page="projects">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta
-      name="description"
-      content="Explore Sawa United projects across real estate, automotive, petroleum and food."
-      id="metaDescription"
-    />
-    <title id="pageTitle">Sawa United — Projects</title>
-    <link rel="alternate" hreflang="en" href="projects.html" />
-    <link rel="alternate" hreflang="ar" href="projects.html?lang=ar" />
-    <link rel="alternate" hreflang="fr" href="projects.html?lang=fr" />
-    <link rel="stylesheet" href="css/styles.css" />
-  </head>
-  <body>
-    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
-    <div class="site">
-      <header class="header" id="header">
-        <a class="brand" href="index.html"
-          ><img
-            class="brand-logo"
-            src="assets/sawa-header-logo.png"
-            alt="Sawa United"
-            decoding="async"
-        /></a>
+<html lang="en" dir="ltr" data-i18n-page="projects" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title id="pageTitle">SAWA UNITED GROUP | Business Platforms</title>
+  <meta name="description" id="metaDescription" content="This page lists four business sectors and links to their websites.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://sawaunited.net/projects.html">
+  <link rel="alternate" hreflang="en" href="https://sawaunited.net/projects.html?lang=en">
+  <link rel="alternate" hreflang="ar" href="https://sawaunited.net/projects.html?lang=ar">
+  <link rel="alternate" hreflang="fr" href="https://sawaunited.net/projects.html?lang=fr">
+  <link rel="alternate" hreflang="x-default" href="https://sawaunited.net/projects.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SAWA UNITED GROUP">
+  <meta property="og:title" content="SAWA UNITED GROUP | Business Platforms">
+  <meta property="og:description" content="Four business sectors and their listed websites.">
+  <meta property="og:url" content="https://sawaunited.net/projects.html">
+  <meta property="og:image" content="https://sawaunited.net/assets/sawa-header-logo.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/favicon-48.png" type="image/png" sizes="48x48">
+  <link rel="icon" href="assets/favicon.ico" sizes="any">
+  <link rel="preload" href="assets/fonts/cairo-arabic-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <script>
+    (function () {
+      try {
+        var theme = localStorage.getItem("sawa_theme");
+        if (theme !== "light" && theme !== "dark") {
+          theme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        }
+        document.documentElement.dataset.theme = theme;
+      } catch (error) { /* Keep the server-rendered dark default. */ }
+    })();
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/design-system.css">
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"CollectionPage","name":"SAWA UNITED GROUP — Business Platforms","url":"https://sawaunited.net/projects.html","isPartOf":{"@type":"WebSite","name":"SAWA UNITED GROUP","url":"https://sawaunited.net/"}}
+  </script>
+</head>
+<body class="projects-page">
+  <a class="su-skip-link" href="#main" data-i18n="access.skip">Skip to content</a>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <div class="site">
+    <header class="header" id="header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="SAWA UNITED GROUP home">
+          <img class="brand-logo" src="assets/sawa-header-logo.webp" width="900" height="600" alt="SAWA UNITED GROUP" decoding="async" fetchpriority="high">
+        </a>
+        <nav class="desktop-nav" aria-label="Primary navigation" data-i18n-aria-label="nav.label">
+          <a href="index.html#businesses" data-i18n="nav.businesses">Sectors</a>
+          <a href="index.html#about" data-i18n="nav.about">About</a>
+          <a href="portfolio/" data-i18n="nav.profile">Corporate profile</a>
+          <a href="#business-platforms" data-i18n="nav.platforms">Business platforms</a>
+          <a href="index.html#contact" data-i18n="nav.contact">Contact</a>
+        </nav>
         <div class="header-actions">
-          <a class="outline-btn" href="index.html"
-            >← <span data-i18n="common.home">HOME</span></a
-          >
+          <a class="outline-btn" href="index.html"><span data-i18n="common.home">Home</span></a>
           <div class="language-switcher" id="languageSwitcher">
-            <button
-              class="lang"
-              id="langBtn"
-              aria-expanded="false"
-              aria-haspopup="listbox"
-              aria-label="Change language"
-            >
-              EN <span class="lang-chevron">⌄</span>
+            <button class="lang" id="langBtn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-label="Change language" data-i18n-aria-label="common.changeLanguage">
+              EN <span class="lang-chevron" aria-hidden="true">⌄</span>
             </button>
-            <div
-              class="language-menu"
-              id="languageMenu"
-              role="listbox"
-              aria-label="Languages"
-            >
-              <button type="button" data-language-option="en">ENGLISH</button
-              ><button type="button" data-language-option="ar">العربية</button
-              ><button type="button" data-language-option="fr">FRANÇAIS</button>
+            <div class="language-menu" id="languageMenu" role="listbox" aria-label="Choose language" data-i18n-aria-label="common.languageOptions">
+              <button type="button" role="option" aria-selected="true" data-language-option="en">ENGLISH</button>
+              <button type="button" role="option" aria-selected="false" data-language-option="ar">العربية</button>
+              <button type="button" role="option" aria-selected="false" data-language-option="fr">FRANÇAIS</button>
             </div>
           </div>
-          <button
-            aria-label="Toggle light and dark mode"
-            aria-pressed="false"
-            class="theme-toggle"
-            id="themeBtn"
-            type="button"
-          >
-            <span class="theme-toggle-icon" aria-hidden="true">☾</span>
+          <button class="theme-toggle" id="themeBtn" type="button" aria-label="Switch to light mode" aria-pressed="false" data-i18n-aria-label="theme.light">
+            <span class="theme-toggle-icon" aria-hidden="true">☼</span>
+          </button>
+          <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu" data-i18n-aria-label="menu.open">
+            <svg class="icon icon-menu" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            <svg class="icon icon-close" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><path d="m6 6 12 12M18 6 6 18"/></svg>
           </button>
         </div>
-      </header>
-      <main>
-        <section class="section properties">
-          <div class="shell center-heading reveal reveal-zoom">
-            <span class="eyebrow" data-i18n="projects.eyebrow"
-              >FEATURED PROJECTS</span
-            >
-            <h1 data-i18n="projects.pageTitle">Our <span>Projects</span></h1>
-            <p data-i18n="projects.description">
-              Explore selected ventures, assets and development initiatives
-              across the Sawa United ecosystem.
-            </p>
-          </div>
-          <div class="shell property-grid projects-page-grid">
-            <a
-              class="property-card project-open reveal"
-              data-project="sawa"
-              href="#project-sawa"
-              ><div class="property-photo">
-                <img
-                  loading="lazy"
-                  decoding="async"
-                  src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?fm=jpg&fit=crop&w=1200&q=80"
-                /><span>2026</span>
-              </div>
-              <div class="property-copy">
-                <span data-i18n="filters.realEstate">REAL ESTATE</span>
-                <h3>SAWA UNITED</h3>
-                <p><span data-i18n="location.egypt">EGYPT</span> · 2026</p>
-              </div></a
-            ><a
-              class="property-card project-open reveal"
-              data-project="northstar"
-              href="#project-northstar"
-              ><div class="property-photo">
-                <img
-                  loading="lazy"
-                  decoding="async"
-                  src="https://images.unsplash.com/photo-1493238792000-8113da705763?fm=jpg&fit=crop&w=1200&q=80"
-                /><span>2025</span>
-              </div>
-              <div class="property-copy">
-                <span data-i18n="filters.automotive">AUTOMOTIVE</span>
-                <h3>MASHARY CARS</h3>
-                <p><span data-i18n="location.uae">UAE</span> · 2025</p>
-              </div></a
-            ><a
-              class="property-card project-open reveal"
-              data-project="horizon"
-              href="#project-horizon"
-              ><div class="property-photo">
-                <img
-                  loading="lazy"
-                  decoding="async"
-                  src="https://images.unsplash.com/photo-1516199423456-1f1e91b06f25?fm=jpg&fit=crop&w=1200&q=80"
-                /><span>2026</span>
-              </div>
-              <div class="property-copy">
-                <span data-i18n="filters.petroleum">PETROLEUM</span>
-                <h3>START WALK</h3>
-                <p><span data-i18n="location.egypt">EGYPT</span> · 2026</p>
-              </div></a
-            ><a
-              class="property-card project-open reveal"
-              data-project="crossmarket"
-              href="#project-crossmarket"
-              ><div class="property-photo">
-                <img
-                  loading="lazy"
-                  decoding="async"
-                  src="https://images.unsplash.com/photo-1579113800032-c38bd7635818?fm=jpg&fit=crop&w=1200&q=80"
-                /><span>2024</span>
-              </div>
-              <div class="property-copy">
-                <span data-i18n="filters.food">FOOD</span>
-                <h3>SAWA FOOD</h3>
-                <p data-i18n="location.mena">MENA · 2024</p>
-              </div></a
-            >
-          </div>
-        </section>
-      </main>
-      <footer>
-        <div class="shell footer-bottom">
-          <span
-            >© 2026 SAWA UNITED GROUP.
-            <span data-i18n="footer.rights">ALL RIGHTS RESERVED.</span></span
-          ><a href="index.html" data-i18n="common.backHome">BACK TO HOME</a>
-        </div>
-      </footer>
-    </div>
-    <div class="project-modal" id="projectModal" aria-hidden="true">
-      <div class="project-modal-backdrop" data-close-project></div>
-      <article class="project-modal-card" aria-labelledby="projectModalTitle">
+      </div>
+      <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation" data-i18n-aria-label="nav.label" aria-hidden="true">
+        <a href="index.html#businesses" data-i18n="nav.businesses">Sectors</a>
+        <a href="index.html#about" data-i18n="nav.about">About</a>
+        <a href="portfolio/" data-i18n="nav.profile">Corporate profile</a>
+        <a href="#business-platforms" data-i18n="nav.platforms">Business platforms</a>
+        <a href="index.html#contact" data-i18n="nav.contact">Contact</a>
+        <a class="gold-btn" href="index.html" data-i18n="common.home">Home</a>
+      </nav>
+    </header>
 
-        <div class="project-modal-media">
-          <img id="projectModalImage" src="" alt="" />
+    <main id="main" tabindex="-1">
+      <section class="section properties" id="business-platforms" aria-labelledby="platformsTitle">
+        <div class="shell center-heading reveal reveal-zoom">
+          <span class="eyebrow" data-i18n="projects.eyebrow">OUR BUSINESS PLATFORMS</span>
+          <h1 id="platformsTitle" data-i18n="projects.pageTitle">One group.<br><span>Four sectors.</span></h1>
+          <p data-i18n="projects.description">This page lists four sector websites. The images are illustrative; no project case studies are presented.</p>
         </div>
-        <div class="project-modal-panel">
-                    <button
-          class="project-modal-close"
-          data-close-project
-          aria-label="Close"
-          data-i18n-aria-label="common.close"
-        >
-          ×
-        </button>
-          <span class="eyebrow gold" id="projectModalSector">REAL ESTATE</span>
-          <h2 id="projectModalTitle">SAWA UNITED</h2>
-          <p id="projectModalDescription">
-            A modern business destination designed around connected workspaces,
-            premium services and long-term commercial value.
-          </p>
-          <div class="project-meta" id="projectModalMeta">
-            <span>EGYPT</span><span>2026</span>
+
+        <div class="shell projects-toolbar">
+          <div class="filters" id="filters" role="group" aria-label="Filter by business sector" data-i18n-aria-label="projects.filterLabel">
+            <button type="button" class="active" data-filter="ALL" aria-pressed="true" data-i18n="filters.all">All</button>
+            <button type="button" data-filter="REAL_ESTATE" aria-pressed="false" data-i18n="filters.realEstate">Real estate</button>
+            <button type="button" data-filter="FOOD" aria-pressed="false" data-i18n="filters.food">Food</button>
+            <button type="button" data-filter="AUTOMOTIVE" aria-pressed="false" data-i18n="filters.automotive">Automotive</button>
+            <button type="button" data-filter="PETROLEUM" aria-pressed="false" data-i18n="filters.petroleum">Petroleum</button>
           </div>
-          <a
-            class="gold-btn"
-            id="projectModalCta"
-            href="https://wa.me/201011225592"
-            target="_blank"
-            rel="noopener noreferrer"
-            ><span data-i18n="common.visitWebsite">Visit Website</span>
-            <svg class="icon" height="14" viewbox="0 0 24 24" width="14">
-              <path d="M7 17 17 7M8 7h9v9"></path></svg
-          ></a>
+          <p id="filterStatus" role="status" aria-live="polite" data-i18n="projects.showingAll">Showing all four business platforms</p>
         </div>
-      </article>
-    </div>
-    <script src="js/services/headerScroll.js?v=2"></script>
-    <script src="js/services/languageToggle.js?v=2"></script>
-    <script src="js/services/themeToggle.js?v=2"></script>
-    <script src="js/services/scrollReveal.js?v=2"></script>
-    <script src="js/components/projectModal.js?v=2"></script>
-    <script src="js/services/performance.js?v=2"></script>
-    <script src="js/app.js?v=2"></script>
-    <a
-      class="whatsapp-float"
-      href="https://wa.me/201011225592"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Chat with us on WhatsApp"
-      title="Chat with us on WhatsApp"
-      ><span class="whatsapp-float-icon"
-        ><svg viewBox="0 0 32 32" aria-hidden="true">
-          <path
-            d="M16 3.2A12.8 12.8 0 0 0 5 22.5L3.4 28.6l6.3-1.6A12.8 12.8 0 1 0 16 3.2Zm0 23.2a10.3 10.3 0 0 1-5.2-1.4l-.4-.2-3.7.9 1-3.6-.3-.4A10.3 10.3 0 1 1 16 26.4Zm5.8-7.7c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.6s1.1 3 1.2 3.2c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2.1-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.6-.4Z"
-          /></svg></span
-      ><span class="whatsapp-float-label">WhatsApp</span></a
-    >
-  </body>
+
+        <div class="shell property-grid projects-page-grid" id="propertyGrid">
+          <a class="property-card project-open reveal" data-project="realEstate" data-sector="REAL_ESTATE" href="https://sawa-united.net/" target="_blank" rel="noopener noreferrer" aria-haspopup="dialog">
+            <div class="property-photo">
+              <img loading="lazy" decoding="async" src="portfolio/assets/sector-realestate.webp" width="1376" height="768" alt="Illustrative real-estate image" data-i18n-alt="business.realEstateImageAlt">
+              <span class="visual-note" data-i18n="business.illustrative">Illustrative image</span>
+            </div>
+            <div class="property-copy">
+              <span data-i18n="filters.realEstate">REAL ESTATE</span>
+              <h2 data-i18n="business.realEstateTitle">SAWA UNITED REAL ESTATE</h2>
+              <p data-i18n="business.realEstateSummary">A real-estate business platform.</p>
+              <small class="business-domain" dir="ltr">sawa-united.net</small>
+            </div>
+          </a>
+          <a class="property-card project-open reveal" data-project="food" data-sector="FOOD" href="https://sawafood.net/" target="_blank" rel="noopener noreferrer" aria-haspopup="dialog">
+            <div class="property-photo">
+              <img loading="lazy" decoding="async" src="portfolio/assets/sector-food.webp" width="1376" height="768" alt="Illustrative food-supply image" data-i18n-alt="business.foodImageAlt">
+              <span class="visual-note" data-i18n="business.illustrative">Illustrative image</span>
+            </div>
+            <div class="property-copy">
+              <span data-i18n="filters.food">FOOD</span>
+              <h2 data-i18n="business.foodTitle">SAWA FOOD</h2>
+              <p data-i18n="business.foodSummary">A food-supply business platform.</p>
+              <small class="business-domain" dir="ltr">sawafood.net</small>
+            </div>
+          </a>
+          <a class="property-card project-open reveal" data-project="automotive" data-sector="AUTOMOTIVE" href="https://masharycar.net/" target="_blank" rel="noopener noreferrer" aria-haspopup="dialog">
+            <div class="property-photo">
+              <img loading="lazy" decoding="async" src="portfolio/assets/sector-automotive.webp" width="1376" height="768" alt="Illustrative automotive image" data-i18n-alt="business.automotiveImageAlt">
+              <span class="visual-note" data-i18n="business.illustrative">Illustrative image</span>
+            </div>
+            <div class="property-copy">
+              <span data-i18n="filters.automotive">AUTOMOTIVE</span>
+              <h2 data-i18n="business.automotiveTitle">MASHARY CARS</h2>
+              <p data-i18n="business.automotiveSummary">An automotive and mobility business platform.</p>
+              <small class="business-domain" dir="ltr">masharycar.net</small>
+            </div>
+          </a>
+          <a class="property-card project-open reveal" data-project="petroleum" data-sector="PETROLEUM" href="https://startwalk.net/" target="_blank" rel="noopener noreferrer" aria-haspopup="dialog">
+            <div class="property-photo">
+              <img loading="lazy" decoding="async" src="portfolio/assets/sector-petroleum.webp" width="1376" height="768" alt="Illustrative petroleum-services image" data-i18n-alt="business.petroleumImageAlt">
+              <span class="visual-note" data-i18n="business.illustrative">Illustrative image</span>
+            </div>
+            <div class="property-copy">
+              <span data-i18n="filters.petroleum">PETROLEUM</span>
+              <h2 data-i18n="business.petroleumTitle">START WALK</h2>
+              <p data-i18n="business.petroleumSummary">A petroleum-products and industrial-services business platform.</p>
+              <small class="business-domain" dir="ltr">startwalk.net</small>
+            </div>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell footer-bottom">
+        <span>© 2026 SAWA UNITED GROUP. <span data-i18n="footer.rights">All rights reserved.</span></span>
+        <a href="index.html" data-i18n="common.backHome">Back to home</a>
+      </div>
+    </footer>
+  </div>
+
+  <div class="project-modal" id="projectModal" aria-hidden="true" inert>
+    <div class="project-modal-backdrop" data-close-project aria-hidden="true"></div>
+    <article class="project-modal-card" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle" aria-describedby="projectModalDescription">
+      <div class="project-modal-media">
+        <img id="projectModalImage" src="" alt="" decoding="async">
+        <span class="visual-note" data-i18n="business.illustrative">Illustrative image</span>
+      </div>
+      <div class="project-modal-panel">
+        <button class="project-modal-close" type="button" data-close-project aria-label="Close" data-i18n-aria-label="common.close" title="Close">×</button>
+        <span class="eyebrow gold" id="projectModalSector"></span>
+        <h2 id="projectModalTitle"></h2>
+        <p id="projectModalDescription"></p>
+        <div class="project-meta"><span data-i18n="business.website">WEBSITE</span><span id="projectModalDomain" dir="ltr"></span></div>
+        <a class="gold-btn" id="projectModalCta" href="https://sawaunited.net/" target="_blank" rel="noopener noreferrer"><span data-i18n="common.visitWebsite">Visit website</span><span aria-hidden="true">↗</span></a>
+      </div>
+    </article>
+  </div>
+
+  <a class="whatsapp-float" href="https://wa.me/201011225592" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp number listed in site files; verify before use" data-i18n-aria-label="contact.whatsappAction">
+    <span class="whatsapp-float-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 3.2A12.8 12.8 0 0 0 5 22.5L3.4 28.6l6.3-1.6A12.8 12.8 0 1 0 16 3.2Zm0 23.2a10.3 10.3 0 0 1-5.2-1.4l-.4-.2-3.7.9 1-3.6-.3-.4A10.3 10.3 0 1 1 16 26.4Zm5.8-7.7c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.6s1.1 3 1.2 3.2c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2.1-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.6-.4Z"/></svg></span>
+    <span class="whatsapp-float-label" data-i18n="contact.whatsapp">WhatsApp</span>
+  </a>
+
+  <script src="js/services/mobileMenu.js"></script>
+  <script src="js/services/headerScroll.js"></script>
+  <script src="js/services/languageToggle.js"></script>
+  <script src="js/services/themeToggle.js"></script>
+  <script src="js/services/scrollReveal.js"></script>
+  <script src="js/components/projectFilter.js"></script>
+  <script src="js/components/projectModal.js"></script>
+  <script src="js/services/performance.js"></script>
+  <script src="js/app.js"></script>
+</body>
 </html>

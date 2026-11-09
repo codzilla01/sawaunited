@@ -18,7 +18,7 @@ DirectoryIndex index.html index.php
   RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
   # منع الوصول لمجلدات التطوير
-  RewriteRule ^(docs|scripts|dist)(/|$) - [R=404,L]
+  RewriteRule ^(docs|scripts|dist|backups)(/|$) - [R=404,L]
 </IfModule>
 
 # ---------- 2) حماية الأسرار ----------
@@ -78,3 +78,6 @@ DirectoryIndex index.html index.php
   ExpiresByType image/svg+xml "access plus 1 year"
   ExpiresByType image/x-icon "access plus 1 year"
 </IfModule>
+
+# Serve a branded not-found page for missing routes.
+ErrorDocument 404 /404.html
