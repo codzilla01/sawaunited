@@ -2,10 +2,10 @@
    To use real photos later: upload them into the "assets" folder and put the file name here,
    e.g. photo:"assets/car.jpg". Leave "" to use the built-in illustration. */
 const SECTORS = [
-  {id:"car",    c:"#B97858", url:"https://masharycar.net/",  dom:"masharycar.net",  photo:""},
-  {id:"food",   c:"#78927A", url:"https://sawafood.net/",    dom:"sawafood.net",    photo:""},
-  {id:"estate", c:"#D4A64B", url:"https://sawa-united.net/", dom:"sawa-united.net", photo:""},
-  {id:"oil",    c:"#6E8FB8", url:"https://startwalk.net/",   dom:"startwalk.net",   photo:""}
+  {id:"car",    c:"#38BDF8", url:"https://masharycar.net/",  dom:"masharycar.net",  photo:""},
+  {id:"food",   c:"#22D3EE", url:"https://sawafood.net/",    dom:"sawafood.net",    photo:""},
+  {id:"estate", c:"#60A5FA", url:"https://sawa-united.net/", dom:"sawa-united.net", photo:""},
+  {id:"oil",    c:"#0EA5E9", url:"https://startwalk.net/",   dom:"startwalk.net",   photo:""}
 ];
 
 const ICON = {
@@ -27,7 +27,7 @@ const WHY_ICONS = [
 const ART = {
 car:`<svg viewBox="0 0 600 420" preserveAspectRatio="xMidYMid slice">
 <rect width="600" height="420" fill="url(#dots)"/>
-<circle cx="430" cy="150" r="120" fill="#B97858" opacity=".35"/><circle cx="430" cy="150" r="74" fill="#D29A7D" opacity=".55"/>
+<circle cx="430" cy="150" r="120" fill="#245B7E" opacity=".35"/><circle cx="430" cy="150" r="74" fill="#4E8FB8" opacity=".55"/>
 <path d="M0 330V262h40v-30h30v50h40v-72h36v72h30v-42h50v42h40v-96h30v96h40v-54h46v54h40v-32h50v32h40v-62h38v98z" fill="#fff" opacity=".07"/>
 <rect y="330" width="600" height="90" fill="#000" opacity=".38"/>
 <path d="M0 378H600" stroke="#fff" stroke-opacity=".45" stroke-width="4" stroke-dasharray="40 30"/>
@@ -36,16 +36,16 @@ car:`<svg viewBox="0 0 600 420" preserveAspectRatio="xMidYMid slice">
 <path d="M130 320C128 294 140 278 170 272L234 262L294 222C308 212 328 206 352 206H422C450 206 472 216 494 236L514 254C542 258 562 272 568 294L570 320Z" fill="url(#gBody)"/>
 <path d="M268 258L300 231C310 223 322 218 340 218H380L382 256Z" fill="#0B1220" opacity=".88"/>
 <path d="M394 218H420C440 218 458 226 476 244L484 254L396 256Z" fill="#0B1220" opacity=".88"/>
-<path d="M150 286H566" stroke="#B97858" stroke-width="5"/>
+<path d="M150 286H566" stroke="#245B7E" stroke-width="5"/>
 <path d="M388 262V310" stroke="#9AA6B5" stroke-width="2"/>
 <ellipse cx="552" cy="276" rx="12" ry="6" fill="#FFE7A3"/>
-<rect x="132" y="288" width="10" height="13" rx="2" fill="#B97858"/>
+<rect x="132" y="288" width="10" height="13" rx="2" fill="#245B7E"/>
 <g><circle cx="212" cy="320" r="33" fill="#0B0F14"/><circle cx="212" cy="320" r="17" fill="#AEB8C4"/><circle cx="212" cy="320" r="6" fill="#0B0F14"/></g>
 <g><circle cx="482" cy="320" r="33" fill="#0B0F14"/><circle cx="482" cy="320" r="17" fill="#AEB8C4"/><circle cx="482" cy="320" r="6" fill="#0B0F14"/></g>
 </svg>`,
 food:`<svg viewBox="0 0 600 420" preserveAspectRatio="xMidYMid slice">
 <rect width="600" height="420" fill="url(#dots)"/>
-<circle cx="160" cy="140" r="130" fill="#78927A" opacity=".32"/><circle cx="160" cy="140" r="78" fill="#A2B79E" opacity=".4"/>
+<circle cx="160" cy="140" r="130" fill="#2F7C8C" opacity=".32"/><circle cx="160" cy="140" r="78" fill="#6FB6C4" opacity=".4"/>
 <rect y="360" width="600" height="60" fill="#000" opacity=".35"/>
 <g stroke="#F7D774" stroke-width="3.5" stroke-linecap="round" fill="#F7D774">
 <path d="M520 362C522 300 530 230 540 150" fill="none"/>
@@ -63,36 +63,36 @@ food:`<svg viewBox="0 0 600 420" preserveAspectRatio="xMidYMid slice">
 <path d="M150 262H450L420 360H180Z" fill="url(#gBody)"/>
 <g stroke="#AEB8C4" stroke-width="3"><path d="M160 294H440"/><path d="M170 326H430"/></g>
 <g stroke="#AEB8C4" stroke-width="3"><path d="M230 262L222 360"/><path d="M300 262V360"/><path d="M370 262L378 360"/></g>
-<rect x="246" y="300" width="108" height="24" rx="12" fill="#78927A"/>
+<rect x="246" y="300" width="108" height="24" rx="12" fill="#2F7C8C"/>
 </svg>`,
 estate:`<svg viewBox="0 0 600 420" preserveAspectRatio="xMidYMid slice">
 <rect width="600" height="420" fill="url(#dots)"/>
-<circle cx="450" cy="120" r="110" fill="#D4A64B" opacity=".3"/><circle cx="450" cy="120" r="64" fill="#E4C67D" opacity=".45"/>
+<circle cx="450" cy="120" r="110" fill="#4A8FC0" opacity=".3"/><circle cx="450" cy="120" r="64" fill="#8FC4E8" opacity=".45"/>
 <path d="M0 380V300h30v-40h30v40h30v-60h20v60h500v80z" fill="#fff" opacity=".06"/>
 <rect x="70" y="210" width="92" height="170" fill="#E4E9EF"/><rect x="70" y="210" width="92" height="170" fill="url(#win)"/>
 <rect x="172" y="110" width="112" height="270" fill="url(#gBody)"/><rect x="172" y="110" width="112" height="270" fill="url(#win)"/>
-<rect x="172" y="104" width="112" height="10" fill="#D4A64B"/><rect x="224" y="74" width="6" height="32" fill="#E4E9EF"/>
+<rect x="172" y="104" width="112" height="10" fill="#4A8FC0"/><rect x="224" y="74" width="6" height="32" fill="#E4E9EF"/>
 <rect x="294" y="164" width="96" height="216" fill="#D5DCE5"/><rect x="294" y="164" width="96" height="216" fill="url(#winlit)" opacity=".55"/>
 <rect x="400" y="232" width="86" height="148" fill="#EEF1F5"/><rect x="400" y="232" width="86" height="148" fill="url(#win)"/>
-<g fill="#D4A64B"><rect x="516" y="66" width="10" height="314"/><rect x="420" y="66" width="170" height="9"/><rect x="560" y="75" width="22" height="20"/></g>
-<g stroke="#D4A64B" stroke-width="2" opacity=".8"><path d="M516 90L526 110M526 110L516 130M516 130L526 150M526 150L516 170M516 170L526 190M526 190L516 210M516 210L526 230M526 230L516 250M516 250L526 270M526 270L516 290M516 290L526 310"/></g>
+<g fill="#4A8FC0"><rect x="516" y="66" width="10" height="314"/><rect x="420" y="66" width="170" height="9"/><rect x="560" y="75" width="22" height="20"/></g>
+<g stroke="#4A8FC0" stroke-width="2" opacity=".8"><path d="M516 90L526 110M526 110L516 130M516 130L526 150M526 150L516 170M516 170L526 190M526 190L516 210M516 210L526 230M526 230L516 250M516 250L526 270M526 270L516 290M516 290L526 310"/></g>
 <path d="M452 75V168" stroke="#fff" stroke-width="2"/><rect x="445" y="168" width="14" height="16" rx="2" fill="#fff"/>
 <rect y="380" width="600" height="40" fill="#000" opacity=".4"/>
 </svg>`,
 oil:`<svg viewBox="0 0 600 420" preserveAspectRatio="xMidYMid slice">
 <rect width="600" height="420" fill="url(#dots)"/>
-<circle cx="150" cy="130" r="120" fill="#6E8FB8" opacity=".32"/><circle cx="150" cy="130" r="70" fill="#A0B8D8" opacity=".42"/>
+<circle cx="150" cy="130" r="120" fill="#3D7FB5" opacity=".32"/><circle cx="150" cy="130" r="70" fill="#7FB3D9" opacity=".42"/>
 <rect y="360" width="600" height="60" fill="#000" opacity=".4"/>
 <ellipse cx="270" cy="70" rx="22" ry="34" fill="url(#gFire)"/>
 <rect x="265" y="86" width="10" height="276" fill="#AEB8C4"/>
 <rect x="110" y="150" width="42" height="212" rx="20" fill="url(#gTank)"/>
 <rect x="168" y="104" width="50" height="258" rx="24" fill="url(#gTank)"/>
-<g stroke="#6E8FB8" stroke-width="4"><path d="M106 200H156M106 260H156M164 160H222M164 230H222M164 300H222"/></g>
+<g stroke="#3D7FB5" stroke-width="4"><path d="M106 200H156M106 260H156M164 160H222M164 230H222M164 300H222"/></g>
 <g stroke="#8E9AA8" stroke-width="8" fill="none" stroke-linecap="round"><path d="M218 320H330"/><path d="M152 340H168"/><path d="M218 270C250 270 250 300 300 300H330"/></g>
 <rect x="330" y="262" width="122" height="100" fill="url(#gTank)"/><ellipse cx="391" cy="262" rx="61" ry="14" fill="#F4F6F8"/>
 <g stroke="#9AA6B5" stroke-width="2" opacity=".7"><path d="M330 296H452M330 330H452"/></g>
 <rect x="462" y="284" width="96" height="78" fill="url(#gTank)"/><ellipse cx="510" cy="284" rx="48" ry="11" fill="#F4F6F8"/>
-<text x="391" y="320" text-anchor="middle" font-family="Manrope,sans-serif" font-weight="800" font-size="20" fill="#6E8FB8">SW</text>
+<text x="391" y="320" text-anchor="middle" font-family="Manrope,sans-serif" font-weight="800" font-size="20" fill="#3D7FB5">SW</text>
 <path d="M500 110C516 136 534 156 534 182A34 34 0 0 1 466 182C466 156 484 136 500 110Z" fill="url(#gDrop)"/>
 <path d="M484 184A16 16 0 0 0 498 200" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none" opacity=".7"/>
 </svg>`
@@ -431,7 +431,7 @@ function refreshThemeControl(){
     button.title=dark?T[L].themeAction:T[L].themeDarkAction;
   });
   const themeColor=document.querySelector('meta[name="theme-color"]');
-  if(themeColor) themeColor.content=dark?"#07090E":"#F5F2EB";
+  if(themeColor) themeColor.content=dark?"#041423":"#FFFFFF";
 }
 $$(".theme").forEach(button=>button.addEventListener("click",()=>{
   document.documentElement.dataset.theme=document.documentElement.dataset.theme==="dark"?"light":"dark";

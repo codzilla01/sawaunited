@@ -17,28 +17,29 @@
 <meta property="og:url" content="https://sawaunited.net/portfolio/">
 <meta property="og:image" content="https://sawaunited.net/assets/sawa-header-logo.webp">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#041423">
 <link rel="icon" href="assets/logo-transparent.png">
 <link rel="stylesheet" href="../css/design-system.css">
 <style>
 :root {
-  --obsidian: #07090E;
-  --obsidian2: #0D131D;
-  --obsidian-card: #121A27;
-  --obsidian-line: rgba(255,255,255,0.10);
-  --ivory: #F7F5F0;
-  --ivory2: #EFECE4;
+  --obsidian: #041423;
+  --obsidian2: #061C30;
+  --obsidian-card: #08243C;
+  --obsidian-line: rgba(186,230,253,0.14);
+  --ivory: #F5FAFF;
+  --ivory2: #EAF6FE;
   --ivory-card: #FFFFFF;
-  --ivory-line: rgba(11,16,24,0.11);
-  --gold: #D4A033;
-  --gold-bright: #E3B85A;
-  --gold-deep: #9E7215;
-  --silver: #E8EEF5;
-  --muted-dark: #94A3B8;
-  --muted-light: #526071;
-  --estate: #D4A033;
-  --food: #22A45D;
-  --car: #F26B3A;
-  --oil: #2F7BEA;
+  --ivory-line: rgba(7,54,88,0.12);
+  --gold: #38BDF8;
+  --gold-bright: #7DD3FC;
+  --gold-deep: #0369A1;
+  --silver: #E6F2FA;
+  --muted-dark: #9DB6CC;
+  --muted-light: #4E6B82;
+  --estate: #60A5FA;
+  --food: #22D3EE;
+  --car: #38BDF8;
+  --oil: #0EA5E9;
   --font-head: 'Cairo', system-ui, sans-serif;
   --font-body: 'Cairo', system-ui, sans-serif;
 }
@@ -48,8 +49,8 @@ html[lang="en"] {
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  background: #05070B;
-  color: #F4F7FB;
+  background: #041423;
+  color: #F5FAFF;
   font-family: var(--font-body);
   min-height: 100vh;
   overflow-x: hidden;
@@ -59,9 +60,9 @@ button, a { font-family: inherit; color: inherit; text-decoration: none; cursor:
 /* Top Command Bar */
 .topbar {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(7, 9, 14, 0.90);
+  background: rgba(4, 20, 35, 0.92);
   backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(212, 160, 51, 0.28);
+  border-bottom: 1px solid rgba(56, 189, 248, 0.30);
   padding: 10px 20px;
 }
 .topbar-inner {
@@ -74,28 +75,28 @@ button, a { font-family: inherit; color: inherit; text-decoration: none; cursor:
 .brand-txt span { font-size: 11.5px; color: var(--gold-bright); font-weight: 600; }
 
 .controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.home-link { display: inline-flex; align-items: center; min-height: 40px; padding: 6px 12px; border: 1px solid rgba(212,160,51,.32); border-radius: 999px; color: var(--gold-bright); font-size: 12px; font-weight: 800; white-space: nowrap; }
-.home-link:hover { background: rgba(212,160,51,.1); }
+.home-link { display: inline-flex; align-items: center; min-height: 40px; padding: 6px 12px; border: 1px solid rgba(56,189,248,.32); border-radius: 999px; color: var(--gold-bright); font-size: 12px; font-weight: 800; white-space: nowrap; }
+.home-link:hover { background: rgba(56,189,248,.1); }
 .pill-group {
-  display: inline-flex; background: #101622; border: 1px solid rgba(255,255,255,0.10);
+  display: inline-flex; background: #061C30; border: 1px solid rgba(186,230,253,0.14);
   border-radius: 999px; padding: 3px;
 }
 .pill-group button {
   padding: 6px 13px; border-radius: 999px; font-size: 12.5px; font-weight: 700; color: var(--muted-dark); transition: .2s;
 }
-.pill-group button.active { background: var(--gold); color: #07090E; font-weight: 800; }
+.pill-group button.active { background: linear-gradient(135deg, #7DD3FC, #0EA5E9); color: #052539; font-weight: 800; box-shadow: 0 6px 16px rgba(14,165,233,.35); }
 .dl-btn {
   display: inline-flex; align-items: center; gap: 7px;
-  background: linear-gradient(135deg, #E3B85A, #C58F24);
-  color: #07090E; font-weight: 800; font-size: 12.5px;
+  background: linear-gradient(135deg, #7DD3FC, #0EA5E9);
+  color: #052539; font-weight: 800; font-size: 12.5px;
   padding: 8px 15px; border-radius: 999px;
-  box-shadow: 0 8px 22px -6px rgba(212,160,51,0.55);
+  box-shadow: 0 8px 22px -6px rgba(56,189,248,0.55);
 }
 .dl-btn:hover { filter: brightness(1.06); }
 
 /* Downloads Modal / Bar */
 .dl-drawer {
-  display: none; background: #0D131E; border-bottom: 1px solid rgba(212,160,51,0.3);
+  display: none; background: #061C30; border-bottom: 1px solid rgba(56,189,248,0.30);
   padding: 16px 20px;
 }
 .dl-drawer.open { display: block; }
@@ -106,7 +107,7 @@ button, a { font-family: inherit; color: inherit; text-decoration: none; cursor:
 }
 .dl-card {
   display: flex; align-items: center; justify-content: space-between; gap: 10px;
-  background: #131C2B; border: 1px solid rgba(255,255,255,0.09); border-radius: 12px;
+  background: #0B2E4A; border: 1px solid rgba(255,255,255,0.09); border-radius: 12px;
   padding: 11px 14px; transition: .2s;
 }
 .dl-card:hover { border-color: var(--gold); transform: translateY(-1px); }
@@ -114,10 +115,10 @@ button, a { font-family: inherit; color: inherit; text-decoration: none; cursor:
 .dl-card small { font-size: 11.5px; color: var(--muted-dark); }
 .dl-badge {
   font-family: 'Manrope', sans-serif; font-size: 11px; font-weight: 800;
-  padding: 4px 9px; border-radius: 6px; background: rgba(212,160,51,0.18); color: var(--gold-bright);
+  padding: 4px 9px; border-radius: 6px; background: rgba(56,189,248,0.18); color: var(--gold-bright);
   flex-shrink: 0;
 }
-.dl-badge.pptx { background: rgba(242,107,58,0.2); color: #FF8E66; }
+.dl-badge.pptx { background: rgba(34,211,238,0.2); color: #7DD3FC; }
 
 /* Stage Container */
 .workspace { max-width: 1480px; margin: 0 auto; padding: 20px; }
@@ -127,7 +128,7 @@ button, a { font-family: inherit; color: inherit; text-decoration: none; cursor:
 }
 .nav-btns { display: flex; align-items: center; gap: 8px; }
 .nav-btn {
-  background: #121A27; border: 1px solid rgba(255,255,255,0.12);
+  background: #08243C; border: 1px solid rgba(255,255,255,0.12);
   color: #fff; padding: 7px 14px; border-radius: 999px; font-size: 12.5px; font-weight: 700;
 }
 .nav-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold-bright); }
@@ -139,10 +140,10 @@ button, a { font-family: inherit; color: inherit; text-decoration: none; cursor:
   scrollbar-width: thin;
 }
 .thumb-dot {
-  padding: 5px 10px; border-radius: 8px; background: #101622; border: 1px solid rgba(255,255,255,0.08);
+  padding: 5px 10px; border-radius: 8px; background: #061C30; border: 1px solid rgba(255,255,255,0.08);
   font-family: 'Manrope', sans-serif; font-size: 11.5px; font-weight: 700; color: var(--muted-dark); white-space: nowrap;
 }
-.thumb-dot.active { background: rgba(212,160,51,0.2); border-color: var(--gold); color: var(--gold-bright); }
+.thumb-dot.active { background: rgba(56,189,248,0.2); border-color: var(--gold); color: var(--gold-bright); }
 
 /* Slide Canvas (16:9 on Desktop, Fluid on Mobile) */
 .slides-wrap.mode-stage .slide-frame { display: none; }
@@ -153,8 +154,8 @@ button, a { font-family: inherit; color: inherit; text-decoration: none; cursor:
 .slide-frame {
   position: relative; width: 100%; aspect-ratio: 16 / 9;
   border-radius: 20px; overflow: hidden;
-  border: 1px solid rgba(212,160,51,0.28);
-  box-shadow: 0 32px 80px -24px rgba(0,0,0,0.85);
+  border: 1px solid rgba(56,189,248,0.30);
+  box-shadow: 0 32px 80px -24px rgba(0,6,14,0.85);
   flex-direction: column; justify-content: space-between;
   padding: clamp(18px, 2.4vw, 36px) clamp(20px, 3.2vw, 48px);
 }
@@ -162,7 +163,7 @@ button, a { font-family: inherit; color: inherit; text-decoration: none; cursor:
   content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gold);
 }
 .slide-frame.dark { background: var(--obsidian); color: #F4F7FB; }
-.slide-frame.light { background: var(--ivory); color: #0B1018; border-color: rgba(169,122,18,0.35); }
+.slide-frame.light { background: var(--ivory); color: #062134; border-color: rgba(169,122,18,0.35); }
 
 .s-hdr, .s-ftr {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
@@ -174,7 +175,7 @@ button, a { font-family: inherit; color: inherit; text-decoration: none; cursor:
 .s-hdr-lbl { font-size: 11.5px; font-weight: 800; color: var(--gold-bright); letter-spacing: 0.03em; }
 .slide-frame.light .s-hdr-lbl { color: var(--gold-deep); }
 .mini-chip {
-  background: #080B11; border: 1px solid rgba(212,160,51,0.45); border-radius: 9px;
+  background: #03101D; border: 1px solid rgba(56,189,248,0.45); border-radius: 9px;
   padding: 4px 12px; display: inline-flex; align-items: center;
 }
 .mini-chip img { height: 24px; width: auto; }
@@ -202,14 +203,14 @@ button, a { font-family: inherit; color: inherit; text-decoration: none; cursor:
   background: var(--obsidian-card); border: 1px solid var(--obsidian-line);
 }
 .slide-frame.light .card { background: var(--ivory-card); border-color: var(--ivory-line); }
-.card.dashed { border-style: dashed; border-color: var(--gold); background: rgba(212,160,51,0.05); }
+.card.dashed { border-style: dashed; border-color: var(--gold); background: rgba(56,189,248,0.05); }
 
 .photo-card {
   position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--gold);
   background-size: cover; background-position: center; min-height: 180px;
 }
 .visual-note { position:absolute; inset-inline-start:10px; inset-block-end:10px; z-index:1; max-width:calc(100% - 20px); padding:5px 9px; border:1px solid rgba(255,255,255,.22); border-radius:999px; color:#fff; background:rgba(7,9,14,.78); font-size:10px; line-height:1.4; backdrop-filter:blur(8px); }
-.profile-diagram { position:relative; min-height:270px; display:grid; place-content:center; gap:14px; padding:24px; border:1px solid var(--gold); border-radius:16px; background:radial-gradient(ellipse at center,rgba(212,160,51,.12),transparent 70%),var(--obsidian-card); }
+.profile-diagram { position:relative; min-height:270px; display:grid; place-content:center; gap:14px; padding:24px; border:1px solid var(--gold); border-radius:16px; background:radial-gradient(ellipse at center,rgba(56,189,248,.12),transparent 70%),var(--obsidian-card); }
 .profile-diagram > strong { text-align:center; color:var(--gold-bright); font-size:15px; }
 .profile-diagram-grid { display:grid; grid-template-columns:1fr 1fr; gap:9px; }
 .profile-diagram-grid span { display:grid; place-items:center; min-height:58px; padding:8px; border:1px solid var(--obsidian-line); border-radius:10px; color:var(--silver); background:var(--obsidian); font-size:11px; text-align:center; }
@@ -237,7 +238,7 @@ button, a { font-family: inherit; color: inherit; text-decoration: none; cursor:
 </style>
 </head>
 <body class="portfolio-page">
-<a class="skip-link" id="skipLink" href="#slidesContainer" style="position:fixed;top:12px;inset-inline-start:12px;z-index:300;transform:translateY(-180%);padding:10px 16px;border-radius:8px;background:#D4A033;color:#071018;font-weight:800;">تجاوز إلى المحتوى</a>
+<a class="skip-link" id="skipLink" href="#slidesContainer" style="position:fixed;top:12px;inset-inline-start:12px;z-index:300;transform:translateY(-180%);padding:10px 16px;border-radius:8px;background:#7DD3FC;color:#052539;font-weight:800;">تجاوز إلى المحتوى</a>
 
 <header class="topbar">
   <div class="topbar-inner">
@@ -320,11 +321,11 @@ button, a { font-family: inherit; color: inherit; text-decoration: none; cursor:
   <div class="slides-wrap mode-stage" id="slidesContainer"></div>
 </main>
 
-<style>.portfolio-page .skip-link:focus{transform:translateY(0)}.portfolio-page :focus-visible{outline:3px solid #E3B85A;outline-offset:3px}.portfolio-page .pill-group button:focus-visible,.portfolio-page .nav-btn:focus-visible,.portfolio-page .thumb-dot:focus-visible{position:relative;z-index:1}</style>
+<style>.portfolio-page .skip-link:focus{transform:translateY(0)}.portfolio-page :focus-visible{outline:3px solid #7DD3FC;outline-offset:3px}.portfolio-page .pill-group button:focus-visible,.portfolio-page .nav-btn:focus-visible,.portfolio-page .thumb-dot:focus-visible{position:relative;z-index:1}</style>
 <script>
 const DATA = {"ar": {"rtl": true, "group_name": "مجموعة سوا يونيتد", "group_en": "SAWA UNITED GROUP", "doc_label_full": "الملف التعريفي المؤسسي · 2026", "doc_label_exec": "ملخص تعريفي · 2026", "tagline": "نبني الأعمال. نصنع الأثر.", "sub_tagline": "أربعة قطاعات وروابط مواقعها المدرجة", "footer_left": "sawaunited.net", "footer_right": "مجموعة سوا يونيتد — ملف تعريفي", "s01": {"eyebrow": "ملف تعريفي · 2026", "title": "مجموعة سوا يونيتد", "subtitle": "SAWA UNITED GROUP", "lead": "يلخص هذا الملف أسماء أربعة قطاعات وروابط مواقع تظهر في مواد المجموعة. لا يؤكد حالة التشغيل أو توفر الخدمات أو الأرقام.", "sectors_bar": [["العقارات", "sawa-united.net", "estate"], ["الأغذية", "sawafood.net", "food"], ["السيارات والتنقل", "masharycar.net", "car"], ["مشتقات البترول", "startwalk.net", "oil"]]}, "s02": {"num": "02", "kicker": "نطاق المعلومات · ABOUT THIS PROFILE", "title": "ما الذي يعرضه هذا الملف؟", "p1": "يعرض الموقع الرئيسي أربعة أسماء لقطاعات أعمال وأربعة روابط لمواقع قطاعية.", "p2": "تقتصر الأرقام أدناه على عناصر الموقع نفسه. لا يتضمن هذا الملف مؤشرات تشغيلية أو بيانات شراكات تم التحقق منها بصورة مستقلة.", "quote": "راجع الموقع المرتبط للتأكد من التفاصيل الحالية.", "kpis": [["4", "قطاعات مدرجة"], ["4", "مواقع قطاعية مدرجة"], ["3", "لغات للواجهة الرئيسية"], ["1", "موقع رئيسي للمجموعة"], ["—", "مؤشرات تشغيلية غير موثقة هنا"]], "note": "لم تُتحقق بصورة مستقلة من الشراكات أو الاعتمادات أو الأرقام التشغيلية أو نطاق العمل الجغرافي."}, "s03": {"num": "03", "kicker": "حدود الملف · INFORMATION SCOPE", "title": "نطاق المعلومات وكيفية التحقق منها", "vision_t": "المعلومات المعروضة", "vision_p": "أسماء القطاعات وروابط المواقع كما تظهر في ملفات الموقع.", "mission_t": "ما لم يتم التحقق منه", "mission_p": "الملكية القانونية، والعمليات، والخدمات الحالية، والأرقام، والشراكات، والاعتمادات.", "objectives_t": "قبل الاعتماد على أي معلومة", "objectives": [["01 · راجع الموقع", "افتح الموقع القطاعي المدرج للمعلومات الحالية."], ["02 · اطلب التأكيد", "تحقق من توفر الخدمات والشروط مباشرة مع الجهة المعنية."], ["03 · راجع الوثائق", "اطلب مستندات داعمة عند التحقق من التسجيل أو الاعتماد أو الشراكة."]], "values": [["الأرقام", "لا تُعرض مؤشرات تشغيلية غير موثقة."], ["العلاقات", "لا تُعرض شراكات أو اعتمادات على أنها مثبتة."], ["الصور", "الصور القطاعية توضيحية وليست دليلاً على مشروعات فعلية."], ["التفاصيل الحالية", "يرجى تأكيدها مباشرة مع الموقع القطاعي المعني."]]}, "s04": {"num": "04", "kicker": "منظومة المواقع · LISTED WEBSITES", "title": "أربعة قطاعات وروابط مواقعها المدرجة", "sub": "المواقع التالية ترد ضمن مواد المجموعة. إدراجها هنا لا يؤكد الملكية القانونية أو التشغيل الحالي.", "hub_title": "SAWA UNITED GROUP", "hub_sub": "موقع المجموعة · أسماء القطاعات · روابط المواقع المدرجة", "sectors": [["01", "العقارات", "قطاع العقارات", "sawa-united.net", "estate", "الموقع مدرج ضمن مواد المجموعة تحت اسم قطاع العقارات."], ["02", "الأغذية", "قطاع الأغذية", "sawafood.net", "food", "الموقع مدرج ضمن مواد المجموعة تحت اسم قطاع الأغذية."], ["03", "السيارات والتنقل", "قطاع السيارات", "masharycar.net", "car", "الموقع مدرج ضمن مواد المجموعة تحت اسم قطاع السيارات والتنقل."], ["04", "مشتقات البترول", "قطاع البترول", "startwalk.net", "oil", "الموقع مدرج ضمن مواد المجموعة تحت اسم مشتقات البترول."]], "synergy": "يعرض هذا المخطط الروابط الأربع فقط، ولا يمثل دليلاً على تكامل تشغيلي أو علاقة قانونية بين الكيانات."}, "s05": {"num": "05", "kicker": "القطاع 01 · العقارات", "title": "قطاع العقارات — SAWA UNITED", "domain": "sawa-united.net", "accent": "estate", "photo": "sector-realestate.webp", "slogan": "معلومات القطاع في الموقع المرتبط", "about": "تدرج مواد المجموعة sawa-united.net ضمن قطاع العقارات. راجع الموقع مباشرة للمعلومات الحالية؛ لا يؤكد هذا الملف قوائم أو عروضاً أو نطاق تشغيل.", "services": ["راجع الموقع القطاعي للمعلومات الحالية.", "تحقق مباشرة من توفر أي خدمة.", "اطلب الشروط الحالية قبل اتخاذ القرار.", "تحقق من الوثائق القانونية أو التنظيمية ذات الصلة.", "الصور المعروضة توضيحية وليست صور مشروعات موثقة."], "value_t": "ملاحظة تحقق", "value": "لا يتضمن هذا الملف تحققاً مستقلاً من الخدمات الحالية أو الأرقام التشغيلية أو الحالة التنظيمية.", "highlights": [["الموقع المدرج", "sawa-united.net"], ["البيانات التشغيلية", "غير متحققة هنا"], ["الصور", "توضيحية فقط"]]}, "s06": {"num": "06", "kicker": "القطاع 02 · الأغذية", "title": "قطاع الأغذية — SAWA UNITED", "domain": "sawafood.net", "accent": "food", "photo": "sector-food.webp", "slogan": "معلومات القطاع في الموقع المرتبط", "about": "تدرج مواد المجموعة sawafood.net ضمن قطاع الأغذية. راجع الموقع مباشرة للمعلومات الحالية؛ لا يؤكد هذا الملف قوائم أو عروضاً أو نطاق تشغيل.", "services": ["راجع الموقع القطاعي للمعلومات الحالية.", "تحقق مباشرة من توفر أي خدمة.", "اطلب الشروط الحالية قبل اتخاذ القرار.", "تحقق من الوثائق القانونية أو التنظيمية ذات الصلة.", "الصور المعروضة توضيحية وليست صور مشروعات موثقة."], "value_t": "ملاحظة تحقق", "value": "لا يتضمن هذا الملف تحققاً مستقلاً من الخدمات الحالية أو الأرقام التشغيلية أو الحالة التنظيمية.", "highlights": [["الموقع المدرج", "sawafood.net"], ["البيانات التشغيلية", "غير متحققة هنا"], ["الصور", "توضيحية فقط"]]}, "s07": {"num": "07", "kicker": "القطاع 03 · السيارات والتنقل", "title": "قطاع السيارات والتنقل — SAWA UNITED", "domain": "masharycar.net", "accent": "car", "photo": "sector-automotive.webp", "slogan": "معلومات القطاع في الموقع المرتبط", "about": "تدرج مواد المجموعة masharycar.net ضمن قطاع السيارات والتنقل. راجع الموقع مباشرة للمعلومات الحالية؛ لا يؤكد هذا الملف قوائم أو عروضاً أو نطاق تشغيل.", "services": ["راجع الموقع القطاعي للمعلومات الحالية.", "تحقق مباشرة من توفر أي خدمة.", "اطلب الشروط الحالية قبل اتخاذ القرار.", "تحقق من الوثائق القانونية أو التنظيمية ذات الصلة.", "الصور المعروضة توضيحية وليست صور مشروعات موثقة."], "value_t": "ملاحظة تحقق", "value": "لا يتضمن هذا الملف تحققاً مستقلاً من الخدمات الحالية أو الأرقام التشغيلية أو الحالة التنظيمية.", "highlights": [["الموقع المدرج", "masharycar.net"], ["البيانات التشغيلية", "غير متحققة هنا"], ["الصور", "توضيحية فقط"]]}, "s08": {"num": "08", "kicker": "القطاع 04 · مشتقات البترول", "title": "قطاع مشتقات البترول والخدمات الصناعية — SAWA UNITED", "domain": "startwalk.net", "accent": "oil", "photo": "sector-petroleum.webp", "slogan": "معلومات القطاع في الموقع المرتبط", "about": "تدرج مواد المجموعة startwalk.net ضمن قطاع مشتقات البترول والخدمات الصناعية. راجع الموقع مباشرة للمعلومات الحالية؛ لا يؤكد هذا الملف قوائم أو عروضاً أو نطاق تشغيل.", "services": ["راجع الموقع القطاعي للمعلومات الحالية.", "تحقق مباشرة من توفر أي خدمة.", "اطلب الشروط الحالية قبل اتخاذ القرار.", "تحقق من الوثائق القانونية أو التنظيمية ذات الصلة.", "الصور المعروضة توضيحية وليست صور مشروعات موثقة."], "value_t": "ملاحظة تحقق", "value": "لا يتضمن هذا الملف تحققاً مستقلاً من الخدمات الحالية أو الأرقام التشغيلية أو الحالة التنظيمية.", "highlights": [["الموقع المدرج", "startwalk.net"], ["البيانات التشغيلية", "غير متحققة هنا"], ["الصور", "توضيحية فقط"]]}, "s09": {"num": "09", "kicker": "معلومات القطاعات · SECTOR INFORMATION", "title": "المواقع القطاعية المدرجة", "sub": "استخدم الروابط أدناه للتحقق من المعلومات الحالية. لا يثبت هذا العرض توفر خدمة أو منتج.", "cols": [["العقارات", "estate", ["رابط الموقع مدرج.", "راجع الموقع للتفاصيل الحالية.", "تحقق مباشرة من أي عرض."], "sawa-united.net"], ["الأغذية", "food", ["رابط الموقع مدرج.", "راجع الموقع للتفاصيل الحالية.", "تحقق مباشرة من أي عرض."], "sawafood.net"], ["السيارات والتنقل", "car", ["رابط الموقع مدرج.", "راجع الموقع للتفاصيل الحالية.", "تحقق مباشرة من أي عرض."], "masharycar.net"], ["مشتقات البترول", "oil", ["رابط الموقع مدرج.", "راجع الموقع للتفاصيل الحالية.", "تحقق مباشرة من أي عرض."], "startwalk.net"]]}, "s10": {"num": "10", "kicker": "مواقع القطاعات · BUSINESS PLATFORMS", "title": "المواقع القطاعية المدرجة في مواد المجموعة", "sub": "يعرض هذا القسم الروابط فقط، ولا يقدم دراسات حالة أو مشروعات موثقة.", "ventures": [["العقارات", "sawa-united.net", "estate", "رابط مدرج؛ لا تُعرض هنا حالات أو وحدات بعينها."], ["الأغذية", "sawafood.net", "food", "رابط مدرج؛ لا تُعرض هنا أرقام توريد أو شراكات."], ["السيارات والتنقل", "masharycar.net", "car", "رابط مدرج؛ لا تُعرض هنا أرقام أسطول أو مواقع تشغيل."], ["مشتقات البترول", "startwalk.net", "oil", "رابط مدرج؛ لا تُعرض هنا أرقام أو اعتمادات تنظيمية."]]}, "s11": {"num": "11", "kicker": "جرد المحتوى · CONTENT INVENTORY", "title": "محتوى وصفي، وليس مقياساً تشغيلياً", "sub": "المقاييس هنا تصف عناصر الموقع فقط؛ لا تتوفر أرقام تشغيلية مستقلة التحقق.", "bars": [["أسماء قطاعات مدرجة", "4", 1.0, "estate"], ["روابط مواقع قطاعية", "4", 1.0, "food"], ["لغات الواجهة الرئيسية", "3", 0.75, "car"], ["مؤشرات تشغيلية", "غير متحقق", 0.0, "oil"], ["قوائم شركاء أو عملاء", "غير متحقق", 0.0, "food"], ["اعتمادات أو تسجيلات", "غير متحقق", 0.0, "estate"]], "caps": [["محتوى الموقع", "أربعة أسماء قطاعات وروابطها مدرجة."], ["اللغات", "تدعم الواجهة الرئيسية العربية والإنجليزية والفرنسية."], ["التشغيل", "لا تُعرض هنا أرقام أو تفاصيل تشغيل تم التحقق منها مستقلاً."]]}, "s12": {"num": "12", "kicker": "خطوات التحقق · VERIFICATION CHECKLIST", "title": "تحقق من التفاصيل قبل الاعتماد عليها", "sub": "إرشادات للقارئ، وليست وصفاً لإجراء تشغيلي داخل الشركة.", "steps": [["01", "افتح الموقع المدرج", "ابدأ من الرابط المرتبط بالقطاع."], ["02", "راجع المعلومات الحالية", "تحقق من وصف الخدمة وتفاصيلها على الموقع."], ["03", "اسأل عن التوفر", "تأكد مباشرة من التوفر والشروط قبل أي التزام."], ["04", "اطلب الوثائق", "اطلب ما يدعم أي ادعاء قانوني أو تنظيمي."], ["05", "تحقق من الصور", "الصور هنا توضيحية ولا تثبت وجود مشروع بعينه."]], "bottom_note": "لا تعتمد على أرقام أو ادعاءات شراكة أو اعتماد دون مستندات داعمة."}, "s13": {"num": "13", "kicker": "ملاحظات الإفصاح · DISCLOSURE NOTES", "title": "حدود المعلومات المعروضة", "sub": "يوضح هذا القسم المجالات التي لا يدعي الملف التحقق منها.", "pillars": [["01", "الأرقام التشغيلية", "لا توجد مؤشرات أداء مستقلة التحقق في هذا الملف."], ["02", "النطاق الجغرافي", "روابط المواقع لا تثبت مواقع تشغيل أو نطاق خدمة."], ["03", "الشراكات", "لا توجد قائمة شركاء أو عملاء مدعومة بوثائق هنا."], ["04", "الاعتمادات", "لا تُعرض تسجيلات أو شهادات دون مستند تحقق."], ["05", "المشروعات", "الصور القطاعية توضيحية ولا تمثل دراسات حالة موثقة."]]}, "s14": {"num": "14", "kicker": "الشركاء والعملاء والاعتمادات · بحاجة إلى تحقق", "title": "لا تُعرض شراكات أو اعتمادات غير مثبتة", "sub": "لم تتوفر في ملفات المستودع مستندات مستقلة تثبت قوائم العملاء أو الشركاء أو التسجيلات والاعتمادات.", "verified_badges": [["الشركاء والعملاء", "لا توجد قائمة موثقة هنا", "لا تتوفر مستندات مستقلة لإثبات العلاقات التجارية."], ["التسجيلات", "غير مثبتة في هذا الملف", "لم تُرفق وثائق تسجيل أو اعتماد للتحقق منها."], ["الأرقام التجارية", "غير متحققة مستقلاً", "لا تُعرض أرقام عملاء أو توريد أو أداء على أنها حقائق."]], "slots_title": "مساحات فارغة — لا تُضف شعارات دون إذن", "slots": ["[شعار شريك مصرح به فقط]", "[شعار عميل بموافقة مكتوبة]", "[مستند اعتماد عند توفره]", "[لا تُدرج علاقة غير موثقة]", "[تحقق من الحقوق قبل النشر]", "[تحديث بعد مراجعة المستندات]"]}, "s15": {"num": "15", "kicker": "المواقع الإلكترونية المدرجة · LISTED WEBSITES", "title": "روابط منصات الأعمال، لا خريطة تشغيل", "sub": "يعرض هذا القسم أسماء المواقع الواردة في مواد المجموعة؛ ولا يحدد بلداناً أو مواقع عمليات.", "websites": [["العقارات", "01", "sawa-united.net"], ["الأغذية", "02", "sawafood.net"], ["السيارات والتنقل", "03", "masharycar.net"], ["مشتقات البترول", "04", "startwalk.net"]]}, "s16": {"num": "16", "kicker": "استفسارات الأعمال · BUSINESS INQUIRIES", "title": "استخدم الموقع المناسب للتحقق من التفاصيل", "sub": "هذه روابط استكشافية فقط؛ لا تمثل عرضاً تجارياً أو اتفاقية أو شراكة قائمة.", "tracks": [["01", "استفسار عن العقارات", "estate", "راجع الموقع المدرج للتحقق من المعلومات والشروط الحالية."], ["02", "استفسار عن الأغذية", "food", "راجع الموقع المدرج للتحقق من المعلومات والشروط الحالية."], ["03", "استفسار عن السيارات", "car", "راجع الموقع المدرج للتحقق من المعلومات والشروط الحالية."], ["04", "استفسار عن مشتقات البترول", "oil", "راجع الموقع المدرج للتحقق من المعلومات والشروط الحالية."]]}, "s17": {"num": "17", "kicker": "مراجعة المعلومات · INFORMATION REVIEW", "title": "ما الذي يحتاج إلى تحقق مستقل؟", "sub": "لا تُعرض المعلومات التالية كحقائق مثبتة في هذا الملف.", "standards": [["الأرقام التشغيلية", "تُطلب بيانات مؤرخة ومستندات داعمة قبل نشر أي رقم."], ["الشراكات والعملاء", "لا تُدرج أسماء أو شعارات دون تفويض ووثائق داعمة."], ["التسجيلات والاعتمادات", "لا يتضمن المستودع مستندات تحقق لهذه الادعاءات."], ["الصور والمشروعات", "الصور القطاعية توضيحية؛ ولا تثبت مشروعاً أو أصلاً بعينه."]], "cert_placeholder_t": "الشهادات والتسجيلات", "cert_placeholder_p": "لا توجد وثائق اعتماد أو تسجيل مرفقة للتحقق منها في هذا المستودع."}, "s18": {"num": "18", "kicker": "المواقع وقنوات التواصل · CONTACT", "title": "روابط المواقع وقنوات التواصل المدرجة", "lead": "استخدم الروابط المدرجة للتحقق من المعلومات الحالية. يظهر رقم التواصل التالي في ملفات الموقع؛ تحقق منه قبل استخدامه.", "contacts": [["موقع المجموعة", "https://sawaunited.net"], ["العقارات", "https://sawa-united.net"], ["الأغذية", "https://sawafood.net"], ["السيارات والتنقل", "https://masharycar.net"], ["مشتقات البترول", "https://startwalk.net"], ["رقم مدرج في ملفات الموقع؛ تحقق قبل الاستخدام", "+20 101 122 5592"], ["قائمة الشركاء والعملاء", "غير مرفقة للتحقق"], ["العنوان والبريد المؤسسي", "غير موثقين هنا"], ["ملاحظة", "تحقق من جميع التفاصيل مباشرة قبل الاعتماد عليها."]], "closing_motto": "SAWA UNITED GROUP — نبني الأعمال. نصنع الأثر."}}, "en": {"rtl": false, "group_name": "SAWA UNITED GROUP", "group_en": "SAWA UNITED GROUP", "doc_label_full": "Corporate Profile · 2026", "doc_label_exec": "Profile Summary · 2026", "tagline": "Building businesses. Creating impact.", "sub_tagline": "Four sectors and their listed websites", "footer_left": "sawaunited.net", "footer_right": "SAWA UNITED GROUP — Corporate Profile", "s01": {"eyebrow": "GROUP PROFILE · 2026", "title": "SAWA UNITED GROUP", "subtitle": "SAWA UNITED GROUP", "lead": "This profile summarizes four sector names and website links listed in group materials. It does not verify operations, service availability or figures.", "sectors_bar": [["Real estate", "sawa-united.net", "estate"], ["Food", "sawafood.net", "food"], ["Automotive", "masharycar.net", "car"], ["Petroleum products", "startwalk.net", "oil"]]}, "s02": {"num": "02", "kicker": "ABOUT THIS PROFILE · SCOPE", "title": "What this profile includes", "p1": "The group homepage lists four business-sector names and links to four sector websites.", "p2": "The figures below describe website content only. This profile does not include independently verified operating metrics or partnership data.", "quote": "Visit the linked website to confirm current details.", "kpis": [["4", "Listed sectors"], ["4", "Listed sector websites"], ["3", "Homepage languages"], ["1", "Group homepage"], ["—", "No verified operating metrics here"]], "note": "Partnerships, credentials, operating figures and geographic footprint have not been independently verified for this profile."}, "s03": {"num": "03", "kicker": "INFORMATION SCOPE · LIMITS", "title": "Scope of information and verification", "vision_t": "Information shown", "vision_p": "Sector names and website links as listed in the site files.", "mission_t": "Not independently verified", "mission_p": "Legal ownership, operations, current services, figures, partnerships and credentials.", "objectives_t": "Before relying on a claim", "objectives": [["01 · Visit the site", "Open the listed sector website for current information."], ["02 · Request confirmation", "Confirm service availability and terms directly with the relevant business."], ["03 · Review evidence", "Request supporting documents for registration, credentials or partnership claims."]], "values": [["Figures", "No unverified operating metrics are presented."], ["Relationships", "Partnerships or credentials are not presented as verified."], ["Images", "Sector images are illustrative, not evidence of actual projects."], ["Current details", "Confirm them directly with the relevant sector website."]]}, "s04": {"num": "04", "kicker": "مواقع القطاعات · LISTED WEBSITES", "title": "Four sectors and their listed websites", "sub": "These websites are listed in group materials. Their inclusion here does not verify legal ownership or current operations.", "hub_title": "SAWA UNITED GROUP", "hub_sub": "Group website · sector names · listed website links", "sectors": [["01", "Real estate", "Real-estate sector", "sawa-united.net", "estate", "This website is listed in group materials under the real-estate sector."], ["02", "Food supplies", "Food sector", "sawafood.net", "food", "This website is listed in group materials under the food sector."], ["03", "Automotive mobility", "Automotive sector", "masharycar.net", "car", "This website is listed in group materials under the automotive-mobility sector."], ["04", "Petroleum products", "Petroleum sector", "startwalk.net", "oil", "This website is listed in group materials under petroleum products."]], "synergy": "This diagram lists four website links only; it does not establish operational integration or legal relationships among entities."}, "s05": {"num": "05", "kicker": "SECTOR 01 · REAL ESTATE", "title": "Real estate — SAWA UNITED", "domain": "sawa-united.net", "accent": "estate", "photo": "sector-realestate.webp", "slogan": "Sector information on the linked website", "about": "Group materials list sawa-united.net under Real estate. Visit the website for current information; this profile does not verify listings, offers or operating scope.", "services": ["See the sector website for current information.", "Confirm service availability directly.", "Request current terms before making a decision.", "Verify relevant legal or regulatory documentation.", "Images are illustrative and are not verified project photos."], "value_t": "Verification note", "value": "This profile does not independently verify current services, operating figures or regulatory status.", "highlights": [["Listed website", "sawa-united.net"], ["Operating data", "Not verified here"], ["Images", "Illustrative only"]]}, "s06": {"num": "06", "kicker": "SECTOR 02 · FOOD", "title": "Food supplies — SAWA UNITED", "domain": "sawafood.net", "accent": "food", "photo": "sector-food.webp", "slogan": "Sector information on the linked website", "about": "Group materials list sawafood.net under Food supplies. Visit the website for current information; this profile does not verify listings, offers or operating scope.", "services": ["See the sector website for current information.", "Confirm service availability directly.", "Request current terms before making a decision.", "Verify relevant legal or regulatory documentation.", "Images are illustrative and are not verified project photos."], "value_t": "Verification note", "value": "This profile does not independently verify current services, operating figures or regulatory status.", "highlights": [["Listed website", "sawafood.net"], ["Operating data", "Not verified here"], ["Images", "Illustrative only"]]}, "s07": {"num": "07", "kicker": "SECTOR 03 · AUTOMOTIVE", "title": "Automotive mobility — SAWA UNITED", "domain": "masharycar.net", "accent": "car", "photo": "sector-automotive.webp", "slogan": "Sector information on the linked website", "about": "Group materials list masharycar.net under Automotive mobility. Visit the website for current information; this profile does not verify listings, offers or operating scope.", "services": ["See the sector website for current information.", "Confirm service availability directly.", "Request current terms before making a decision.", "Verify relevant legal or regulatory documentation.", "Images are illustrative and are not verified project photos."], "value_t": "Verification note", "value": "This profile does not independently verify current services, operating figures or regulatory status.", "highlights": [["Listed website", "masharycar.net"], ["Operating data", "Not verified here"], ["Images", "Illustrative only"]]}, "s08": {"num": "08", "kicker": "SECTOR 04 · PETROLEUM", "title": "Petroleum products and industrial services — SAWA UNITED", "domain": "startwalk.net", "accent": "oil", "photo": "sector-petroleum.webp", "slogan": "Sector information on the linked website", "about": "Group materials list startwalk.net under Petroleum products and industrial services. Visit the website for current information; this profile does not verify listings, offers or operating scope.", "services": ["See the sector website for current information.", "Confirm service availability directly.", "Request current terms before making a decision.", "Verify relevant legal or regulatory documentation.", "Images are illustrative and are not verified project photos."], "value_t": "Verification note", "value": "This profile does not independently verify current services, operating figures or regulatory status.", "highlights": [["Listed website", "startwalk.net"], ["Operating data", "Not verified here"], ["Images", "Illustrative only"]]}, "s09": {"num": "09", "kicker": "SECTOR INFORMATION", "title": "Listed sector websites", "sub": "Use the links below to check current information. This profile does not confirm service or product availability.", "cols": [["Real estate", "estate", ["Website link is listed.", "Visit the website for current details.", "Confirm any offer directly."], "sawa-united.net"], ["Food supplies", "food", ["Website link is listed.", "Visit the website for current details.", "Confirm any offer directly."], "sawafood.net"], ["Automotive mobility", "car", ["Website link is listed.", "Visit the website for current details.", "Confirm any offer directly."], "masharycar.net"], ["Petroleum products", "oil", ["Website link is listed.", "Visit the website for current details.", "Confirm any offer directly."], "startwalk.net"]]}, "s10": {"num": "10", "kicker": "BUSINESS PLATFORMS", "title": "Sector websites listed in group materials", "sub": "This section lists links only; it does not present case studies or verified projects.", "ventures": [["Real estate", "sawa-united.net", "estate", "Listed link; no specific case studies or properties are presented."], ["Food supplies", "sawafood.net", "food", "Listed link; no supply figures or partnerships are presented."], ["Automotive mobility", "masharycar.net", "car", "Listed link; no fleet figures or operating locations are presented."], ["Petroleum products", "startwalk.net", "oil", "Listed link; no figures or regulatory credentials are presented."]]}, "s11": {"num": "11", "kicker": "CONTENT INVENTORY", "title": "Website inventory, not operational scale", "sub": "These counts describe website content only; no independently verified operating metrics are supplied.", "bars": [["Sector names listed", "4", 1.0, "estate"], ["Sector website links", "4", 1.0, "food"], ["Homepage language options", "3", 0.75, "car"], ["Operating metrics", "Not verified", 0.0, "oil"], ["Partner or client lists", "Not verified", 0.0, "food"], ["Credentials or registrations", "Not verified", 0.0, "estate"]], "caps": [["Website content", "Four sector names and links are listed."], ["Languages", "The main website interface supports Arabic, English and French."], ["Operations", "No independently verified operating figures or details are presented here."]]}, "s12": {"num": "12", "kicker": "VERIFICATION CHECKLIST", "title": "Confirm details before relying on them", "sub": "Reader guidance only; this is not a description of an internal company process.", "steps": [["01", "Open the listed website", "Start with the website linked to the sector."], ["02", "Review current information", "Check the service description and details on the website."], ["03", "Ask about availability", "Confirm availability and terms directly before making a commitment."], ["04", "Request documents", "Request evidence for legal or regulatory claims."], ["05", "Check image context", "Images here are illustrative and do not establish a specific project."]], "bottom_note": "Do not rely on figures, partnership or credential claims without supporting evidence."}, "s13": {"num": "13", "kicker": "DISCLOSURE NOTES", "title": "Limits of the information shown", "sub": "This section identifies areas that this profile does not claim to have verified.", "pillars": [["01", "Operating figures", "No independently verified performance metrics are included."], ["02", "Geographic footprint", "Website links do not establish operating locations or service areas."], ["03", "Partnerships", "No documented partner or client list is provided here."], ["04", "Credentials", "No registrations or certifications are asserted without evidence."], ["05", "Projects", "Sector images are illustrative and are not verified case studies."]]}, "s14": {"num": "14", "kicker": "PARTNERS, CLIENTS & CREDENTIALS · UNVERIFIED", "title": "No unverified partnerships or credentials are asserted", "sub": "The repository does not include independent evidence for client or partner lists, registrations or credentials.", "verified_badges": [["Partners and clients", "No verified list supplied", "No independent documents are available to substantiate business relationships."], ["Registrations", "Not substantiated here", "No registration or credential documents were provided for review."], ["Commercial metrics", "Not independently verified", "No customer, supply or performance figures are presented as facts."]], "slots_title": "Empty slots — add logos only with authorization", "slots": ["[Authorized partner logo only]", "[Client logo with written approval]", "[Credential document if supplied]", "[Do not add undocumented relationships]", "[Check usage rights before publishing]", "[Update only after document review]"]}, "s15": {"num": "15", "kicker": "LISTED WEBSITES", "title": "Business website links, not an operating footprint", "sub": "This section lists websites referenced in group materials; it does not identify countries or operating locations.", "websites": [["Real estate", "01", "sawa-united.net"], ["Food supplies", "02", "sawafood.net"], ["Automotive mobility", "03", "masharycar.net"], ["Petroleum products", "04", "startwalk.net"]]}, "s16": {"num": "16", "kicker": "BUSINESS INQUIRIES", "title": "Use the relevant website to confirm details", "sub": "These are exploratory links only; they do not represent a commercial offer, agreement or existing partnership.", "tracks": [["01", "Real-estate inquiry", "estate", "Visit the listed website to confirm current information and terms."], ["02", "Food-supply inquiry", "food", "Visit the listed website to confirm current information and terms."], ["03", "Automotive inquiry", "car", "Visit the listed website to confirm current information and terms."], ["04", "Petroleum-products inquiry", "oil", "Visit the listed website to confirm current information and terms."]]}, "s17": {"num": "17", "kicker": "INFORMATION REVIEW", "title": "What needs independent verification?", "sub": "The following items are not presented as verified facts in this profile.", "standards": [["Operating figures", "Request dated data and supporting evidence before publishing any figure."], ["Partners and clients", "Do not list names or logos without authorization and supporting evidence."], ["Registrations and credentials", "The repository contains no evidence documents for these claims."], ["Images and projects", "Sector images are illustrative; they do not prove a specific project or asset."]], "cert_placeholder_t": "Certifications and registrations", "cert_placeholder_p": "No credential or registration documents are included in this repository for verification."}, "s18": {"num": "18", "kicker": "WEBSITES & CONTACT", "title": "Listed websites and contact details", "lead": "Use the listed links to check current information. The phone number below appears in the site files; confirm it before use.", "contacts": [["Group website", "https://sawaunited.net"], ["Real estate", "https://sawa-united.net"], ["Food supplies", "https://sawafood.net"], ["Automotive mobility", "https://masharycar.net"], ["Petroleum products", "https://startwalk.net"], ["Phone listed in site files", "+20 101 122 5592"], ["Partner and client list", "Not supplied for verification"], ["Headquarters and group email", "Not documented here"], ["Note", "Confirm all details directly before relying on them."]], "closing_motto": "SAWA UNITED GROUP — Building businesses. Creating impact."}}};
 const COLORS = {
-  estate: "#D4A033", food: "#22A45D", car: "#F26B3A", oil: "#2F7BEA", gold: "#D4A033"
+  estate: "#60A5FA", food: "#22D3EE", car: "#38BDF8", oil: "#0EA5E9", gold: "#38BDF8"
 };
 
 let curLang = "ar";
@@ -499,7 +500,7 @@ function buildSlidesHTML(lang, isExec) {
           </div>
           <div class="g3">
             ${s3.objectives.map(([ot, op], i) => `
-              <div class="card" style="background:#0E1520;">
+              <div class="card" style="background:#08243C;">
                 <div style="width:32px; height:3px; background:${[COLORS.estate, COLORS.food, COLORS.oil][i]}; margin-bottom:7px;"></div>
                 <strong style="font-size:14px;">${esc(ot)}</strong>
                 <p style="font-size:12px; color:var(--muted-dark); margin-top:4px; line-height:1.45;">${esc(op)}</p>
@@ -509,7 +510,7 @@ function buildSlidesHTML(lang, isExec) {
           <div class="g4">
             ${s3.values.map(([vt, vp], i) => `
               <div class="card">
-                <span class="ltr" style="font-size:11px; font-weight:800; color:var(--gold-bright); background:#1C2638; border:1px solid var(--gold); padding:2px 8px; border-radius:6px;">0${i+1}</span>
+                <span class="ltr" style="font-size:11px; font-weight:800; color:var(--gold-bright); background:#0B2E4A; border:1px solid var(--gold); padding:2px 8px; border-radius:6px;">0${i+1}</span>
                 <div style="font-weight:800; color:var(--gold-bright); font-size:13.5px; margin-top:7px;">${esc(vt)}</div>
                 <p style="font-size:11.8px; color:var(--silver); margin-top:4px; line-height:1.45;">${esc(vp)}</p>
               </div>
@@ -612,7 +613,7 @@ function buildSlidesHTML(lang, isExec) {
                     ${items.map(x => `<div style="font-size:12.2px; color:var(--silver); line-height:1.45;"><span style="color:${COLORS[ak]};">● </span>${esc(x)}</div>`).join("")}
                   </div>
                 </div>
-                <div style="margin:10px; padding:8px; border-radius:9px; background:#0B1018; border:1px solid ${COLORS[ak]}; color:${COLORS[ak]}; font-size:11px; font-weight:700; text-align:center;">${esc(tg)}</div>
+                <div style="margin:10px; padding:8px; border-radius:9px; background:#062134; border:1px solid ${COLORS[ak]}; color:${COLORS[ak]}; font-size:11px; font-weight:700; text-align:center;">${esc(tg)}</div>
               </div>
             `).join("")}
           </div>
@@ -675,8 +676,8 @@ function buildSlidesHTML(lang, isExec) {
             <div class="card" style="border-color:var(--gold); display:flex; flex-direction:column; justify-content:space-between; gap:6px;">
               <strong style="color:var(--gold-bright); font-size:14.5px;">${rtl ? "قائمة تحقق للقارئ" : "Reader verification checklist"}</strong>
               ${s12.steps.map(([sn, st, sp]) => `
-                <div style="display:flex; gap:10px; align-items:center; background:#0C121C; padding:7px 10px; border-radius:10px; border:1px solid var(--obsidian-line);">
-                  <span class="badge" style="background:var(--gold); color:#080B10; padding:6px 9px;">${sn}</span>
+                <div style="display:flex; gap:10px; align-items:center; background:#061C30; padding:7px 10px; border-radius:10px; border:1px solid var(--obsidian-line);">
+                  <span class="badge" style="background:var(--gold); color:#03101D; padding:6px 9px;">${sn}</span>
                   <div><strong style="font-size:12.5px; display:block;">${esc(st)}</strong><span style="font-size:11px; color:var(--muted-dark);">${esc(sp)}</span></div>
                 </div>
               `).join("")}
@@ -729,7 +730,7 @@ function buildSlidesHTML(lang, isExec) {
           <div class="g3">
             ${s14.verified_badges.map(([bt, bm, bd], i) => `
               <div class="card" style="border-color:${[COLORS.oil, COLORS.food, COLORS.gold][i]};">
-                <span style="font-size:11px; font-weight:800; color:${[COLORS.oil, COLORS.food, "#E3B85A"][i]};">${esc(bt)}</span>
+                <span style="font-size:11px; font-weight:800; color:${[COLORS.oil, COLORS.food, "#7DD3FC"][i]};">${esc(bt)}</span>
                 <strong style="display:block; font-size:14px; margin:6px 0;">${esc(bm)}</strong>
                 <p style="font-size:11.8px; color:var(--silver); line-height:1.45;">${esc(bd)}</p>
               </div>
@@ -758,7 +759,7 @@ function buildSlidesHTML(lang, isExec) {
           <div style="display:flex; flex-direction:column; gap:6px; justify-content:space-between;">
             ${s15.websites.map(([cn, cd, cs]) => `
               <div class="card" style="padding:7px 12px; display:flex; align-items:center; gap:10px; border-color:${cd==='EXP'?COLORS.oil:'var(--obsidian-line)'};">
-                <span class="badge" style="background:${cd==='EXP'?COLORS.oil:'var(--gold)'}; color:${cd==='EXP'?'#fff':'#080A0F'}; min-width:40px; text-align:center;">${cd}</span>
+                <span class="badge" style="background:${cd==='EXP'?COLORS.oil:'var(--gold)'}; color:${cd==='EXP'?'#fff':'#03101D'}; min-width:40px; text-align:center;">${cd}</span>
                 <div><strong style="font-size:12.5px; display:block;">${esc(cn)}</strong><span style="font-size:11px; color:var(--muted-dark);">${esc(cs)}</span></div>
               </div>
             `).join("")}
@@ -821,7 +822,7 @@ function buildSlidesHTML(lang, isExec) {
             </div>
           `).join("")}
         </div>
-        <div class="card" style="background:#161F30; border-color:var(--gold); text-align:center; font-weight:800; color:var(--gold-bright); font-size:13.2px;">
+        <div class="card" style="background:#0B2E4A; border-color:var(--gold); text-align:center; font-weight:800; color:var(--gold-bright); font-size:13.2px;">
           ${rtl ? "للمعلومات الحالية، راجع الموقع المدرج للقطاع المعني. إدراج الروابط لا يؤكد توفر خدمة أو يمثل عرضاً تجارياً." : "For current information, visit the relevant listed sector website. Listing these links does not confirm service availability or constitute a commercial offer."}
         </div>
       </div>
