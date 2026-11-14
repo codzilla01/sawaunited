@@ -186,7 +186,7 @@
       })
       .then(function (body) {
         if (!body || body.ok === false || !body.data) throw new Error((body && body.message) || "no dataset");
-        cloud = { mode: "php", online: true, message: "Hostinger API connected" };
+        cloud = { mode: "php", online: true, pulled: true, message: "Hostinger API connected" };
         if (!body.data && body.inbox) absorbInbox(body.inbox);
         if (!body.data) {
           notify("cloud-connected");
@@ -373,6 +373,9 @@
           if (out && out.ok && out.token) {
             SAWAStore.setToken(out.token);
             cloud = { mode: "php", online: true, message: "Authenticated by Hostinger API" };
+            /* If the server had no dataset when the page loaded, re-probe now so
+               the console works against the live API instead of LocalStorage. */
+            if (!cloud.pulled) pullFromCloud();
             return { ok: true, token: out.token, role: out.role || "SUPER_DEVELOPER_ADMIN", source: "php" };
           }
           if (out && out.ok === false && out.code === "BAD_CREDENTIALS") {

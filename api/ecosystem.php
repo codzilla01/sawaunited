@@ -116,7 +116,19 @@ function fail(string $message, int $status = 400, string $code = 'ERROR'): void
 function body_json(): array
 {
     $raw = file_get_contents('php://input');
+    // Some SAPI builds (and the local preview CLI) leave php://input empty while
+    // piping the body on STDIN — accept either without changing Apache behaviour.
     if ($raw === false || $raw === '') {
+        $stdin = @fopen('php://stdin', 'r');
+        if ($stdin !== false) {
+            $alt = stream_get_contents($stdin);
+            fclose($stdin);
+            if (is_string($alt) && $alt !== '') {
+                $raw = $alt;
+            }
+        }
+    }
+    if ($raw === false || trim($raw) === '') {
         return array();
     }
     if (strlen($raw) > MAX_BODY) {
