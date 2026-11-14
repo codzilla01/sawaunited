@@ -1,0 +1,27 @@
+# ==========================================================================
+# /super-admin — developer console protection
+# ==========================================================================
+Options -Indexes
+DirectoryIndex index.html
+
+# Never index or cache the console.
+<IfModule mod_headers.c>
+  Header always set X-Robots-Tag "noindex, nofollow, noarchive, nosnippet"
+  Header always set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+  Header always set X-Frame-Options "DENY"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "no-referrer"
+  # WebAuthn needs the public-key credential policies enabled for this origin.
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), publickey-credentials-get=(self), publickey-credentials-create=(self)"
+  # WebAuthn requires the console to be a secure (HTTPS) context.
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# Optional extra gate: uncomment and set a panel password on the server
+# (creates /super-admin/.htpasswd via Hostinger hPanel → Password Protect Directory).
+# <IfModule mod_authn_file.c>
+#   AuthType Basic
+#   AuthName "SAWA Developer Console"
+#   AuthUserFile /home/uXXXX/.htpasswd-sawa
+#   Require valid-user
+# </IfModule>

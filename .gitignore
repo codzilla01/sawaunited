@@ -1,5 +1,8 @@
 # أسرار محلية / على السيرفر فقط — لا تُرفع أبدًا
 accounts/config.php
+api/config.php
+api/data/*
+!api/data/.gitkeep
 .env
 .env.*
 

@@ -1,201 +1,218 @@
-<!doctype html>
-<html lang="en" dir="ltr" data-i18n-page="projects" data-theme="dark">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title id="pageTitle">SAWA UNITED GROUP | Business Platforms</title>
-  <meta name="description" id="metaDescription" content="This page lists four business sectors and links to their websites.">
-  <meta name="robots" content="index,follow,max-image-preview:large">
-  <link rel="canonical" href="https://sawaunited.net/projects.html">
-  <link rel="alternate" hreflang="en" href="https://sawaunited.net/projects.html?lang=en">
-  <link rel="alternate" hreflang="ar" href="https://sawaunited.net/projects.html?lang=ar">
-  <link rel="alternate" hreflang="fr" href="https://sawaunited.net/projects.html?lang=fr">
-  <link rel="alternate" hreflang="x-default" href="https://sawaunited.net/projects.html">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="SAWA UNITED GROUP">
-  <meta property="og:title" content="SAWA UNITED GROUP | Business Platforms">
-  <meta property="og:description" content="Four business sectors and their listed websites.">
-  <meta property="og:url" content="https://sawaunited.net/projects.html">
-  <meta property="og:image" content="https://sawaunited.net/assets/sawa-header-logo.webp">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="assets/favicon-48.png" type="image/png" sizes="48x48">
-  <link rel="icon" href="assets/favicon.ico" sizes="any">
-  <link rel="preload" href="assets/fonts/cairo-arabic-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <script>
-    (function () {
-      try {
-        var theme = localStorage.getItem("sawa_theme");
-        if (theme !== "light" && theme !== "dark") {
-          theme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
-        }
-        document.documentElement.dataset.theme = theme;
-      } catch (error) { /* Keep the server-rendered dark default. */ }
-    })();
-  </script>
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/design-system.css">
-  <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"CollectionPage","name":"SAWA UNITED GROUP — Business Platforms","url":"https://sawaunited.net/projects.html","isPartOf":{"@type":"WebSite","name":"SAWA UNITED GROUP","url":"https://sawaunited.net/"}}
-  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title id="pageTitle">منصات الأعمال | SAWA UNITED GROUP</title>
+<meta name="description" id="pageDescription" content="خمس منصات أعمال لمجموعة سوا يونيتد: العقارات، سوا فود، مشاري كارز، البترول والطاقة، والشحن واللوجستيات.">
+<meta name="theme-color" content="#07090E">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://sawaunited.net/projects.html">
+<link rel="alternate" hreflang="ar" href="https://sawaunited.net/projects.html?lang=ar">
+<link rel="alternate" hreflang="en" href="https://sawaunited.net/projects.html?lang=en">
+<link rel="alternate" hreflang="fr" href="https://sawaunited.net/projects.html?lang=fr">
+<link rel="alternate" hreflang="x-default" href="https://sawaunited.net/projects.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SAWA UNITED GROUP">
+<meta property="og:title" content="SAWA UNITED GROUP | Business Platforms">
+<meta property="og:description" content="Five operating platforms across real estate, food, mobility, energy and logistics.">
+<meta property="og:url" content="https://sawaunited.net/projects.html">
+<meta property="og:image" content="https://sawaunited.net/portfolio/assets/ecosystem-hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon-48.png" type="image/png" sizes="48x48">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="preload" href="assets/fonts/cairo-arabic-variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/ecosystem.css">
+<script>
+(function () {
+  var lang = "ar";
+  try {
+    var saved = localStorage.getItem("sawa_lang");
+    var q = new URLSearchParams(location.search).get("lang");
+    if (q === "ar" || q === "en" || q === "fr") lang = q;
+    else if (saved === "ar" || saved === "en" || saved === "fr") lang = saved;
+  } catch (e) { /* Arabic default */ }
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+})();
+</script>
 </head>
-<body class="projects-page">
-  <a class="su-skip-link" href="#main" data-i18n="access.skip">Skip to content</a>
-  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
-  <div class="site">
-    <header class="header" id="header">
-      <div class="header-inner">
-        <a class="brand" href="index.html" aria-label="SAWA UNITED GROUP home">
-          <img class="brand-logo" src="assets/sawa-header-logo.webp" width="900" height="600" alt="SAWA UNITED GROUP" decoding="async" fetchpriority="high">
-        </a>
-        <nav class="desktop-nav" aria-label="Primary navigation" data-i18n-aria-label="nav.label">
-          <a href="index.html#businesses" data-i18n="nav.businesses">Sectors</a>
-          <a href="index.html#about" data-i18n="nav.about">About</a>
-          <a href="portfolio/" data-i18n="nav.profile">Corporate profile</a>
-          <a href="#business-platforms" data-i18n="nav.platforms">Business platforms</a>
-          <a href="index.html#contact" data-i18n="nav.contact">Contact</a>
-        </nav>
-        <div class="header-actions">
-          <a class="outline-btn" href="index.html"><span data-i18n="common.home">Home</span></a>
-          <div class="language-switcher" id="languageSwitcher">
-            <button class="lang" id="langBtn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-label="Change language" data-i18n-aria-label="common.changeLanguage">
-              EN <span class="lang-chevron" aria-hidden="true">⌄</span>
-            </button>
-            <div class="language-menu" id="languageMenu" role="listbox" aria-label="Choose language" data-i18n-aria-label="common.languageOptions">
-              <button type="button" role="option" aria-selected="true" data-language-option="en">ENGLISH</button>
-              <button type="button" role="option" aria-selected="false" data-language-option="ar">العربية</button>
-              <button type="button" role="option" aria-selected="false" data-language-option="fr">FRANÇAIS</button>
-            </div>
-          </div>
-          <button class="theme-toggle" id="themeBtn" type="button" aria-label="Switch to light mode" aria-pressed="false" data-i18n-aria-label="theme.light">
-            <span class="theme-toggle-icon" aria-hidden="true">☼</span>
-          </button>
-          <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu" data-i18n-aria-label="menu.open">
-            <svg class="icon icon-menu" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-            <svg class="icon icon-close" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><path d="m6 6 12 12M18 6 6 18"/></svg>
-          </button>
-        </div>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16.9v2.6a2 2 0 0 1-2.2 2 18.6 18.6 0 0 1-8.1-2.9 18.3 18.3 0 0 1-5.6-5.6A18.6 18.6 0 0 1 2.2 5A2 2 0 0 1 4.2 3h2.6a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 10.7a15 15 0 0 0 5.6 5.6l1.1-1.1a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22.5l5.5-1.4A10 10 0 1 0 12 2Zm0 1.8a8.2 8.2 0 1 1-4.2 15.2l-.3-.2-3.3.9.9-3.2-.2-.3A8.2 8.2 0 0 1 12 3.8Zm4.8 11.4c-.2.6-1.2 1.2-1.7 1.2-.5.1-1 .1-3.2-.8-2.7-1.1-4.4-3.8-4.5-4-.2-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.5-.4.5c-.1.2-.2.3 0 .6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.2l1.9 1c.3.1.5.2.5.3.1.2.1.7-.1 1.2Z"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01M10 21v-4h4v4"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 16-9 0 10-4 15-9 16Z"/><path d="M4 21c2-7 6-11 12-13"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M3 17v-4l2-6h14l2 6v4"/><path d="M3 13h18"/><circle cx="7.5" cy="17.5" r="1.6"/><circle cx="16.5" cy="17.5" r="1.6"/></symbol>
+    <symbol id="i-fuel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16"/><path d="M3 21h12M8 7h2M14 9h3l3 3v6a2 2 0 0 1-4 0v-5"/></symbol>
+    <symbol id="i-ship" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l1.5-6h15L21 17a6 6 0 0 1-6 3H9a6 6 0 0 1-6-3Z"/><path d="M6 11V6h12v5M9 3h6"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1Z"/></symbol>
+  </defs>
+</svg>
+
+<header class="site-header is-stuck">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html" aria-label="SAWA UNITED GROUP">
+      <span class="brand-mark"><img src="assets/sawa-header-logo.webp" alt="" width="42" height="42"></span>
+      <span class="brand-text"><b>SAWA UNITED</b><span data-i18n="brandSub">مجموعة سوا يونيتد</span></span>
+    </a>
+    <div class="header-tools">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="ar" aria-pressed="true" lang="ar">ع</button>
+        <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
+        <button type="button" data-lang="fr" aria-pressed="false" lang="fr">FR</button>
       </div>
-      <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation" data-i18n-aria-label="nav.label" aria-hidden="true">
-        <a href="index.html#businesses" data-i18n="nav.businesses">Sectors</a>
-        <a href="index.html#about" data-i18n="nav.about">About</a>
-        <a href="portfolio/" data-i18n="nav.profile">Corporate profile</a>
-        <a href="#business-platforms" data-i18n="nav.platforms">Business platforms</a>
-        <a href="index.html#contact" data-i18n="nav.contact">Contact</a>
-        <a class="gold-btn" href="index.html" data-i18n="common.home">Home</a>
-      </nav>
-    </header>
-
-    <main id="main" tabindex="-1">
-      <section class="section properties" id="business-platforms" aria-labelledby="platformsTitle">
-        <div class="shell center-heading reveal reveal-zoom">
-          <span class="eyebrow" data-i18n="projects.eyebrow">OUR BUSINESS PLATFORMS</span>
-          <h1 id="platformsTitle" data-i18n="projects.pageTitle">One group.<br><span>Four sectors.</span></h1>
-          <p data-i18n="projects.description">This page lists four sector websites. The images are illustrative; no project case studies are presented.</p>
-        </div>
-
-        <div class="shell projects-toolbar">
-          <div class="filters" id="filters" role="group" aria-label="Filter by business sector" data-i18n-aria-label="projects.filterLabel">
-            <button type="button" class="active" data-filter="ALL" aria-pressed="true" data-i18n="filters.all">All</button>
-            <button type="button" data-filter="REAL_ESTATE" aria-pressed="false" data-i18n="filters.realEstate">Real estate</button>
-            <button type="button" data-filter="FOOD" aria-pressed="false" data-i18n="filters.food">Food</button>
-            <button type="button" data-filter="AUTOMOTIVE" aria-pressed="false" data-i18n="filters.automotive">Automotive</button>
-            <button type="button" data-filter="PETROLEUM" aria-pressed="false" data-i18n="filters.petroleum">Petroleum</button>
-          </div>
-          <p id="filterStatus" role="status" aria-live="polite" data-i18n="projects.showingAll">Showing all four business platforms</p>
-        </div>
-
-        <div class="shell property-grid projects-page-grid" id="propertyGrid">
-          <a class="property-card project-open reveal" data-project="realEstate" data-sector="REAL_ESTATE" href="https://sawa-united.net/" target="_blank" rel="noopener noreferrer" aria-haspopup="dialog">
-            <div class="property-photo">
-              <img loading="lazy" decoding="async" src="portfolio/assets/sector-realestate.webp" width="1376" height="768" alt="Illustrative real-estate image" data-i18n-alt="business.realEstateImageAlt">
-              <span class="visual-note" data-i18n="business.illustrative">Illustrative image</span>
-            </div>
-            <div class="property-copy">
-              <span data-i18n="filters.realEstate">REAL ESTATE</span>
-              <h2 data-i18n="business.realEstateTitle">SAWA UNITED REAL ESTATE</h2>
-              <p data-i18n="business.realEstateSummary">A real-estate business platform.</p>
-              <small class="business-domain" dir="ltr">sawa-united.net</small>
-            </div>
-          </a>
-          <a class="property-card project-open reveal" data-project="food" data-sector="FOOD" href="https://sawafood.net/" target="_blank" rel="noopener noreferrer" aria-haspopup="dialog">
-            <div class="property-photo">
-              <img loading="lazy" decoding="async" src="portfolio/assets/sector-food.webp" width="1376" height="768" alt="Illustrative food-supply image" data-i18n-alt="business.foodImageAlt">
-              <span class="visual-note" data-i18n="business.illustrative">Illustrative image</span>
-            </div>
-            <div class="property-copy">
-              <span data-i18n="filters.food">FOOD</span>
-              <h2 data-i18n="business.foodTitle">SAWA FOOD</h2>
-              <p data-i18n="business.foodSummary">A food-supply business platform.</p>
-              <small class="business-domain" dir="ltr">sawafood.net</small>
-            </div>
-          </a>
-          <a class="property-card project-open reveal" data-project="automotive" data-sector="AUTOMOTIVE" href="https://masharycar.net/" target="_blank" rel="noopener noreferrer" aria-haspopup="dialog">
-            <div class="property-photo">
-              <img loading="lazy" decoding="async" src="portfolio/assets/sector-automotive.webp" width="1376" height="768" alt="Illustrative automotive image" data-i18n-alt="business.automotiveImageAlt">
-              <span class="visual-note" data-i18n="business.illustrative">Illustrative image</span>
-            </div>
-            <div class="property-copy">
-              <span data-i18n="filters.automotive">AUTOMOTIVE</span>
-              <h2 data-i18n="business.automotiveTitle">MASHARY CARS</h2>
-              <p data-i18n="business.automotiveSummary">An automotive and mobility business platform.</p>
-              <small class="business-domain" dir="ltr">masharycar.net</small>
-            </div>
-          </a>
-          <a class="property-card project-open reveal" data-project="petroleum" data-sector="PETROLEUM" href="https://startwalk.net/" target="_blank" rel="noopener noreferrer" aria-haspopup="dialog">
-            <div class="property-photo">
-              <img loading="lazy" decoding="async" src="portfolio/assets/sector-petroleum.webp" width="1376" height="768" alt="Illustrative petroleum-services image" data-i18n-alt="business.petroleumImageAlt">
-              <span class="visual-note" data-i18n="business.illustrative">Illustrative image</span>
-            </div>
-            <div class="property-copy">
-              <span data-i18n="filters.petroleum">PETROLEUM</span>
-              <h2 data-i18n="business.petroleumTitle">START WALK</h2>
-              <p data-i18n="business.petroleumSummary">A petroleum-products and industrial-services business platform.</p>
-              <small class="business-domain" dir="ltr">startwalk.net</small>
-            </div>
-          </a>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="shell footer-bottom">
-        <span>© 2026 SAWA UNITED GROUP. <span data-i18n="footer.rights">All rights reserved.</span></span>
-        <a href="index.html" data-i18n="common.backHome">Back to home</a>
-      </div>
-    </footer>
+      <a class="btn btn--ghost btn--sm" href="index.html"><svg width="14" height="14"><use href="#i-home"/></svg><span data-i18n="dockHome"></span></a>
+    </div>
   </div>
+</header>
 
-  <div class="project-modal" id="projectModal" aria-hidden="true" inert>
-    <div class="project-modal-backdrop" data-close-project aria-hidden="true"></div>
-    <article class="project-modal-card" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle" aria-describedby="projectModalDescription">
-      <div class="project-modal-media">
-        <img id="projectModalImage" src="" alt="" decoding="async">
-        <span class="visual-note" data-i18n="business.illustrative">Illustrative image</span>
+<main id="main" tabindex="-1">
+  <section class="section" style="padding-top:clamp(110px,14vh,150px)">
+    <div class="wrap">
+      <div class="sec-head rv is-in">
+        <span class="kicker" data-i18n="platformsKicker">Business platforms</span>
+        <h1 class="h-sec" data-i18n="platformsTitle">One group. Five platforms.</h1>
+        <p class="lead" data-i18n="platformsLead">Each platform has an independent operating team and its own public website, connected to the group by shared capital, logistics and governance.</p>
       </div>
-      <div class="project-modal-panel">
-        <button class="project-modal-close" type="button" data-close-project aria-label="Close" data-i18n-aria-label="common.close" title="Close">×</button>
-        <span class="eyebrow gold" id="projectModalSector"></span>
-        <h2 id="projectModalTitle"></h2>
-        <p id="projectModalDescription"></p>
-        <div class="project-meta"><span data-i18n="business.website">WEBSITE</span><span id="projectModalDomain" dir="ltr"></span></div>
-        <a class="gold-btn" id="projectModalCta" href="https://sawaunited.net/" target="_blank" rel="noopener noreferrer"><span data-i18n="common.visitWebsite">Visit website</span><span aria-hidden="true">↗</span></a>
+
+      <div class="toolbar rv is-in" style="margin-bottom:14px">
+        <div class="chip-row" id="platformChips" role="group" aria-label="Filter"></div>
+        <span class="result-count"><b id="platformCount">0</b> <span data-i18n="results"></span></span>
       </div>
-    </article>
+
+      <div class="cards" id="platformGrid"></div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="contact-panel rv is-in">
+        <div>
+          <span class="kicker" data-i18n="footerContact"></span>
+          <h2 class="h-sec" style="font-size:clamp(1.6rem,3.4vw,2.5rem)" data-i18n="contactTitle"></h2>
+          <p class="lead" style="margin-top:12px" data-i18n="contactLead"></p>
+          <div class="contact-actions" style="margin-top:20px">
+            <a class="btn btn--wa" href="https://wa.me/201011225592" target="_blank" rel="noopener noreferrer"><svg><use href="#i-wa"/></svg><span data-i18n="contactWa"></span></a>
+            <a class="btn btn--gold" href="tel:+201011225592" dir="ltr"><svg><use href="#i-phone"/></svg><span>+20 101 122 5592</span></a>
+            <a class="btn btn--ghost" href="portfolio/"><svg><use href="#i-doc"/></svg><span data-i18n="footerProfile"></span></a>
+          </div>
+        </div>
+        <div class="contact-info">
+          <div class="contact-line"><svg width="15" height="15"></svg><span data-i18n="officeLabel"></span></div>
+          <div class="contact-line"><span dir="ltr" style="color:var(--gold-bright)">info@sawaunited.net</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-bot" style="margin-top:0;border:0;padding:0">
+      <span>© <span id="copyYear">2026</span> SAWA UNITED GROUP — <span data-i18n="footerLegal"></span></span>
+      <a href="index.html" data-i18n="dockHome"></a>
+    </div>
   </div>
+</footer>
 
-  <a class="whatsapp-float" href="https://wa.me/201011225592" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp number listed in site files; verify before use" data-i18n-aria-label="contact.whatsappAction">
-    <span class="whatsapp-float-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 3.2A12.8 12.8 0 0 0 5 22.5L3.4 28.6l6.3-1.6A12.8 12.8 0 1 0 16 3.2Zm0 23.2a10.3 10.3 0 0 1-5.2-1.4l-.4-.2-3.7.9 1-3.6-.3-.4A10.3 10.3 0 1 1 16 26.4Zm5.8-7.7c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.6s1.1 3 1.2 3.2c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2.1-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.6-.4Z"/></svg></span>
-    <span class="whatsapp-float-label" data-i18n="contact.whatsapp">WhatsApp</span>
-  </a>
+<script src="js/data.js"></script>
+<script src="js/ecosystem-store.js"></script>
+<script>
+(function () {
+  "use strict";
+  var S = window.SAWAStore;
+  var lang = S.lang();
+  function $(s) { return document.querySelector(s); }
+  function esc(v) {
+    return String(v === null || v === undefined ? "" : v).replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+  function ico(name, size) {
+    return '<svg width="' + (size || 16) + '" height="' + (size || 16) + '" aria-hidden="true"><use href="#i-' + name + '"/></svg>';
+  }
+  var ICONS = { realestate: "building", food: "leaf", cars: "car", energy: "fuel", logistics: "ship" };
+  var filter = "all";
 
-  <script src="js/services/mobileMenu.js"></script>
-  <script src="js/services/headerScroll.js"></script>
-  <script src="js/services/languageToggle.js"></script>
-  <script src="js/services/themeToggle.js"></script>
-  <script src="js/services/scrollReveal.js"></script>
-  <script src="js/components/projectFilter.js"></script>
-  <script src="js/components/projectModal.js"></script>
-  <script src="js/services/performance.js"></script>
-  <script src="js/app.js"></script>
+  function paintStatic() {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    Array.prototype.forEach.call(document.querySelectorAll("[data-i18n]"), function (node) {
+      node.textContent = S.t(node.getAttribute("data-i18n"));
+    });
+    Array.prototype.forEach.call(document.querySelectorAll(".lang-switch button"), function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.lang === lang));
+    });
+    var c = S.data.content;
+    document.title = S.pick(c.seoTitle, lang);
+    var meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute("content", S.pick(c.seoDescription, lang));
+    $("#copyYear").textContent = String(new Date().getFullYear());
+  }
+
+  function renderChips() {
+    var items = [{ id: "all", label: S.t("all") }].concat(S.data.sectors.map(function (s) {
+      return { id: s.id, label: S.pick(s.short, lang) };
+    }));
+    $("#platformChips").innerHTML = items.map(function (it) {
+      return '<button type="button" class="chip" data-id="' + esc(it.id) + '" aria-pressed="' + (filter === it.id) + '">' + esc(it.label) + '</button>';
+    }).join("");
+    Array.prototype.forEach.call(document.querySelectorAll("#platformChips .chip"), function (btn) {
+      btn.addEventListener("click", function () { filter = btn.dataset.id; renderChips(); renderGrid(); });
+    });
+  }
+
+  function renderGrid() {
+    var list = S.data.sectors.filter(function (s) { return filter === "all" || s.id === filter; });
+    $("#platformCount").textContent = String(list.length);
+    $("#platformGrid").innerHTML = list.map(function (s) {
+      var props = s.id === "realestate" ? S.data.properties.filter(function (p) { return p.status === "available"; }).length + " " + (lang === "ar" ? "وحدة متاحة" : "available units") : "";
+      return '<article class="prop-card" data-sector="' + esc(s.id) + '">' +
+        '<div class="prop-media">' +
+          '<img src="' + esc(s.image) + '" alt="' + esc(S.pick(s.name, lang)) + '" loading="lazy" decoding="async" width="800" height="500">' +
+          '<span class="prop-status" data-status="available" style="background:rgba(212,175,55,.16);color:#F1D488;border:1px solid rgba(212,175,55,.32)" dir="ltr">' + esc(s.no) + ' / 05</span>' +
+        '</div>' +
+        '<div class="prop-body">' +
+          '<span class="prop-city" dir="ltr">' + esc(s.domain) + '</span>' +
+          '<h2 class="prop-title">' + esc(S.pick(s.name, lang)) + '</h2>' +
+          '<p style="font-size:12.4px;color:var(--muted);line-height:1.7">' + esc(S.pick(s.desc, lang)) + '</p>' +
+          '<div class="prop-specs">' + s.stats.map(function (st) {
+            return '<span><b style="color:#fff;font-family:var(--font-en)" dir="ltr">' + esc(st.value) + '</b> ' + esc(S.pick(st.label, lang)) + '</span>';
+          }).join("") + '</div>' +
+          (props ? '<div class="prop-specs" style="color:var(--gold-2)"><span>' + ico("building", 13) + esc(props) + '</span></div>' : "") +
+          '<div class="prop-foot">' +
+            '<a class="btn btn--gold btn--sm" href="index.html#' + esc(s.id) + '">' + esc(S.t("explore")) + ico("arrow", 14) + '</a>' +
+            '<a class="btn btn--ghost btn--sm" href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' + ico(ICONS[s.id] || "doc", 14) + '<span dir="ltr">' + esc(s.domain) + '</span></a>' +
+          '</div>' +
+        '</div></article>';
+    }).join("");
+  }
+
+  function boot() {
+    paintStatic();
+    renderChips();
+    renderGrid();
+    Array.prototype.forEach.call(document.querySelectorAll(".lang-switch button"), function (btn) {
+      btn.addEventListener("click", function () {
+        lang = btn.dataset.lang;
+        try { localStorage.setItem("sawa_lang", lang); } catch (e) { /* ignore */ }
+        paintStatic();
+        renderChips();
+        renderGrid();
+      });
+    });
+    S.subscribe(function () { if ($("#platformGrid")) { renderGrid(); } });
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
+})();
+</script>
 </body>
 </html>
