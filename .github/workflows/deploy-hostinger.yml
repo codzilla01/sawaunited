@@ -47,6 +47,11 @@ jobs:
           test ! -e dist/site/accounts/config.php || { echo "::error::config.php leaked into the package"; exit 1; }
           test ! -e dist/site/.git || { echo "::error::.git leaked into the package"; exit 1; }
           test -e dist/site/accounts/config.sample.php || { echo "::error::config.sample.php missing"; exit 1; }
+          test -e dist/site/super-admin/index.html || { echo "::error::/super-admin missing"; exit 1; }
+          test -e dist/site/api/ecosystem.php || { echo "::error::api/ecosystem.php missing"; exit 1; }
+          test -e dist/site/api/config.sample.php || { echo "::error::api/config.sample.php missing"; exit 1; }
+          test ! -e dist/site/api/config.php || { echo "::error::api/config.php leaked into the package"; exit 1; }
+          test -z "$(ls -A dist/site/api/data 2>/dev/null)" || { echo "::error::api/data contains local files"; exit 1; }
           if grep -rIl --exclude-dir=assets "SawaAccounts#2026" dist/site; then
             echo "::error::old database password found in the package"
             exit 1

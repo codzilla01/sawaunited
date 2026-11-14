@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title id="pageTitle">SAWA UNITED GROUP | مجموعة سوا يونيتد</title>
-<meta name="description" id="metaDescription" content="تسرد مجموعة سوا يونيتد أربعة قطاعات وروابط مواقعها: العقارات والأغذية والسيارات ومشتقات البترول.">
+<title>مجموعة سوا يونيتد | عقارات · أغذية · سيارات · بترول · لوجستيات</title>
+<meta name="description" content="مجموعة سوا يونيتد — منظومة أعمال متعددة القطاعات في مصر والشرق الأوسط: عقارات واستثمار، توزيع أغذية، تأجير سيارات، إمداد بترولي، وشحن دولي.">
 <meta name="theme-color" content="#07090E">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://sawaunited.net/">
@@ -15,196 +15,511 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SAWA UNITED GROUP">
 <meta property="og:title" id="ogTitle" content="SAWA UNITED GROUP | مجموعة سوا يونيتد">
-<meta property="og:description" id="ogDescription" content="أربعة قطاعات وروابط مواقعها المدرجة.">
+<meta property="og:description" id="ogDescription" content="خمسة قطاعات: عقارات، أغذية، تنقل، طاقة، ولوجستيات.">
 <meta property="og:url" content="https://sawaunited.net/">
-<meta property="og:image" content="https://sawaunited.net/assets/sawa-header-logo.webp">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://sawaunited.net/portfolio/assets/ecosystem-hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon-48.png" type="image/png" sizes="48x48">
 <link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/favicon-192.png">
 <link rel="preload" href="assets/fonts/cairo-arabic-variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/sawa-header-logo.webp" as="image" type="image/webp" fetchpriority="high">
+<link rel="preload" href="portfolio/assets/ecosystem-hero.webp" as="image" type="image/webp" fetchpriority="high">
+<link rel="stylesheet" href="css/ecosystem.css">
 <script>
-/* Apply the saved theme before paint without allowing storage errors to block the page. */
-(function(){try{var t=localStorage.getItem("sawa_theme");if(!t)t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
+/* Resolve language + direction before first paint (Arabic RTL is the default). */
+(function () {
+  var lang = "ar";
+  try {
+    var saved = localStorage.getItem("sawa_lang");
+    if (saved === "ar" || saved === "en" || saved === "fr") { lang = saved; }
+    else if (new URLSearchParams(location.search).get("lang")) {
+      var q = new URLSearchParams(location.search).get("lang");
+      if (q === "ar" || q === "en" || q === "fr") { lang = q; }
+    }
+  } catch (e) { /* default to Arabic */ }
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  /* No-JS fallback (the store overrides the title and meta on boot). */
+  window.__SAWA_LANG = lang;
+})();
 </script>
-<link rel="stylesheet" href="css/home.css">
-<link rel="stylesheet" href="css/design-system.css">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Organization","name":"SAWA UNITED GROUP","alternateName":"مجموعة سوا يونيتد","url":"https://sawaunited.net/","logo":"https://sawaunited.net/assets/sawa-header-logo.webp"}
+{"@context":"https://schema.org","@type":"Organization","name":"SAWA UNITED GROUP","alternateName":"مجموعة سوا يونيتد","url":"https://sawaunited.net/","logo":"https://sawaunited.net/assets/sawa-header-logo.webp","email":"info@sawaunited.net","telephone":"+201011225592","address":{"@type":"PostalAddress","addressLocality":"6th of October City","addressRegion":"Giza","addressCountry":"EG"},"areaServed":["EG","SA","AE","KW","JO","MA","QA","OM"],"contactPoint":[{"@type":"ContactPoint","contactType":"sales","telephone":"+201011225592","email":"info@sawaunited.net","availableLanguage":["ar","en","fr"]}]}
 </script>
-
 </head>
-<body class="home-page">
-<a class="su-skip-link" href="#top" data-t="skipToContent">تخطَّ إلى المحتوى</a>
-<div id="progress" aria-hidden="true"></div>
+<body>
 
-<!-- shared SVG definitions -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<a class="su-skip-link" href="#main" data-i18n="skip">تخطَّ إلى المحتوى</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
-    <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#fff" opacity=".12"/></pattern>
-    <pattern id="win" width="22" height="26" patternUnits="userSpaceOnUse"><rect x="6" y="6" width="10" height="14" rx="1.5" fill="#0B1220" opacity=".5"/></pattern>
-    <pattern id="winlit" width="22" height="26" patternUnits="userSpaceOnUse"><rect x="6" y="6" width="10" height="14" rx="1.5" fill="#FFD27A" opacity=".85"/></pattern>
-    <linearGradient id="gBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#C9D1DB"/></linearGradient>
-    <linearGradient id="gTank" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C9D1DB"/><stop offset=".45" stop-color="#FFFFFF"/><stop offset="1" stop-color="#AEB8C4"/></linearGradient>
-    <linearGradient id="gDrop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6FA8FF"/><stop offset="1" stop-color="#1A4FB0"/></linearGradient>
-    <radialGradient id="gFire" cx=".5" cy=".7" r=".6"><stop offset="0" stop-color="#FFE9A8"/><stop offset=".6" stop-color="#FF9A3C"/><stop offset="1" stop-color="#FF5A1F" stop-opacity="0"/></radialGradient>
+    <symbol id="i-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01M10 21v-4h4v4"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 16-9 0 10-4 15-9 16Z"/><path d="M4 21c2-7 6-11 12-13"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M3 17v-4l2-6h14l2 6v4"/><path d="M3 13h18"/><circle cx="7.5" cy="17.5" r="1.6"/><circle cx="16.5" cy="17.5" r="1.6"/></symbol>
+    <symbol id="i-fuel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16"/><path d="M3 21h12M8 7h2M14 9h3l3 3v6a2 2 0 0 1-4 0v-5"/></symbol>
+    <symbol id="i-ship" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l1.5-6h15L21 17a6 6 0 0 1-6 3H9a6 6 0 0 1-6-3Z"/><path d="M6 11V6h12v5M9 3h6"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.6 3.8 9S14.5 18.5 12 21c-2.5-2.5-3.8-5.6-3.8-9S9.5 5.5 12 3Z"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16.9v2.6a2 2 0 0 1-2.2 2 18.6 18.6 0 0 1-8.1-2.9 18.3 18.3 0 0 1-5.6-5.6A18.6 18.6 0 0 1 2.2 5A2 2 0 0 1 4.2 3h2.6a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 10.7a15 15 0 0 0 5.6 5.6l1.1-1.1a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22.5l5.5-1.4A10 10 0 1 0 12 2Zm0 1.8a8.2 8.2 0 1 1-4.2 15.2l-.3-.2-3.3.9.9-3.2-.2-.3A8.2 8.2 0 0 1 12 3.8Zm4.8 11.4c-.2.6-1.2 1.2-1.7 1.2-.5.1-1 .1-3.2-.8-2.7-1.1-4.4-3.8-4.5-4-.2-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.5-.4.5c-.1.2-.2.3 0 .6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.2l1.9 1c.3.1.5.2.5.3.1.2.1.7-.1 1.2Z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12.5 5 5L20 6.5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.4 8.2-8 9.5C7.4 20.2 4 17 4 12V6l8-3Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></symbol>
+    <symbol id="i-team" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0M16 5.5a3 3 0 0 1 0 5.6M17 20a6 6 0 0 0-2-4.4"/></symbol>
+    <symbol id="i-handshake" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m3 12 4-4 5 4 5-4 4 4-6 6-3-3-3 3Z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1Z"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.6"/></symbol>
+    <symbol id="i-calc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2.5" width="16" height="19" rx="2.4"/><path d="M8 7h8M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2.4"/><path d="M2.5 10h19M6 15h4"/></symbol>
+    <symbol id="i-gauge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18a8 8 0 1 1 16 0"/><path d="m12 14 4-4"/><circle cx="12" cy="18" r="1.6"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5M3 17.5l9 5 9-5"/></symbol>
+    <symbol id="i-plane" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15.5V13l-8-4V4.5a1.5 1.5 0 0 0-3 0V9l-8 4v2.5l8-2.2v4L7.5 19v1.5l4.5-1 4.5 1V19L14 17.3v-4l7 2.2Z"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h11v11H2zM13 10h5l3 3.5V17h-8"/><circle cx="6" cy="18.5" r="1.8"/><circle cx="17" cy="18.5" r="1.8"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2.5 9 4.8v9.4l-9 4.8-9-4.8V7.3Z"/><path d="M3 7.3 12 12l9-4.7M12 21v-9"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-bed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18V8M3 12h18v6M21 18v-4"/><path d="M7 12V9.5h4V12M13 12V9.5h4V12"/></symbol>
+    <symbol id="i-bath" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18v3a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5v-3ZM6 12V6a2.5 2.5 0 0 1 4.3-1.7"/><path d="M6 20v1.5M18 20v1.5"/></symbol>
+    <symbol id="i-maximize" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12S18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5M4 20h16"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3-5.8 3 1.1-6.5L2.6 9.8l6.5-.9Z"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10" width="15" height="11" rx="2.4"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
   </defs>
 </svg>
 
-<header id="hdr">
-  <div class="wrap bar">
-    <a href="#top" class="brand" aria-label="SAWA UNITED">
-      <span class="chip"><img src="assets/sawa-header-logo.webp" width="900" height="600" alt="SAWA UNITED"></span>
+<!-- ============================= HEADER ============================= -->
+<header class="site-header" id="siteHeader">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top" aria-label="SAWA UNITED GROUP">
+      <span class="brand-mark"><img src="assets/sawa-header-logo.webp" alt="" width="42" height="42"></span>
+      <span class="brand-text">
+        <b>SAWA UNITED</b>
+        <span data-i18n="brandSub">مجموعة سوا يونيتد</span>
+      </span>
     </a>
-    <nav class="main" id="primaryNav" aria-label="التنقل الرئيسي" data-t-aria="navLabel">
-      <a href="#businesses" data-t="nav1"></a>
-      <a href="#about" data-t="nav2"></a>
-      <a href="#presence" data-t="nav3"></a>
-      <a href="projects.html" data-t="navProjects"></a>
-      <a href="portfolio/" data-t="navPortfolio"></a>
-      <a href="#contact" data-t="nav4"></a>
+
+    <nav class="nav-desktop" id="navDesktop" aria-label="Primary">
+      <a href="#ecosystem" data-i18n="nav0"></a>
+      <a href="#realestate" data-i18n="nav1"></a>
+      <a href="#food" data-i18n="nav2"></a>
+      <a href="#cars" data-i18n="nav3"></a>
+      <a href="#energy" data-i18n="nav4"></a>
+      <a href="#logistics" data-i18n="nav5"></a>
     </nav>
-    <div class="tools">
-      <div class="seg" role="group" aria-label="Language" data-t-aria="languageLabel">
-        <button type="button" data-l="ar" aria-pressed="true">ع</button>
-        <button type="button" data-l="en" aria-pressed="false">EN</button>
-        <button type="button" data-l="fr" aria-pressed="false">FR</button>
+
+    <div class="header-tools">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="ar" aria-pressed="true" lang="ar">ع</button>
+        <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
+        <button type="button" data-lang="fr" aria-pressed="false" lang="fr">FR</button>
       </div>
-      <button class="icon-btn theme" type="button" aria-label="التبديل إلى الوضع الفاتح" aria-pressed="true" data-t-aria="themeAction">
-        <svg class="sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-        <svg class="moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg>
+      <button class="icon-btn" type="button" id="quickBtn" aria-label="Quick contact" aria-haspopup="dialog">
+        <svg><use href="#i-phone"/></svg>
       </button>
-      <a class="cta-mini" href="https://wa.me/201011225592" target="_blank" rel="noopener noreferrer" data-t-aria="whatsappAction"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg><span data-t="nav4"></span></a>
-      <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mobileNav" aria-label="فتح القائمة" data-t-aria="menuOpen">
-        <svg class="menu-open-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-        <svg class="menu-close-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg>
-      </button>
+      <a class="btn btn--gold btn--sm header-cta" href="https://wa.me/201011225592" target="_blank" rel="noopener noreferrer" data-wa-link>
+        <svg><use href="#i-wa"/></svg><span data-i18n="navCta"></span>
+      </a>
     </div>
   </div>
-  <nav class="mobile-nav" id="mobileNav" aria-label="روابط الموقع" data-t-aria="navLabel" hidden>
-    <a href="#businesses" data-t="nav1"></a>
-    <a href="#about" data-t="nav2"></a>
-    <a href="#presence" data-t="nav3"></a>
-    <a href="projects.html" data-t="navProjects"></a>
-    <a href="portfolio/" data-t="navPortfolio"></a>
-    <a href="#contact" data-t="nav4"></a>
-  </nav>
 </header>
 
+<main id="main" tabindex="-1">
+<span id="top"></span>
 
-<main id="top" tabindex="-1">
-  <!-- HERO -->
-  <section class="hero" id="hero" aria-labelledby="heroTitle">
-    <div class="glow" aria-hidden="true"></div><div class="spot" aria-hidden="true"></div>
-    <div class="wrap hero-grid">
+<!-- ============================= HERO ============================= -->
+<section class="hero" aria-labelledby="heroTitle">
+  <div class="hero-bg"><img src="portfolio/assets/ecosystem-hero.webp" alt="" width="1560" height="780" fetchpriority="high" decoding="async"></div>
+  <div class="hero-grain" aria-hidden="true"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="hero-eyebrow"><span class="dot" aria-hidden="true"></span><span id="heroEyebrow"></span></span>
+      <h1 class="hero-title" id="heroTitle">
+        <span id="heroTitleA"></span><br><em id="heroTitleB"></em>
+      </h1>
+      <p class="hero-lead" id="heroLead"></p>
+      <div class="hero-actions">
+        <a class="btn btn--gold" href="#ecosystem"><span data-i18n="heroPrimary"></span><svg class="arw-ico"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn--ghost" href="portfolio/"><span data-i18n="heroSecondary"></span><svg><use href="#i-doc"/></svg></a>
+      </div>
+      <div class="hero-foot">
+        <span class="pin"><svg><use href="#i-pin"/></svg><span id="heroHq"></span></span>
+        <span class="pin"><svg><use href="#i-clock"/></svg><span id="heroHours"></span></span>
+      </div>
+    </div>
+
+    <div class="portal">
+      <div class="portal-card" id="portalCard" data-sector="realestate">
+        <div class="portal-stage">
+          <img class="portal-img is-live" id="portalImgA" src="portfolio/assets/sector-realestate.webp" alt="" width="1376" height="768">
+          <img class="portal-img" id="portalImgB" src="" alt="" width="1376" height="768" hidden>
+          <div class="portal-top">
+            <span class="portal-tag"><span class="pulse-dot" aria-hidden="true"></span><span data-i18n="liveData"></span></span>
+            <span class="portal-count"><b id="portalIndex">01</b> / 05</span>
+          </div>
+          <div class="portal-body">
+            <span class="portal-sector" id="portalSector">من التملك الأول إلى الأصول الاستثمارية الكبرى</span>
+            <h2 class="portal-name" id="portalName">العقارات والاستثمار</h2>
+            <p class="portal-desc" id="portalDesc">تطوير وبيع وإدارة أصول سكنية وتجارية وإدارية في القاهرة الجديدة والعاصمة الإدارية والمعادي والإسكندرية والساحل الشمالي و٦ أكتوبر.</p>
+            <div class="portal-stats" id="portalStats"></div>
+            <a class="portal-link" id="portalLink" href="#realestate">
+              <span data-i18n="explore"></span><svg class="arw-ico" width="15" height="15"><use href="#i-arrow"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="portal-tabs" role="tablist" aria-label="Sectors" id="portalTabs"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= TICKER ============================= -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="tickerTrack"><span>REAL ESTATE · FOOD · MOBILITY · ENERGY · LOGISTICS</span><span>EGYPT · KSA · UAE · KUWAIT · JORDAN · MOROCCO</span></div>
+</div>
+
+<!-- ============================= KPI ============================= -->
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="kpi-strip rv" id="kpiStrip"></div>
+    <p class="calc-note" style="margin-top:10px;display:flex;align-items:center;gap:6px">
+      <svg width="12" height="12" style="color:var(--gold)"><use href="#i-shield"/></svg>
+      <span data-i18n="kpiNote"></span>
+    </p>
+  </div>
+</section>
+
+<!-- ============================= BENTO ============================= -->
+<section class="section" id="ecosystem">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker" data-i18n="sectorsKicker">المنظومة</span>
+      <h2 class="h-sec" data-i18n="sectorsTitle">خمسة قطاعات. رؤية واحدة.</h2>
+      <p class="lead" data-i18n="sectorsLead"></p>
+    </div>
+    <div class="bento rv" id="bentoGrid"></div>
+  </div>
+</section>
+
+<!-- ========================= 01 REAL ESTATE ========================= -->
+<section class="chapter chapter--alt" id="realestate" data-sector="realestate" aria-labelledby="reTitle">
+  <div class="wrap">
+    <div class="chapter-head rv">
       <div>
-        <div class="hero-copy">
-          <span class="hero-eyebrow su-eyebrow" data-t="heroEyebrow">مجموعة أعمال متعددة القطاعات</span>
-          <h1 id="heroTitle" data-t="heroTitle">نبني الأعمال.<br><span>نصنع الأثر.</span></h1>
-          <p class="hero-intro" data-t="heroDescription">منظومة أعمال متنوعة في العقارات والأغذية والتنقل ومشتقات البترول، تجمعها رؤية طويلة المدى وتنفيذ منضبط.</p>
-          <div class="hero-actions">
-            <a class="su-button su-button--gold" href="#contact" data-t="heroContact">تواصل مع فريقنا</a>
-            <a class="su-button su-button--glass" href="portfolio/" data-t="heroProfile">الملف المؤسسي</a>
+        <span class="chapter-badge"><span>01</span> · <span data-i18n="estateBadge"></span></span>
+        <p class="chapter-kicker" data-i18n="estateKicker"></p>
+        <h2 class="chapter-title" id="reTitle" style="margin-top:8px"><span data-i18n="estateTitle"></span></h2>
+      </div>
+      <div>
+        <p class="chapter-lead" data-i18n="estateLead" data-fallback="تطوير وبيع وإدارة أصول سكنية وتجارية وإدارية في أفضل مواقع مصر، مع خطط سداد تصل إلى ٨ سنوات.">تطوير وبيع وإدارة أصول سكنية وتجارية وإدارية في أفضل مواقع مصر، مع خطط سداد تصل إلى ٨ سنوات.</p>
+      </div>
+    </div>
+
+    <h4 class="eyebrow-line rv" style="margin-bottom:12px"><svg width="14" height="14" style="color:var(--gold)"><use href="#i-layers"/></svg><span data-i18n="journeyTitle"></span></h4>
+    <div class="journey rv" id="journeyGrid"></div>
+
+    <div class="toolbar rv" style="margin-top:22px">
+      <div class="chip-row" id="propStatusChips" role="group" aria-label="Status"></div>
+      <select class="select" id="propCity" aria-label="City"></select>
+      <select class="select" id="propType" aria-label="Type"></select>
+      <span class="result-count"><b id="propCount">0</b> <span data-i18n="results"></span></span>
+    </div>
+
+    <div class="cards" id="propertyGrid" style="margin-top:14px" aria-live="polite"></div>
+    <p class="calc-note" id="propEmpty" hidden data-i18n="noResults"></p>
+
+    <div class="calc-map">
+      <div class="panel calc-card rv">
+        <h3><svg><use href="#i-calc"/></svg><span data-i18n="roiTitle"></span></h3>
+        <div class="calc-grid">
+          <div class="field">
+            <label for="roiPrice"><span data-i18n="price"></span><b id="roiPriceOut"></b></label>
+            <input class="range" type="range" id="roiPrice" min="4000000" max="35000000" step="250000" value="9750000">
+          </div>
+          <div class="field">
+            <label for="roiDown"><span data-i18n="downPayment"></span><b id="roiDownOut"></b></label>
+            <input class="range" type="range" id="roiDown" min="5" max="40" step="5" value="10">
+          </div>
+          <div class="field">
+            <label for="roiYears"><span data-i18n="yearsLabel"></span><b id="roiYearsOut"></b></label>
+            <input class="range" type="range" id="roiYears" min="3" max="8" step="1" value="8">
+          </div>
+          <div class="field">
+            <label for="roiRent"><span data-i18n="annualRental"></span><b id="roiRentOut"></b></label>
+            <input class="range" type="range" id="roiRent" min="2" max="14" step="0.5" value="8">
           </div>
         </div>
-        <div class="choose rv" data-t="choose">اكتشف قطاعاتنا</div>
-        <div class="tabs rv" role="tablist" id="tabs" aria-label="قطاعات الأعمال" data-t-aria="businessTabs"></div>
+        <div class="calc-out">
+          <div class="calc-cell is-hero"><b id="roiMonthly">—</b><span data-i18n="monthlyInstallment"></span></div>
+          <div class="calc-cell"><b id="roiYield">—</b><span data-i18n="netYield"></span></div>
+          <div class="calc-cell"><b id="roiTotal">—</b><span data-i18n="price"></span></div>
+          <div class="calc-cell"><b id="roiInvested">—</b><span data-i18n="downPayment"></span></div>
+        </div>
+        <p class="calc-note" data-i18n="calcNote"></p>
+        <button class="btn btn--gold btn--block" type="button" id="roiCta" style="margin-top:12px">
+          <svg><use href="#i-wa"/></svg><span data-i18n="bookVisit"></span>
+        </button>
       </div>
+
+      <div class="panel map-card rv">
+        <div class="map-plane" id="propMap">
+          <img src="portfolio/assets/global-map.webp" alt="" aria-hidden="true">
+        </div>
+        <p class="map-hint"><svg><use href="#i-pin"/></svg><span data-i18n="mapHint"></span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= 02 FOOD ============================= -->
+<section class="chapter" id="food" data-sector="food" aria-labelledby="foodTitleEl">
+  <div class="wrap">
+    <div class="chapter-head rv">
+      <div>
+        <span class="chapter-badge"><span>02</span> · <span data-i18n="foodBadge"></span></span>
+        <p class="chapter-kicker" data-i18n="foodKicker"></p>
+        <h2 class="chapter-title" id="foodTitleEl" style="margin-top:8px"><span data-i18n="foodTitle"></span></h2>
+      </div>
+      <div>
+        <p class="chapter-lead" data-i18n="foodLead" data-fallback="شبكة توزيع إقليمية للمنتجات الاستهلاكية والطازجة في ٥+ أسواق.">شبكة توزيع إقليمية للمنتجات الاستهلاكية والطازجة في ٥+ أسواق.</p>
+      </div>
+    </div>
+
+    <h4 class="eyebrow-line rv" style="margin-bottom:12px"><svg width="14" height="14" style="color:var(--sector)"><use href="#i-star"/></svg><span data-i18n="selectTitle"></span></h4>
+    <div class="flagship rv" id="flagshipGrid"></div>
+
+    <div class="section-split">
       <div class="rv">
-        <div class="stage" id="stage">
-          <div id="layers" aria-hidden="true"></div>
-          <div class="stage-top">
-            <span class="pill" id="stNum">01 / 04</span>
-            <span class="pill" id="stDom" dir="ltr"></span>
-            <button class="rotation-toggle" id="rotationToggle" type="button" aria-pressed="false" aria-label="إيقاف العرض التلقائي" title="إيقاف العرض التلقائي" data-t-aria="pauseRotation">
-              <span class="rotation-pause-icon" aria-hidden="true">Ⅱ</span>
-              <span class="rotation-play-icon" aria-hidden="true" hidden>▶</span>
-            </button>
-          </div>
-          <div class="stage-body" id="stBody" role="tabpanel" aria-live="polite" aria-atomic="true" tabindex="0"></div>
+        <div class="sec-head" style="margin-bottom:12px">
+          <h4 class="eyebrow-line"><svg width="14" height="14" style="color:var(--sector)"><use href="#i-box"/></svg><span data-i18n="catalogTitle"></span></h4>
+        </div>
+        <div class="chip-row" id="foodCats" role="group" aria-label="Categories" style="margin-bottom:10px"></div>
+        <div class="catalog" id="foodCatalog"></div>
+      </div>
+
+      <div class="panel stepper rv" id="b2bStepper"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= 03 CARS ============================= -->
+<section class="chapter chapter--alt" id="cars" data-sector="cars" aria-labelledby="carsTitleEl">
+  <div class="wrap">
+    <div class="chapter-head rv">
+      <div>
+        <span class="chapter-badge"><span>03</span> · <span data-i18n="carsBadge"></span></span>
+        <p class="chapter-kicker" data-i18n="carsKicker"></p>
+        <h2 class="chapter-title" id="carsTitleEl" style="margin-top:8px"><span data-i18n="carsTitle"></span></h2>
+      </div>
+      <div>
+        <p class="chapter-lead" data-i18n="carsLead" data-fallback="تأجير يومي وشهري وتعهدات شركات في مصر والإمارات والمغرب — الدفع عند الاستلام.">تأجير يومي وشهري وتعهدات شركات في مصر والإمارات والمغرب — الدفع عند الاستلام.</p>
+      </div>
+    </div>
+
+    <div class="cod-banner rv" style="margin-bottom:18px">
+      <span class="ico"><svg><use href="#i-card"/></svg></span>
+      <div>
+        <b data-i18n="carsTitle"></b>
+        <span data-i18n="codNote"></span>
+      </div>
+    </div>
+
+    <div class="section-split">
+      <div class="rv">
+        <div class="chip-row" id="carCats" role="group" aria-label="Car categories" style="margin-bottom:10px"></div>
+        <div class="fleet" id="fleetList"></div>
+        <button class="btn btn--ghost btn--block" type="button" id="customCarBtn" style="margin-top:12px">
+          <svg><use href="#i-star"/></svg><span data-i18n="customCar"></span>
+        </button>
+      </div>
+      <div class="panel stepper rv" id="carStepper"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= 04 ENERGY ============================= -->
+<section class="chapter" id="energy" data-sector="energy" aria-labelledby="energyTitleEl">
+  <div class="wrap">
+    <div class="chapter-head rv">
+      <div>
+        <span class="chapter-badge"><span>04</span> · <span data-i18n="energyBadge"></span></span>
+        <p class="chapter-kicker" data-i18n="energyKicker"></p>
+        <h2 class="chapter-title" id="energyTitleEl" style="margin-top:8px"><span data-i18n="energyTitle"></span></h2>
+      </div>
+      <div>
+        <p class="chapter-lead" data-i18n="energyLead" data-fallback="توريد مشتقات بترولية بعقود للمشروعات الصناعية والتجارية والبنية التحتية.">توريد مشتقات بترولية بعقود للمشروعات الصناعية والتجارية والبنية التحتية.</p>
+      </div>
+    </div>
+
+    <div class="energy-grid">
+      <div class="panel stepper rv" id="energyStepper"></div>
+      <div class="panel calc-card rv">
+        <h3><svg><use href="#i-gauge"/></svg><span data-i18n="product"></span></h3>
+        <div class="gauge-list" id="energyProducts" style="margin-top:14px"></div>
+        <p class="calc-note" data-i18n="energyNote"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== 05 LOGISTICS =========================== -->
+<section class="chapter chapter--alt" id="logistics" data-sector="logistics" aria-labelledby="logTitleEl">
+  <div class="wrap">
+    <div class="chapter-head rv">
+      <div>
+        <span class="chapter-badge"><span>05</span> · <span data-i18n="logisticsBadge"></span></span>
+        <p class="chapter-kicker" data-i18n="logisticsKicker"></p>
+        <h2 class="chapter-title" id="logTitleEl" style="margin-top:8px"><span data-i18n="logisticsTitle"></span></h2>
+      </div>
+      <div>
+        <p class="chapter-lead" data-i18n="logisticsLead" data-fallback="شحن بحري وجوي وبري، تخليص جمركي، وتوزيع إقليمي في ١٢+ دولة.">شحن بحري وجوي وبري، تخليص جمركي، وتوزيع إقليمي في ١٢+ دولة.</p>
+      </div>
+    </div>
+
+    <div class="energy-grid">
+      <div class="panel tracker rv">
+        <h3 style="font-size:15px;color:#fff;display:flex;align-items:center;gap:8px;margin-bottom:12px">
+          <svg width="16" height="16" style="color:var(--sector)"><use href="#i-ship"/></svg><span data-i18n="trackerTitle"></span>
+        </h3>
+        <div class="track-input-row">
+          <input class="input" id="shipInput" type="text" dir="ltr" placeholder="SAWA-EG-48213" autocomplete="off" aria-label="Tracking number">
+          <button class="btn btn--gold btn--sm" type="button" id="shipBtn"><svg><use href="#i-search"/></svg><span data-i18n="track"></span></button>
+        </div>
+        <div id="shipResult" style="margin-top:6px"></div>
+      </div>
+
+      <div class="panel stepper rv" id="quoteStepper"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= PRESENCE ============================= -->
+<section class="section" id="presence">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker">12+ <span data-i18n="presenceTitle"></span></span>
+      <h2 class="h-sec" data-i18n="presenceTitle">حضور إقليمي</h2>
+      <p class="lead" data-i18n="presenceLead"></p>
+    </div>
+    <div class="presence">
+      <div class="rv">
+        <div class="sec-head" style="margin-bottom:14px">
+          <h3 class="h-sec h-sec--sm" style="margin-top:0" data-i18n="valuesTitle">كيف نعمل</h3>
+          <p class="lead" data-i18n="valuesLead">أربعة مبادئ تحكم كل قرار داخل المجموعة.</p>
+        </div>
+        <div class="val-grid" id="valueGrid"></div>
+        <a class="btn btn--ghost btn--block" href="https://wa.me/201011225592" target="_blank" rel="noopener noreferrer" style="margin-top:12px" data-wa-link>
+          <svg><use href="#i-globe"/></svg><span data-i18n="presenceCta"></span>
+        </a>
+      </div>
+      <div class="world rv" id="worldMap">
+        <img src="portfolio/assets/global-map.webp" alt="SAWA UNITED GROUP operating footprint" width="1560" height="880" loading="lazy" decoding="async">
+        <div class="world-legend"><span><i class="hq"></i><span data-i18n="hqLabel"></span></span><span><i></i><span data-i18n="officeLabel"></span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= CONTACT ============================= -->
+<section class="section section--tight" id="contact">
+  <div class="wrap">
+    <div class="contact-panel rv">
+      <div>
+        <span class="kicker" data-i18n="footerContact"></span>
+        <h2 class="h-sec" style="font-size:clamp(1.7rem,3.6vw,2.7rem)" data-i18n="contactTitle">لنبنِ الخطوة التالية.</h2>
+        <p class="lead" style="margin-top:12px" data-i18n="contactLead"></p>
+        <div class="contact-actions" style="margin-top:20px">
+          <a class="btn btn--wa" href="https://wa.me/201011225592" target="_blank" rel="noopener noreferrer" data-wa-link><svg><use href="#i-wa"/></svg><span data-i18n="contactWa"></span></a>
+          <a class="btn btn--gold" href="tel:+201011225592" dir="ltr"><svg><use href="#i-phone"/></svg><span id="contactPhone">+20 101 122 5592</span></a>
+          <a class="btn btn--ghost" href="mailto:info@sawaunited.net"><svg><use href="#i-mail"/></svg><span data-i18n="contactEmail"></span></a>
         </div>
       </div>
-    </div>
-    <div class="scroll-hint" aria-hidden="true"></div>
-  </section>
-
-  <div class="marquee"><div class="track" id="track"></div></div>
-
-  <!-- BUSINESSES -->
-  <section class="sec" id="businesses">
-    <div class="wrap">
-      <div class="sec-head rv">
-        <div><div class="kicker" data-t="k1"></div><h3 class="title" data-t="t1"></h3></div>
-        <p data-t="p1"></p>
-      </div>
-      <div class="panels rv" id="panels"></div>
-    </div>
-  </section>
-
-  <!-- STATS -->
-  <section class="wrap rv">
-    <div class="stats">
-      <div class="stat"><b><span class="cnt" data-to="4">0</span></b><span data-t="s1"></span></div>
-      <div class="stat"><b><span class="cnt" data-to="3">0</span></b><span data-t="s2"></span></div>
-      <div class="stat"><b><span class="cnt" data-to="4">0</span></b><span data-t="s3"></span></div>
-      <div class="stat"><b><span class="cnt" data-to="1">0</span></b><span data-t="s4"></span></div>
-    </div>
-  </section>
-
-  <!-- WHY -->
-  <section class="sec" id="about">
-    <div class="wrap">
-      <div class="sec-head rv">
-        <div><div class="kicker" data-t="k2"></div><h3 class="title" data-t="t2"></h3></div>
-        <p data-t="p2"></p>
-      </div>
-      <div class="why" id="why"></div>
-    </div>
-  </section>
-
-  <!-- PRESENCE -->
-  <section class="sec" id="presence" style="padding-top:0">
-    <div class="wrap presence">
-      <div class="rv">
-        <div class="kicker" data-t="k3"></div>
-        <h3 class="title" data-t="t3"></h3>
-        <div class="platform-list" id="platformList"></div>
-      </div>
-      <div class="map rv" id="map" role="group" aria-label="Diagram of listed sector websites" data-t-aria="platformDiagram"></div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="wrap" id="contact">
-    <div class="cta rv">
-      <h3 data-t="t4"></h3>
-      <p data-t="p4"></p>
-      <div class="row">
-        <a class="btn btn-wa su-button su-button--gold" href="https://wa.me/201011225592" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3.1.2.1.7-.1 1.3z"/></svg><span data-t="wa"></span></a>
-        <a class="btn btn-line su-button su-button--glass" href="tel:+201011225592"><span data-t="call"></span><b dir="ltr">+20 101 122 5592</b></a>
-        <a class="btn btn-line su-button su-button--glass" href="projects.html"><span data-t="proj"></span><svg class="arr" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <div class="contact-info">
+        <div class="contact-line"><svg><use href="#i-pin"/></svg><span><b data-i18n="hqLabel"></b> — <span id="contactHq"></span></span></div>
+        <div class="contact-line"><svg><use href="#i-clock"/></svg><span id="contactHours"></span></div>
+        <div class="contact-line"><svg><use href="#i-mail"/></svg><span dir="ltr">info@sawaunited.net</span></div>
+        <div class="contact-line"><svg><use href="#i-doc"/></svg><a href="projects.html" style="color:var(--gold-bright);font-weight:700" data-i18n="footerProjects"></a></div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 </main>
 
-<footer>
+<!-- ============================= FOOTER ============================= -->
+<footer class="site-footer">
   <div class="wrap">
-    <div class="f-grid">
-      <div>
-        <span class="wordmark" style="display:block;color:var(--ink)">SAWA <i>UNITED</i></span>
-        <p class="f-tag" data-t="ftag"></p>
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="assets/sawa-header-logo.webp" alt="SAWA UNITED GROUP" width="120" height="44" loading="lazy">
+        <p data-i18n="footerAbout"></p>
       </div>
-      <div><h6 data-t="nav1"></h6><div id="fSectors"></div></div>
-      <div><h6 data-t="fl"></h6><a href="#about" data-t="nav2"></a><a href="#presence" data-t="nav3"></a><a href="projects.html" data-t="navProjects"></a><a href="portfolio/" data-t="navPortfolio"></a></div>
-      <div><h6 data-t="nav4"></h6><a href="tel:+201011225592" dir="ltr" style="unicode-bidi:isolate;text-align:start">+20 101 122 5592</a><a href="https://wa.me/201011225592" target="_blank" rel="noopener noreferrer" data-t-aria="whatsappAction">WhatsApp</a><small class="f-note" data-t="phoneNote"></small></div>
+      <div class="foot-col">
+        <h5 data-i18n="footerSectors">القطاعات</h5>
+        <div id="footSectors"></div>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="footerGroup"></h5>
+        <a href="#ecosystem" data-i18n="nav0"></a>
+        <a href="portfolio/" data-i18n="footerProfile"></a>
+        <a href="projects.html" data-i18n="footerProjects"></a>
+        <a href="#presence" data-i18n="presenceTitle"></a>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="footerContact"></h5>
+        <a href="tel:+201011225592" dir="ltr" style="text-align:start">+20 101 122 5592</a>
+        <a href="mailto:info@sawaunited.net" dir="ltr" style="text-align:start">info@sawaunited.net</a>
+        <a href="https://wa.me/201011225592" target="_blank" rel="noopener noreferrer" data-wa-link>WhatsApp</a>
+        <a href="super-admin/" style="font-size:11px;opacity:.6" data-i18n="footerDev"></a>
+      </div>
     </div>
-    <div class="f-bot"><span data-t="copy"></span><span>AR · EN · FR</span></div>
+    <div class="foot-bot">
+      <span>© <span id="copyYear">2026</span> SAWA UNITED GROUP — <span data-i18n="footerLegal"></span></span>
+      <span style="display:flex;gap:14px;align-items:center">
+        <span id="cloudNote" dir="ltr" style="font-family:var(--font-en);font-size:10px;letter-spacing:.08em;text-transform:uppercase"></span>
+        <span>AR · EN · FR</span>
+      </span>
+    </div>
   </div>
 </footer>
 
-<a class="fab" href="https://wa.me/201011225592" target="_blank" rel="noopener noreferrer" aria-label="تواصل معنا عبر واتساب" data-t-aria="whatsappAction"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3.1.2.1.7-.1 1.3z"/></svg></a>
+<!-- ============================= CHROME ============================= -->
+<a class="wa-float" href="https://wa.me/201011225592" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" data-wa-link>
+  <svg><use href="#i-wa"/></svg>
+</a>
 
+<nav class="dock" aria-label="Quick navigation">
+  <a href="#top" id="dockHome"><svg><use href="#i-home"/></svg><span data-i18n="dockHome"></span></a>
+  <a href="#ecosystem"><svg><use href="#i-grid"/></svg><span data-i18n="dockSectors"></span></a>
+  <button type="button" id="dockBook"><svg><use href="#i-calendar"/></svg><span data-i18n="dockBook"></span></button>
+  <button type="button" id="dockCall"><svg><use href="#i-phone"/></svg><span data-i18n="dockCall"></span></button>
+</nav>
+
+<div class="sheet-scrim" id="sheetScrim" hidden></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden>
+  <div class="sheet-grab" aria-hidden="true"></div>
+  <div class="sheet-head">
+    <h3 id="sheetTitle" data-i18n="sheetQuick"></h3>
+    <button class="sheet-close" type="button" id="sheetClose" aria-label="Close"><svg width="16" height="16"><use href="#i-close"/></svg></button>
+  </div>
+  <div class="quick-list" id="sheetList"></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><svg><use href="#i-check"/></svg><span id="toastText"></span></div>
+
+<noscript>
+  <div style="padding:20px;text-align:center;background:#0F141C;border-top:1px solid #222">
+    <p style="color:#F8FAFC">SAWA UNITED GROUP — 6th of October, Giza, Egypt · +20 101 122 5592 · info@sawaunited.net</p>
+    <p style="color:#8A94A6;margin-top:8px">Enable JavaScript to use the interactive ecosystem portal, calculators and booking flows.</p>
+  </div>
+</noscript>
+
+<script src="js/data.js"></script>
+<script src="js/ecosystem-store.js"></script>
 <script src="js/home.js" defer></script>
 </body>
 </html>

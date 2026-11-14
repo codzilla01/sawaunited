@@ -1,0 +1,6 @@
+# Local server data — never committed or deployed (except the placeholder)
+data/*
+!data/.gitkeep
+config.php
+*.log
+!config.sample.php

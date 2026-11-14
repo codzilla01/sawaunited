@@ -77,7 +77,7 @@ bash scripts/package-deploy.sh
 1. افتح `public_html` (أو `public_html/sawaunited.net` لو الدومين مضاف كموقع فرعي).
 2. ارفع ملف الـzip.
 3. كليك يمين → **Extract** ثم **احذف ملف الـzip** بعد فك الضغط.
-4. تأكد من وجود: `index.html` · `projects.html` · `.htaccess` · `robots.txt` · `sitemap.xml` · `assets/` · `css/` · `js/` · `accounts/`.
+4. تأكد من وجود: `index.html` · `projects.html` · `.htaccess` · `robots.txt` · `sitemap.xml` · `assets/` · `css/` · `js/` · `accounts/` · `super-admin/` · `api/`.
 
 > بديل: FTP عبر **hPanel → Files → FTP Accounts** أو SSH لو مفعّل.
 
@@ -132,6 +132,9 @@ bash scripts/package-deploy.sh
 | 5 | تبويبات القطاعات + الكارت الجانبي | تعمل الحركة والإيقاف عند المرور |
 | 6 | `projects.html` | يفتح، الفلاتر والمودال يعملان |
 | 7 | أزرار واتساب | تفتح المحادثة بالرقم الصحيح |
+| 7b | `https://sawaunited.net/super-admin/` | بوابة المطور تظهر مع `X-Robots-Tag: noindex` |
+| 7c | `https://sawaunited.net/api/ecosystem.php?action=ping` | JSON فيه `"ok":true` و`"writable":true` |
+| 7d | `https://sawaunited.net/api/data/ecosystem.json` | **403 / محجوب** |
 | 8 | `https://sawaunited.net/accounts/` | صفحة الدخول تظهر (وليس خطأ 500) |
 | 9 | `https://sawaunited.net/accounts/config.php` | **403 / محجوب** |
 | 10 | `https://sawaunited.net/accounts/api.php` بالمتصفح | `405` مع JSON (وليس صفحة خطأ) |
@@ -153,7 +156,8 @@ bash scripts/package-deploy.sh
 
 ## 10) ما لا يجب رفعه أبدًا
 
-- `accounts/config.php` (محليًا فقط، ويُنشأ على السيرفر)
+- `accounts/config.php` و`api/config.php` (محليًا فقط، ويُنشأ على السيرفر)
+- `api/data/` (ملفات البيانات والنسخ الاحتياطية على السيرفر)
 - `.git/` · `docs/` · `scripts/` · `dist/`
 - أي ملف `.sql` أو `.zip` أو `.bak`
 
@@ -257,6 +261,8 @@ bash scripts/package-deploy.sh
           ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
           rsync -avz --delete-after \
             --exclude 'accounts/config.php' \
+            --exclude 'api/config.php' \
+            --exclude 'api/data/' \
             dist/site/ "$SSH_USER@$SSH_HOST:~/public_html/"
 ```
 

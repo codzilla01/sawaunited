@@ -1,0 +1,40 @@
+# ==========================================================================
+# /api — persistence endpoint protection
+# ==========================================================================
+Options -Indexes
+DirectoryIndex ecosystem.php
+
+# Block direct browsing of the JSON dataset and its backups.
+<FilesMatch "\.(json|jsonl|log|tmp|bak|sql)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# Never expose the server-side configuration.
+<FilesMatch "^(config\.php|config\.sample\.php)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Cache-Control "no-store, max-age=0"
+  Header always set X-Robots-Tag "noindex, nofollow"
+</IfModule>
+
+# Pass the Authorization header through when Hostinger runs PHP as CGI.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP:Authorization} .
+  RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>

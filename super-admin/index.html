@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Super Admin — SAWA UNITED GROUP</title>
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="theme-color" content="#05070B">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="../assets/favicon-48.png" type="image/png" sizes="48x48">
+<link rel="preload" href="../assets/fonts/cairo-arabic-variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/manrope-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="admin.css">
+<script>
+(function () {
+  try {
+    var lang = localStorage.getItem("sawa_lang");
+    if (lang === "en" || lang === "fr") {
+      document.documentElement.lang = lang;
+      document.documentElement.dir = "ltr";
+    }
+  } catch (e) { /* Arabic default */ }
+})();
+</script>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="a-finger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5a8.5 8.5 0 0 1 8.5 8.5c0 2.2-.3 4.3-1 6.3"/><path d="M12 6.6a5.4 5.4 0 0 1 5.4 5.4c0 1.9-.3 3.7-.9 5.4"/><path d="M12 9.8a2.2 2.2 0 0 1 2.2 2.2c0 2.6-.5 5.2-1.4 7.6"/><path d="M9.1 20.4c.9-2.3 1.4-4.8 1.4-7.4"/><path d="M6.2 18.4a22 22 0 0 0 1.2-6.4"/><path d="M3.8 15.6c.5-1.9.8-3.9.8-6.1"/><path d="M6.2 6.2A8.5 8.5 0 0 0 3.5 12"/><path d="M9.1 3.9A8.5 8.5 0 0 1 12 3.5"/></symbol>
+    <symbol id="a-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10" width="15" height="11" rx="2.4"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="a-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="4.2"/><path d="m11 11 9 9M17 17l2-2M14.5 14.5l2-2"/></symbol>
+    <symbol id="a-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></symbol>
+    <symbol id="a-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12S18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="a-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.4 8.2-8 9.5C7.4 20.2 4 17 4 12V6l8-3Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="a-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12.5 5 5L20 6.5"/></symbol>
+    <symbol id="a-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 22 20H2L12 3.5Z"/><path d="M12 9v5M12 17h.01"/></symbol>
+    <symbol id="a-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.6"/></symbol>
+    <symbol id="a-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01M10 21v-4h4v4"/></symbol>
+    <symbol id="a-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 16-9 0 10-4 15-9 16Z"/><path d="M4 21c2-7 6-11 12-13"/></symbol>
+    <symbol id="a-car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M3 17v-4l2-6h14l2 6v4"/><path d="M3 13h18"/><circle cx="7.5" cy="17.5" r="1.6"/><circle cx="16.5" cy="17.5" r="1.6"/></symbol>
+    <symbol id="a-fuel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16"/><path d="M3 21h12M8 7h2M14 9h3l3 3v6a2 2 0 0 1-4 0v-5"/></symbol>
+    <symbol id="a-ship" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l1.5-6h15L21 17a6 6 0 0 1-6 3H9a6 6 0 0 1-6-3Z"/><path d="M6 11V6h12v5M9 3h6"/></symbol>
+    <symbol id="a-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M6 20V10M11 20V4M16 20v-7M21 20v-11"/></symbol>
+    <symbol id="a-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0M16 5.5a3 3 0 0 1 0 5.6M17 20a6 6 0 0 0-2-4.4"/></symbol>
+    <symbol id="a-db" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></symbol>
+    <symbol id="a-brush" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c2 0 3-1 3.5-3.5L20 4 22 6 9.5 18.5C7 19 6 20 4 20Z"/><path d="m14 8 2 2"/></symbol>
+    <symbol id="a-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="a-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L20 8l-4-4L4 16v4Z"/><path d="m14 6 4 4"/></symbol>
+    <symbol id="a-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13M10 11v6M14 11v6"/></symbol>
+    <symbol id="a-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5M4 20h16"/></symbol>
+    <symbol id="a-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></symbol>
+    <symbol id="a-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4M10 8l-4 4 4 4M6 12h10"/></symbol>
+    <symbol id="a-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="a-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="a-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11A8 8 0 0 0 6.3 6.3L4 8.5"/><path d="M4 4v4.5h4.5M4 13a8 8 0 0 0 13.7 4.7L20 15.5"/><path d="M20 20v-4.5h-4.5"/></symbol>
+    <symbol id="a-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></symbol>
+    <symbol id="a-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+    <symbol id="a-wa" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22.5l5.5-1.4A10 10 0 1 0 12 2Zm0 1.8a8.2 8.2 0 1 1-4.2 15.2l-.3-.2-3.3.9.9-3.2-.2-.3A8.2 8.2 0 0 1 12 3.8Zm4.8 11.4c-.2.6-1.2 1.2-1.7 1.2-.5.1-1 .1-3.2-.8-2.7-1.1-4.4-3.8-4.5-4-.2-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.5-.4.5c-.1.2-.2.3 0 .6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.2l1.9 1c.3.1.5.2.5.3.1.2.1.7-.1 1.2Z"/></symbol>
+  </defs>
+</svg>
+
+<!-- ============================ LOGIN GATE ============================ -->
+<section class="gate" id="gate">
+  <div class="gate-card">
+    <div class="gate-brand">
+      <span class="gate-logo"><img src="../assets/sawa-header-logo.webp" alt="SAWA UNITED GROUP" width="62" height="62"></span>
+      <div>
+        <h1>SAWA UNITED GROUP</h1>
+        <p>Command Center</p>
+      </div>
+      <span class="gate-chip"><span class="dot" aria-hidden="true"></span>Developer Access Only</span>
+    </div>
+
+    <form class="gate-form" id="loginForm" autocomplete="on" novalidate>
+      <div class="gate-field">
+        <label for="devEmail"><svg><use href="#a-user"/></svg><span data-i18n="emailLabel">Developer email</span></label>
+        <input class="gate-input" id="devEmail" name="email" type="email" inputmode="email" dir="ltr"
+               placeholder="developer@sawaunited.net" autocomplete="username" required>
+      </div>
+
+      <div class="gate-field">
+        <label for="devPass"><svg><use href="#a-key"/></svg><span data-i18n="passLabel">Master password</span></label>
+        <input class="gate-input" id="devPass" name="password" type="password" dir="ltr"
+               placeholder="••••••••••••" autocomplete="current-password" required>
+        <button class="gate-eye" type="button" id="passToggle" aria-label="Show password" aria-pressed="false">
+          <svg><use href="#a-eye"/></svg>
+        </button>
+      </div>
+
+      <div class="gate-row">
+        <label class="gate-check"><input type="checkbox" id="rememberDev" checked><span>Trust this device for 30 days</span></label>
+        <span class="gate-link" id="roleBadge" dir="ltr">ROLE: SUPER_DEVELOPER_ADMIN</span>
+      </div>
+
+      <div class="err" id="loginError" role="alert"><svg><use href="#a-alert"/></svg><span id="loginErrorText"></span></div>
+
+      <button class="btn btn--gold btn--block" type="submit" id="loginBtn">
+        <svg><use href="#a-lock"/></svg><span data-i18n="signIn">Verify credentials &amp; continue</span>
+      </button>
+    </form>
+
+    <div class="gate-divider"><span>Factor 2 · Biometrics</span></div>
+
+    <button class="bio-btn" type="button" id="bioLogin" disabled>
+      <span class="fp"><svg><use href="#a-finger"/></svg></span>
+      <span>
+        <b data-i18n="bioLogin">1-Tap biometric login</b>
+        <small id="bioStatus">Passkey / Touch ID / Face ID</small>
+      </span>
+      <span class="badge">WEBAUTHN</span>
+    </button>
+
+    <div class="gate-note">
+      <svg><use href="#a-shield"/></svg>
+      <span>
+        <span data-i18n="gateNote">Layer 1 verifies the developer credentials and the</span>
+        <code>SUPER_DEVELOPER_ADMIN</code>
+        <span data-i18n="gateNote2">role. Layer 2 registers a WebAuthn passkey (fingerprint or Face ID) on this device. No biometric data ever leaves your hardware.</span>
+      </span>
+    </div>
+
+    <p class="gate-foot"><a href="../index.html" data-i18n="backToSite">← Back to sawaunited.net</a></p>
+  </div>
+</section>
+
+<!-- ======================== BIOMETRIC SCANNER ======================== -->
+<div class="scan-scrim" id="scanScrim" role="dialog" aria-modal="true" aria-labelledby="scanTitle">
+  <div class="scan-card">
+    <h3 id="scanTitle">Biometric verification</h3>
+    <p id="scanSub">Place your finger on the sensor</p>
+    <div class="scanner" id="scanner">
+      <span class="sweep" aria-hidden="true"></span>
+      <svg class="finger" aria-hidden="true"><use href="#a-finger"/></svg>
+    </div>
+    <div class="scan-steps" id="scanSteps">
+      <div class="scan-step" data-step="0"><span class="bullet">1</span><span>Initialising secure context</span></div>
+      <div class="scan-step" data-step="1"><span class="bullet">2</span><span>Reading biometric template</span></div>
+      <div class="scan-step" data-step="2"><span class="bullet">3</span><span>Verifying with authenticator</span></div>
+      <div class="scan-step" data-step="3"><span class="bullet">4</span><span>Issuing SUPER_DEVELOPER_ADMIN session</span></div>
+    </div>
+    <button class="btn btn--ghost btn--block btn--sm" type="button" id="scanCancel">Cancel</button>
+  </div>
+</div>
+
+<!-- ========================= COMMAND CENTER ========================= -->
+<div class="app" id="app">
+  <header class="topbar">
+    <div class="topbar-in">
+      <button class="btn btn--ghost btn--icon side-toggle" type="button" id="sideToggle" aria-label="Menu">
+        <svg><use href="#a-menu"/></svg>
+      </button>
+      <div class="tb-brand">
+        <span class="tb-logo"><img src="../assets/sawa-header-logo.webp" alt=""></span>
+        <div>
+          <b>SAWA UNITED</b>
+          <span>Super Admin · Command Center</span>
+        </div>
+      </div>
+      <span class="tb-session"><span class="dot"></span>Secure session</span>
+      <div class="tb-tools">
+        <span class="tb-sync" id="tbSync"><span class="dot"></span><span id="tbSyncText">LOCAL</span></span>
+        <a class="btn btn--ghost btn--icon" href="../index.html" target="_blank" rel="noopener" aria-label="Open public site" title="Public site">
+          <svg><use href="#a-link"/></svg>
+        </a>
+        <div class="tb-user">
+          <span class="tb-avatar">DV</span>
+          <span id="tbUserEmail">developer@sawaunited.net</span>
+        </div>
+        <button class="btn btn--ghost btn--icon" type="button" id="logoutBtn" aria-label="Sign out" title="Sign out">
+          <svg><use href="#a-out"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="shell">
+    <div class="side-scrim" id="sideScrim"></div>
+    <aside class="side" id="side" aria-label="Console navigation">
+      <div class="side-head">
+        <span>Modules</span>
+        <button class="side-close" type="button" id="sideClose" aria-label="Close"><svg width="15" height="15"><use href="#a-close"/></svg></button>
+      </div>
+
+      <div class="nav-group">
+        <p>Command</p>
+        <button class="nav-item is-active" data-view="overview"><svg><use href="#a-grid"/></svg><span>Command overview</span></button>
+        <button class="nav-item" data-view="leads"><svg><use href="#a-users"/></svg><span>Leads &amp; CRM</span><span class="count" id="cntLeads">0</span></button>
+      </div>
+
+      <div class="nav-group">
+        <p>Sector control</p>
+        <button class="nav-item" data-view="realestate"><svg><use href="#a-building"/></svg><span>Real estate master</span><span class="count" id="cntProps">0</span></button>
+        <button class="nav-item" data-view="food"><svg><use href="#a-leaf"/></svg><span>Sawa Food</span><span class="count" id="cntProducts">0</span></button>
+        <button class="nav-item" data-view="cars"><svg><use href="#a-car"/></svg><span>Mashary Cars</span><span class="count" id="cntCars">0</span></button>
+        <button class="nav-item" data-view="energy"><svg><use href="#a-fuel"/></svg><span>Petroleum &amp; energy</span><span class="count" id="cntContracts">0</span></button>
+        <button class="nav-item" data-view="logistics"><svg><use href="#a-ship"/></svg><span>Logistics</span><span class="count" id="cntShip">0</span></button>
+      </div>
+
+      <div class="nav-group">
+        <p>Developer</p>
+        <button class="nav-item" data-view="telemetry"><svg><use href="#a-chart"/></svg><span>System telemetry</span></button>
+        <button class="nav-item" data-view="brand"><svg><use href="#a-brush"/></svg><span>Brand &amp; SEO control</span></button>
+        <button class="nav-item" data-view="security"><svg><use href="#a-finger"/></svg><span>Biometrics &amp; security</span></button>
+        <button class="nav-item" data-view="data"><svg><use href="#a-db"/></svg><span>Data &amp; sync</span></button>
+      </div>
+
+      <div class="side-foot">
+        <div class="side-meta">
+          <div>ROLE · <b>SUPER_DEVELOPER_ADMIN</b></div>
+          <div>API · <b id="sideApi">local mode</b></div>
+          <div>REV · <b id="sideRev">0</b></div>
+        </div>
+        <button class="nav-item" type="button" id="sideLogout"><svg><use href="#a-out"/></svg><span>End session</span></button>
+      </div>
+    </aside>
+
+    <main class="main" id="mainArea">
+
+      <!-- ===================== OVERVIEW ===================== -->
+      <section class="view is-on" id="view-overview" aria-labelledby="ovTitle">
+        <div class="page-head">
+          <span class="crumb">Command overview</span>
+          <h1 id="ovTitle"><svg><use href="#a-grid"/></svg>Unified ecosystem control</h1>
+          <p>Every sector, lead and shipment in one operating picture. Changes publish to the public platform instantly.</p>
+        </div>
+        <div class="grid grid--4" id="overviewStats" style="margin-bottom:10px"></div>
+        <div class="grid grid--2">
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-chart"/></svg>Traffic · last 14 days</h3><p>All properties</p></div>
+            <div class="spark" id="ovSpark"></div>
+            <div class="kv" id="ovSiteKv" style="margin-top:10px"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-users"/></svg>Latest leads</h3><button class="btn btn--ghost btn--sm" data-goto="leads">Open CRM</button></div>
+            <div class="table-wrap"><table><thead><tr><th>Ref</th><th>Contact</th><th>Sector</th><th>Value</th></tr></thead><tbody id="ovLeads"></tbody></table></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-building"/></svg>Portfolio status</h3><button class="btn btn--ghost btn--sm" data-goto="realestate">Manage</button></div>
+            <div class="kv" id="ovPortfolio"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-shield"/></svg>Audit trail</h3><p>Last 6 events</p></div>
+            <div class="log" id="ovAudit"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== REAL ESTATE ===================== -->
+      <section class="view" id="view-realestate" aria-labelledby="reTitle">
+        <div class="page-head">
+          <span class="crumb">Sector 01</span>
+          <h1 id="reTitle"><svg><use href="#a-building"/></svg>Real estate &amp; property master control</h1>
+          <p>Full CRUD on every asset, availability state, 3D tour link and client handover tracker. Edits appear on sawaunited.net immediately.</p>
+        </div>
+        <div class="grid grid--4" id="reStats" style="margin-bottom:10px"></div>
+        <div class="card">
+          <div class="toolbar">
+            <div class="search"><svg><use href="#a-chart"/></svg><input id="reSearch" type="search" placeholder="Search title, ref, city…"></div>
+            <select class="sel" id="reStatus"><option value="all">All status</option><option value="available">Available</option><option value="reserved">Reserved</option><option value="sold">Sold</option></select>
+            <select class="sel" id="reType"><option value="all">All types</option><option value="apartment">Apartment</option><option value="villa">Villa</option><option value="office">Office</option><option value="commercial">Commercial</option><option value="chalet">Chalet</option><option value="penthouse">Penthouse</option><option value="land">Land</option></select>
+            <button class="btn btn--gold btn--sm" type="button" data-new="property"><svg><use href="#a-plus"/></svg>New asset</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Ref</th><th>Asset</th><th>City</th><th>Price</th><th>Status</th><th>Handover</th><th style="text-align:end">Actions</th></tr></thead>
+              <tbody id="reTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== FOOD ===================== -->
+      <section class="view" id="view-food" aria-labelledby="fdTitle">
+        <div class="page-head">
+          <span class="crumb">Sector 02</span>
+          <h1 id="fdTitle"><svg><use href="#a-leaf"/></svg>Sawa Food · catalog &amp; wholesale</h1>
+          <p>Products, pack pricing, minimum order quantities and the B2B partnership pipeline.</p>
+        </div>
+        <div class="grid grid--2">
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-leaf"/></svg>Catalog</h3><button class="btn btn--gold btn--sm" type="button" data-new="product"><svg><use href="#a-plus"/></svg>New product</button></div>
+            <div class="table-wrap"><table><thead><tr><th>SKU</th><th>Product</th><th>Pack</th><th>Price</th><th>MOQ</th><th style="text-align:end">Actions</th></tr></thead><tbody id="fdTable"></tbody></table></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-users"/></svg>Wholesale applications</h3><p>B2B pipeline</p></div>
+            <div class="table-wrap"><table><thead><tr><th>App</th><th>Company</th><th>Type</th><th>Volume</th><th>Status</th></tr></thead><tbody id="fdApps"></tbody></table></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== CARS ===================== -->
+      <section class="view" id="view-cars" aria-labelledby="carTitle">
+        <div class="page-head">
+          <span class="crumb">Sector 03</span>
+          <h1 id="carTitle"><svg><use href="#a-car"/></svg>Mashary Cars · fleet &amp; pay-on-delivery</h1>
+          <p>Fleet availability, day/month rates and every zero-upfront booking captured from the public flow.</p>
+        </div>
+        <div class="grid grid--4" id="carStats" style="margin-bottom:10px"></div>
+        <div class="grid grid--2">
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-car"/></svg>Fleet</h3><button class="btn btn--gold btn--sm" type="button" data-new="car"><svg><use href="#a-plus"/></svg>Add vehicle</button></div>
+            <div class="table-wrap"><table><thead><tr><th>Vehicle</th><th>Category</th><th>Daily</th><th>Monthly</th><th>Status</th><th style="text-align:end">Actions</th></tr></thead><tbody id="carTable"></tbody></table></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-grid"/></svg>Bookings (COD)</h3><p>Zero upfront</p></div>
+            <div class="table-wrap"><table><thead><tr><th>Ref</th><th>Customer</th><th>Vehicle</th><th>Total</th><th>Status</th><th style="text-align:end">Actions</th></tr></thead><tbody id="carBookings"></tbody></table></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== ENERGY ===================== -->
+      <section class="view" id="view-energy" aria-labelledby="enTitle">
+        <div class="page-head">
+          <span class="crumb">Sector 04</span>
+          <h1 id="enTitle"><svg><use href="#a-fuel"/></svg>Petroleum &amp; energy contracts</h1>
+          <p>Product price book, minimum order volumes and the active B2B supply contract register.</p>
+        </div>
+        <div class="grid grid--2">
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-fuel"/></svg>Price book</h3><button class="btn btn--gold btn--sm" type="button" data-new="petro"><svg><use href="#a-plus"/></svg>New product</button></div>
+            <div class="table-wrap"><table><thead><tr><th>Product</th><th>Unit</th><th>Price</th><th>Min order</th><th style="text-align:end">Actions</th></tr></thead><tbody id="enTable"></tbody></table></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-shield"/></svg>Supply contracts</h3><button class="btn btn--gold btn--sm" type="button" data-new="contract"><svg><use href="#a-plus"/></svg>New contract</button></div>
+            <div class="table-wrap"><table><thead><tr><th>Ref</th><th>Client</th><th>Product</th><th>Value</th><th>Status</th><th style="text-align:end">Actions</th></tr></thead><tbody id="enContracts"></tbody></table></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== LOGISTICS ===================== -->
+      <section class="view" id="view-logistics" aria-labelledby="lgTitle">
+        <div class="page-head">
+          <span class="crumb">Sector 05</span>
+          <h1 id="lgTitle"><svg><use href="#a-ship"/></svg>Global shipping &amp; logistics</h1>
+          <p>Shipment tracker records, transit progress and customs milestones published to the public tracker.</p>
+        </div>
+        <div class="card">
+          <div class="toolbar">
+            <div class="search"><svg><use href="#a-chart"/></svg><input id="lgSearch" type="search" placeholder="Search shipment, client, route…"></div>
+            <button class="btn btn--gold btn--sm" type="button" data-new="shipment"><svg><use href="#a-plus"/></svg>New shipment</button>
+          </div>
+          <div class="table-wrap"><table><thead><tr><th>Ref</th><th>Client</th><th>Route</th><th>Mode</th><th>ETA</th><th>Progress</th><th>Status</th><th style="text-align:end">Actions</th></tr></thead><tbody id="lgTable"></tbody></table></div>
+        </div>
+      </section>
+
+      <!-- ===================== LEADS ===================== -->
+      <section class="view" id="view-leads" aria-labelledby="ldTitle">
+        <div class="page-head">
+          <span class="crumb">CRM</span>
+          <h1 id="ldTitle"><svg><use href="#a-users"/></svg>Leads &amp; WhatsApp routing</h1>
+          <p>Every enquiry captured by the website and WhatsApp routing layer, with pipeline stage and value.</p>
+        </div>
+        <div class="grid grid--4" id="leadStats" style="margin-bottom:10px"></div>
+        <div class="card">
+          <div class="toolbar">
+            <div class="search"><svg><use href="#a-chart"/></svg><input id="ldSearch" type="search" placeholder="Search name, ref, detail…"></div>
+            <select class="sel" id="ldSector"><option value="all">All sectors</option><option value="realestate">Real estate</option><option value="food">Food</option><option value="cars">Cars</option><option value="energy">Energy</option><option value="logistics">Logistics</option></select>
+            <select class="sel" id="ldStage"><option value="all">All stages</option><option value="new">New</option><option value="contacted">Contacted</option><option value="qualified">Qualified</option><option value="negotiation">Negotiation</option><option value="confirmed">Confirmed</option><option value="won">Won</option><option value="lost">Lost</option></select>
+          </div>
+          <div class="table-wrap"><table><thead><tr><th>Ref</th><th>Contact</th><th>Detail</th><th>Sector</th><th>Value</th><th>Stage</th><th>Source</th><th style="text-align:end">Actions</th></tr></thead><tbody id="ldTable"></tbody></table></div>
+        </div>
+      </section>
+
+      <!-- ===================== TELEMETRY ===================== -->
+      <section class="view" id="view-telemetry" aria-labelledby="tlTitle">
+        <div class="page-head">
+          <span class="crumb">Developer</span>
+          <h1 id="tlTitle"><svg><use href="#a-chart"/></svg>System telemetry</h1>
+          <p>Live traffic, conversion and lead routing across sawaunited.net, sawafood.net, masharycar.net and startwalk.net.</p>
+        </div>
+        <div class="grid grid--4" id="tlStats" style="margin-bottom:10px"></div>
+        <div class="grid grid--2">
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-chart"/></svg>Property performance</h3><p>30 days</p></div>
+            <div class="bars" id="tlSites"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-link"/></svg>Lead source mix</h3><p>Share of leads</p></div>
+            <div class="bars" id="tlSources"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-wa"/></svg>WhatsApp routing log</h3><p>Outbound</p></div>
+            <div class="log" id="tlWa"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-db"/></svg>Runtime health</h3><p>Diagnostics</p></div>
+            <div class="kv" id="tlHealth"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== BRAND ===================== -->
+      <section class="view" id="view-brand" aria-labelledby="brTitle">
+        <div class="page-head">
+          <span class="crumb">Developer</span>
+          <h1 id="brTitle"><svg><use href="#a-brush"/></svg>Brand, content &amp; SEO control</h1>
+          <p>Publish hero copy, KPI figures, contact channels and page metadata to all three languages at once.</p>
+        </div>
+        <div class="grid grid--2">
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-brush"/></svg>Hero &amp; SEO</h3><p>AR · EN · FR</p></div>
+            <div class="grid" id="brandForm"></div>
+            <button class="btn btn--gold btn--block btn--sm" type="button" id="brandSave" style="margin-top:10px"><svg><use href="#a-check"/></svg>Publish to public site</button>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-chart"/></svg>KPI counters</h3><button class="btn btn--ghost btn--sm" type="button" id="kpiSave">Save KPIs</button></div>
+            <div class="grid" id="kpiForm"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-link"/></svg>Contact channels</h3><p>Global</p></div>
+            <div class="grid" id="settingsForm"></div>
+            <button class="btn btn--gold btn--block btn--sm" type="button" id="settingsSave" style="margin-top:10px"><svg><use href="#a-check"/></svg>Save channels</button>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-shield"/></svg>Live preview</h3><p>Public homepage</p></div>
+            <div class="kv" id="brandPreview"></div>
+            <a class="btn btn--ghost btn--block btn--sm" href="../index.html" target="_blank" rel="noopener" style="margin-top:10px"><svg><use href="#a-link"/></svg>Open sawaunited.net</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== SECURITY ===================== -->
+      <section class="view" id="view-security" aria-labelledby="scTitle">
+        <div class="page-head">
+          <span class="crumb">Developer</span>
+          <h1 id="scTitle"><svg><use href="#a-finger"/></svg>Biometrics &amp; security</h1>
+          <p>Register hardware passkeys, inspect WebAuthn capability and review every privileged action.</p>
+        </div>
+        <div class="grid grid--2">
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-finger"/></svg>Registered authenticators</h3><button class="btn btn--gold btn--sm" type="button" id="registerDevice"><svg><use href="#a-plus"/></svg>Register this device</button></div>
+            <div class="hw" id="hwStatus" style="margin-bottom:10px"><span class="dot"></span><span id="hwText">Checking platform authenticator…</span></div>
+            <div class="dev-list" id="devList"></div>
+            <p class="hint" style="margin-top:10px">WebAuthn credentials are bound to this origin and stored in the device secure enclave. Only a public key reference is kept locally; no biometric template is transmitted or stored.</p>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-lock"/></svg>Session &amp; role</h3><p>Layer 1</p></div>
+            <div class="kv" id="secSession"></div>
+            <div class="card-head" style="margin-top:14px"><h3><svg><use href="#a-alert"/></svg>Hardening checklist</h3></div>
+            <div class="kv" id="secHardening"></div>
+          </div>
+          <div class="card" style="grid-column:1/-1">
+            <div class="card-head"><h3><svg><use href="#a-clock"/></svg>Full audit trail</h3><button class="btn btn--ghost btn--sm" type="button" id="clearAudit">Clear</button></div>
+            <div class="log" id="fullAudit" style="max-height:340px"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== DATA ===================== -->
+      <section class="view" id="view-data" aria-labelledby="dtTitle">
+        <div class="page-head">
+          <span class="crumb">Developer</span>
+          <h1 id="dtTitle"><svg><use href="#a-db"/></svg>Data, persistence &amp; sync</h1>
+          <p>LocalStorage → Hostinger PHP API → JSON snapshot. Export a backup before every bulk change.</p>
+        </div>
+        <div class="grid grid--2">
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-db"/></svg>Persistence status</h3><button class="btn btn--ghost btn--sm" type="button" id="pushCloud"><svg><use href="#a-refresh"/></svg>Push now</button></div>
+            <div class="kv" id="dataStatus"></div>
+            <div class="grid" style="margin-top:12px;grid-template-columns:1fr 1fr">
+              <button class="btn btn--ghost btn--sm" type="button" id="exportBtn"><svg><use href="#a-download"/></svg>Export JSON</button>
+              <label class="btn btn--ghost btn--sm" style="cursor:pointer"><svg><use href="#a-upload"/></svg>Import JSON<input type="file" id="importFile" accept="application/json,.json" hidden></label>
+            </div>
+            <button class="btn btn--danger btn--block btn--sm" type="button" id="resetBtn" style="margin-top:8px"><svg><use href="#a-trash"/></svg>Reset to seeded dataset</button>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3><svg><use href="#a-shield"/></svg>API connection</h3><p id="apiMode">—</p></div>
+            <div class="kv" id="apiInfo"></div>
+            <div class="card-head" style="margin-top:14px"><h3><svg><use href="#a-link"/></svg>Endpoint reference</h3></div>
+            <div class="log" id="apiRef"></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<div class="modal-scrim" id="modalScrim" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="modalTitle">Edit</h3>
+      <button class="btn btn--ghost btn--icon" type="button" id="modalClose" aria-label="Close"><svg><use href="#a-close"/></svg></button>
+    </div>
+    <form id="modalForm">
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-foot">
+        <span class="form-error" id="modalError"></span>
+        <button class="btn btn--ghost btn--sm" type="button" id="modalCancel">Cancel</button>
+        <button class="btn btn--gold btn--sm" type="submit"><svg><use href="#a-check"/></svg>Save &amp; publish</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toastbar" id="toastbar"><svg><use href="#a-check"/></svg><span id="toastText"></span></div>
+
+<script>window.SAWA_API_BASE = "../api/ecosystem.php";</script>
+<script src="../js/data.js"></script>
+<script src="../js/ecosystem-store.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

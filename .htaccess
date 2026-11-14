@@ -18,7 +18,15 @@ DirectoryIndex index.html index.php
   RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
   # منع الوصول لمجلدات التطوير
-  RewriteRule ^(docs|scripts|dist|backups)(/|$) - [R=404,L]
+  RewriteRule ^(docs|scripts|dist|backups|api/data)(/|$) - [R=404,L]
+</IfModule>
+
+# ---------- 1b) مركز القيادة /super-admin ----------
+# الرابط يعمل مباشرة كـ /super-admin/ بفضل DirectoryIndex، مع رؤوس منع الفهرسة
+# والمعرّفة داخل super-admin/.htaccess. لا تُضف إعادة توجيه هنا حتى لا يتعطل
+# الدخول من لوحة Hostinger.
+<IfModule mod_rewrite.c>
+  RewriteRule ^super-admin/?$ super-admin/index.html [L]
 </IfModule>
 
 # ---------- 2) حماية الأسرار ----------
@@ -53,6 +61,7 @@ DirectoryIndex index.html index.php
   Header always set Cross-Origin-Opener-Policy "same-origin"
   # فعّل السطر التالي بعد التأكد من أن HTTPS يعمل على كل الصفحات
   # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
 </IfModule>
 
 # ---------- 4) الضغط ----------

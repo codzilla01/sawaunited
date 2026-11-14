@@ -8,6 +8,7 @@
 #
 # الحزمة تستبعد دائمًا: .git و docs/ و scripts/ و .github/ و accounts/config.php
 # و accounts/default.php (صفحة Hostinger الافتراضية) والأصول غير المستخدمة.
+# كما تستبعد بيانات API المحلية (api/data) وملف إعداد الأسرار api/config.php.
 
 set -euo pipefail
 
@@ -43,7 +44,7 @@ copy() {
 
 # ---------- الموقع العام ----------
 for f in index.html projects.html 404.html robots.txt sitemap.xml .htaccess; do copy "$f"; done
-for f in css/styles.css css/home.css css/design-system.css; do copy "$f"; done
+for f in css/ecosystem.css css/design-system.css; do copy "$f"; done
 copy js
 
 # ---------- البورتفوليو المؤسسي والتنزيلات الموجودة ----------
@@ -51,9 +52,6 @@ copy portfolio/index.html
 copy portfolio/assets/logo-transparent.png
 for f in "$ROOT"/portfolio/assets/*.webp; do
   [ -e "$f" ] || continue
-  case "$(basename "$f")" in
-    global-map.webp|sawafood-facility.webp) continue ;;
-  esac
   copy "portfolio/assets/$(basename "$f")"
 done
 for f in "$ROOT"/portfolio/*.pdf "$ROOT"/portfolio/*.pptx; do
@@ -61,8 +59,22 @@ for f in "$ROOT"/portfolio/*.pdf "$ROOT"/portfolio/*.pptx; do
   copy "portfolio/$(basename "$f")"
 done
 
+# ---------- مركز القيادة /super-admin ----------
+copy super-admin/index.html
+copy super-admin/admin.css
+copy super-admin/admin.js
+copy super-admin/.htaccess
+
+# ---------- واجهة API المتوافقة مع Hostinger ----------
+copy api/ecosystem.php
+copy api/config.sample.php
+copy api/.htaccess
+copy api/.gitignore
+# إنشاء مجلد البيانات فارغًا على السيرفر (بدون أي محتوى محلي)
+mkdir -p "$STAGE/api/data"
+
 # أصول غير مستخدمة في أي صفحة — تُستبعد لتقليل حجم النشر (تبقى في المستودع)
-EXCLUDE_ASSETS=("will\\.png" "global-map\\.png" "favicon\\.png")
+EXCLUDE_ASSETS=("will\\.png" "back\\.png" "global-map\\.png" "favicon\\.png" "sawa-header-logo\\.png")
 shopt -s nullglob
 for f in "$ROOT"/assets/*; do
   name="$(basename "$f")"
@@ -93,6 +105,14 @@ for d in .git docs scripts .github; do
     fail=1
   fi
 done
+if [ -e "$STAGE/api/config.php" ]; then
+  echo "✗ خطر: api/config.php (أسرار المطور) موجود في الحزمة" >&2
+  fail=1
+fi
+if [ -n "$(ls -A "$STAGE/api/data" 2>/dev/null)" ]; then
+  echo "✗ خطر: api/data يحتوي ملفات محلية داخل الحزمة" >&2
+  fail=1
+fi
 if grep -rIl --exclude-dir=assets "SawaAccounts#2026" "$STAGE" >/dev/null 2>&1; then
   echo "✗ خطر: كلمة سر قاعدة البيانات القديمة موجودة داخل ملف في الحزمة" >&2
   fail=1
@@ -122,5 +142,7 @@ echo
 echo "الخطوة التالية (يدويًا):"
 echo "  1) ارفع الحزمة إلى public_html في Hostinger ثم فك الضغط."
 echo "  2) أنشئ accounts/config.php على السيرفر من accounts/config.sample.php."
-echo "  3) احذف ملف الـzip من السيرفر بعد فك الضغط."
+echo "  3) أنشئ api/config.php على السيرفر من api/config.sample.php وغيّر كلمة مرور المطور."
+echo "  4) تأكد من صلاحية الكتابة للمجلد api/data (755) ليعمل حفظ البيانات."
+echo "  5) احذف ملف الـzip من السيرفر بعد فك الضغط."
 echo "  للنشر التلقائي: .github/workflows/deploy-hostinger.yml (راجع docs/hostinger-deploy.md)."
