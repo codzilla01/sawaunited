@@ -461,6 +461,14 @@
       { id: "CT-3303", client: "Suez Logistics Park", product: "Industrial Gasoil", monthlyVolume: 45000, value: 616500, status: "draft", renewal: "—" }
     ],
 
+    portals: {
+      realestate: { ar: "استكشف الوحدات · احجز زيارة", en: "Browse units · book a viewing", fr: "Parcourir les biens · réserver une visite" },
+      food: { ar: "اطلب عرض سعر جملة", en: "Request wholesale pricing", fr: "Demander un tarif de gros" },
+      cars: { ar: "احجز سيارة — الدفع عند الاستلام", en: "Book a car — pay on delivery", fr: "Réserver — paiement à la livraison" },
+      energy: { ar: "اطلب عرض عقد توريد", en: "Request contract pricing", fr: "Demander une offre contractuelle" },
+      logistics: { ar: "تتبع شحنة · اطلب عرض سعر", en: "Track a shipment · get a quote", fr: "Suivre · demander un devis" }
+    },
+
     analytics: {
       range: { ar: "آخر ٣٠ يومًا", en: "Last 30 days", fr: "30 derniers jours" },
       sites: [

@@ -20,6 +20,8 @@
   var FP_KEY = "sawa_fingerprint_pending";
 
   var session = null;
+  var pendingAuth = null; // credentials verified, biometric factor still open
+  var pendingToken = "";  // PHP token held until the biometric factor succeeds
   var devices = [];
   var currentView = "overview";
 
@@ -89,6 +91,8 @@
     return saved;
   }
 
+  /* A session is only persisted AFTER the biometric factor succeeds, so a
+     refresh can never bypass factor 2. */
   function saveSession(payload) {
     session = {
       email: payload.email || DEV_EMAIL,
@@ -104,6 +108,8 @@
 
   function clearSession() {
     session = null;
+    pendingAuth = null;
+    pendingToken = "";
     try { localStorage.removeItem(SESSION_KEY); } catch (e) { /* ignore */ }
     S.setToken("");
   }
@@ -357,8 +363,12 @@
         if ($("#rememberDev").checked) {
           try { localStorage.setItem("sawa_dev_email", email); } catch (err) { /* ignore */ }
         }
-        saveSession({ email: email, token: result.token, source: result.source });
-        audit("LOGIN_SUCCESS", email);
+        /* The API token is only installed after factor 2 — until then the
+           console must not be able to write to the server. */
+        pendingAuth = { email: email, token: result.token, source: result.source };
+        pendingToken = result.token || "";
+        S.setToken("");
+        audit("CREDENTIALS_VERIFIED", email);
         bioBtn.disabled = false;
         bioBtn.querySelector("small").textContent = "Tap to verify fingerprint and unlock";
         startSecondFactor(function () { openConsole(); });
@@ -370,7 +380,7 @@
     });
 
     bioBtn.addEventListener("click", function () {
-      if (!session) {
+      if (!pendingAuth && !session) {
         showError("Complete step 1 (credentials) before the biometric factor.");
         return;
       }
@@ -402,6 +412,12 @@
       $("#scanScrim").classList.remove("is-open");
       $("#scanner").classList.remove("is-scanning", "is-ok");
       if (res.ok) {
+        var source = pendingAuth || session || { email: DEV_EMAIL, token: "", source: "local" };
+        if (pendingToken) S.setToken(pendingToken);
+        saveSession({ email: source.email, token: source.token, source: source.source });
+        pendingToken = "";
+        pendingAuth = null;
+        audit("LOGIN_SUCCESS", session.email);
         audit(res.simulated ? "BIOMETRIC_SIMULATED" : "BIOMETRIC_VERIFIED", "WebAuthn authenticator");
         toast(res.simulated ? "Device verified in simulation mode" : "Biometric verification complete");
         done();
@@ -941,7 +957,7 @@
 
   function initSecurity() {
     $("#registerDevice").addEventListener("click", function () {
-      if (!session) { toast("Sign in first"); return; }
+      if (!session) { showError("Sign in first."); return; }
       var btn = this;
       btn.disabled = true;
       btn.innerHTML = ico("refresh", 13) + "Waiting for sensor…";
@@ -1033,7 +1049,13 @@
     });
 
     $("#exportBtn").addEventListener("click", function () {
-      var blob = new Blob([S.exportJSON()], { type: "application/json" });
+      var text = S.exportJSON();
+      if (!window.Blob || !window.URL || !window.URL.createObjectURL) {
+        /* Very old browsers: still allow the operator to copy the JSON. */
+        window.prompt("Copy the dataset JSON:", text.slice(0, 200000));
+        return;
+      }
+      var blob = new Blob([text], { type: "application/json" });
       var url = URL.createObjectURL(blob);
       var a = doc.createElement("a");
       a.href = url;

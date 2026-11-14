@@ -222,7 +222,9 @@
     }).join("");
     var link = $("#portalLink");
     link.href = "#" + sector.id;
-    link.querySelector("span").textContent = t("explore");
+    var label = state.portals && state.portals[sector.id];
+    link.querySelector("span").textContent = label ? pick(label) : t("explore");
+    link.setAttribute("aria-label", (label ? pick(label) : t("explore")) + " — " + pick(sector.name));
 
     $$("#portalTabs .portal-tab").forEach(function (tab, i) {
       tab.setAttribute("aria-selected", String(i === portalIndex));

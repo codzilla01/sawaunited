@@ -27,8 +27,7 @@
 
   var state = null;
   var cloud = { mode: "local", online: false, message: "" };
-  var token = "";
-  try { token = localStorage.getItem("sawa_admin_token") || ""; } catch (e) { token = ""; }
+  var token = "";  // set only through SAWAStore.setToken() after full auth
 
   /* ------------------------------------------------------------------ */
   /* Helpers                                                             */
@@ -64,7 +63,9 @@
 
   function writeLocal(data) {
     try {
-      localStorage.setItem(KEY, JSON.stringify(data));
+      var raw = JSON.stringify(data);
+      localStorage.setItem(KEY, raw);
+      lastWritten = raw;
       return true;
     } catch (e) {
       return false;
@@ -140,6 +141,15 @@
   /* ------------------------------------------------------------------ */
   /* Persistence                                                         */
   /* ------------------------------------------------------------------ */
+  /* Storage events fire for every open tab, including the one that wrote the
+     value. Track our own writes so a remote-merge can never clobber local truth. */
+  var lastWritten = "";
+  var lastRemoteSeen = 0;
+
+  function localStamp() {
+    try { return localStorage.getItem(KEY) || ""; } catch (e) { return ""; }
+  }
+
   function notify(event) {
     var payload = { data: state, cloud: cloud, event: event || "update" };
     listeners.slice().forEach(function (fn) {
@@ -287,12 +297,16 @@
   /* ------------------------------------------------------------------ */
   global.addEventListener("storage", function (event) {
     if (event.key === KEY && event.newValue) {
+      if (event.newValue === lastWritten) return; // echo of our own write
       var next = safeParse(event.newValue);
-      if (next) { state = next; notify("sync"); }
+      if (next && (next.rev || 0) >= (state.rev || 0)) {
+        state = next;
+        lastRemoteSeen = Date.now();
+        notify("sync");
+      }
     }
-    if (event.key === "sawa_admin_token") {
-      token = event.newValue || "";
-    }
+    /* Tokens are never picked up from storage automatically — a tab must
+       authenticate for itself before it can write to the API. */
   });
 
   if (channel) {
@@ -307,7 +321,7 @@
   /* Refresh when the tab regains focus (e.g. returning from the console). */
   global.addEventListener("focus", function () {
     var fresh = readLocal();
-    if (fresh && state && (fresh.rev || 0) > (state.rev || 0)) {
+    if (fresh && state && (fresh.rev || 0) > (state.rev || 0) && Date.now() - lastRemoteSeen > 120) {
       state = fresh;
       notify("sync");
     }
@@ -339,7 +353,10 @@
     commit: commit,
     setToken: function (value) {
       token = value || "";
-      try { localStorage.setItem("sawa_admin_token", token); } catch (e) { /* ignore */ }
+      try {
+        if (token) localStorage.setItem("sawa_admin_token", token);
+        else localStorage.removeItem("sawa_admin_token");
+      } catch (e) { /* ignore */ }
     },
     getToken: function () { return token; },
     refresh: pullFromCloud,
